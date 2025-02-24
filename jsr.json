@@ -1,0 +1,14 @@
+{
+  "$schema": "https://jsr.io/schema/config-file.v1.json",
+  "name": "@federico-paolillo/remove-vowels",
+  "version": "1.0.0",
+  "exports": {
+    ".": "./src/index.mts"
+  },
+  "publish": {
+    "exclude": [
+      "dist/",
+      "src/**/*_test.mts"
+    ]
+  }
+}
