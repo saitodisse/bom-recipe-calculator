@@ -1,6 +1,6 @@
 {
   "name": "@saitodisse/bom-recipe-calculator",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "exports": "./src/mod.ts",
   "unlisted": [
     "**/*.test.ts"
@@ -8,5 +8,5 @@
   "imports": {
     "@std/assert": "jsr:@std/assert@^1.0.11"
   },
-  "jsr": "0.0.1"
+  "jsr": "0.0.2"
 }

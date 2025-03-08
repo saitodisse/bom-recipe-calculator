@@ -80,7 +80,7 @@ export function createMaterialsTree({
     [productCode]: {
       name: product.name,
       unit: product.unit,
-      productId: productCode,
+      id: productCode,
       quantity: null,
 
       // State properties

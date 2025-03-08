@@ -3,8 +3,7 @@ import type { ProductCategoryIds } from "../enums/ProductCategory.ts";
 import type { ProductUnitIds } from "../enums/ProductUnit.ts";
 
 export interface Product {
-  productId: string;
-  active: boolean;
+  id: string;
   name: string;
   category: ProductCategoryIds;
   unit: ProductUnitIds;
@@ -15,17 +14,18 @@ export interface Product {
 }
 
 export type RecipeArray = {
-  productId: string;
+  id: string;
   quantity: number;
 }[];
 
 export type ProductMap = {
-  [productId: string]: Product;
+  [id: string]: Product;
 };
 
 export interface RecipeNode {
-  [productId: string]: {
-    productId: string;
+  [id: string]: {
+    // add all properties from Product
+    id: string;
     name: string;
     unit: string;
     level: number;

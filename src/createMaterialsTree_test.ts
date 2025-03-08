@@ -7,8 +7,7 @@ import { ProductUnit } from "./enums/ProductUnit.ts";
 // Sample test data
 const PRODUCTS_MAP: ProductMap = {
   "cheeseburger": {
-    productId: "cheeseburger",
-    active: true,
+    id: "cheeseburger",
     name: "Cheeseburger",
     category: ProductCategory.p.id,
     unit: ProductUnit.UN.id,
@@ -16,14 +15,13 @@ const PRODUCTS_MAP: ProductMap = {
     purchaseQuoteValue: 12.90,
     notes: "",
     recipe: [
-      { productId: "bun", quantity: 1 },
-      { productId: "patty", quantity: 1 },
-      { productId: "cheese", quantity: 1 },
+      { id: "bun", quantity: 1 },
+      { id: "patty", quantity: 1 },
+      { id: "cheese", quantity: 1 },
     ],
   },
   "bun": {
-    productId: "bun",
-    active: true,
+    id: "bun",
     name: "Burger Bun",
     category: ProductCategory.m.id,
     unit: ProductUnit.UN.id,
@@ -32,8 +30,7 @@ const PRODUCTS_MAP: ProductMap = {
     notes: "",
   },
   "patty": {
-    productId: "patty",
-    active: true,
+    id: "patty",
     name: "Beef Patty",
     category: ProductCategory.s.id,
     unit: ProductUnit.KG.id,
@@ -41,12 +38,11 @@ const PRODUCTS_MAP: ProductMap = {
     purchaseQuoteValue: 45.00,
     notes: "",
     recipe: [
-      { productId: "beef", quantity: 0.100 },
+      { id: "beef", quantity: 0.100 },
     ],
   },
   "beef": {
-    productId: "beef",
-    active: true,
+    id: "beef",
     name: "Ground Beef",
     category: ProductCategory.m.id,
     unit: ProductUnit.KG.id,
@@ -55,8 +51,7 @@ const PRODUCTS_MAP: ProductMap = {
     notes: "",
   },
   "cheese": {
-    productId: "cheese",
-    active: true,
+    id: "cheese",
     name: "Cheese Slice",
     category: ProductCategory.m.id,
     unit: ProductUnit.UN.id,

@@ -1,7 +1,7 @@
-import { ProductMap, RecipeArray, RecipeNode } from "./interfaces/Recipe.ts";
+import type { ProductMap, RecipeArray, RecipeNode } from "./interfaces/Recipe.ts";
 
 interface ProcessItemParams {
-  item: { quantity?: number; code: string };
+  item: { id: string; quantity?: number };
   product: ProductMap[string];
   motherFactor: number;
   level: number;
@@ -19,38 +19,42 @@ function processItem({
   motherPath,
   productsList,
 }: ProcessItemParams) {
-  const { quantity, code } = item;
-  const id = `${code}_${motherId}`;
-  const path = `${motherPath}.children.${code}`;
+  const { id, quantity } = item;
+  const productId = `${id}_${motherId}`;
+  const path = `${motherPath}.children.${id}`;
   const numericQuantity = Number(quantity);
   const calculatedFactor = quantity ? quantity * motherFactor : 0;
 
   // Calculate cost based on quantity and mother factor
-  const calculatedCost = quantity ? product.purchaseQuoteValue * calculatedFactor : 0;
+  const calculatedCost = quantity
+    ? product.purchaseQuoteValue * calculatedFactor
+    : 0;
 
   // Calculate weight considering product weight or 1 as fallback
-  const childrenWeight = quantity ? (product.weight || 1) * calculatedFactor : 0;
+  const childrenWeight = quantity
+    ? (product.weight || 1) * calculatedFactor
+    : 0;
 
   // Check if product has children (sub-recipe)
   const hasChildren = product.recipe && Object.keys(product.recipe).length > 0;
 
   // Process children recursively if they exist
-  const children = hasChildren && product.recipe 
+  const children = hasChildren && product.recipe
     ? extractRecipeQuantities(
-        productsList,
-        product.recipe,
-        calculatedFactor,
-        id,
-        path,
-        level + 1,
-      )
+      productsList,
+      product.recipe,
+      calculatedFactor,
+      productId,
+      path,
+      level + 1,
+    )
     : null;
 
   return {
     name: product.name,
     unit: product.unit,
     level,
-    code,
+    id,
     motherFactor,
     quantity: numericQuantity,
     originalQuantity: numericQuantity,
@@ -89,22 +93,22 @@ export function extractRecipeQuantities(
   }
 
   const values = Array.isArray(comp) ? comp : Object.values(comp);
-  
+
   return values.reduce<RecipeNode>((prev, curr) => {
     // Verify if current item exists and is an object
     if (!curr || typeof curr !== "object") {
       return prev;
     }
 
-    const item = curr as { quantity?: number; code: string };
-    const product = productsList[item.code];
+    const item = curr as { quantity?: number; id: string };
+    const product = productsList[item.id];
 
     // Verify if product exists in products list
     if (!product) {
       return prev;
     }
 
-    prev[item.code] = processItem({
+    prev[item.id] = processItem({
       item,
       product,
       motherFactor,
