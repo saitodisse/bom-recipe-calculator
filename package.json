@@ -1,21 +1,22 @@
 {
-  "name": "@federico-paolillo/remove-vowels",
-  "version": "1.1.0",
-  "description": "Template for a TypeScript project using Nodejs' ESM Modules",
-  "main": "dist/src/index.mjs",
+  "name": "@saitodisse/bom-recipe-calculator",
+  "version": "0.0.1",
+  "description": "Bill of Materials Recipe Calculator - Calculate costs and weights for nested recipes",
+  "main": "dist/src/mod.mjs",
   "type": "module",
-  "repository": "https://github.com/federico-paolillo/jsr-esm-ts",
+  "repository": "https://github.com/saitodisse/bom-recipe-calculator",
   "scripts": {
     "check": "tsc --noEmit",
-    "start": "node src/index.mts",
+    "start": "node src/mod.mts",
     "prebuild": "rm -rf dist/",
     "build": "tsc",
     "jsr:dry": "jsr publish --dry-run --allow-dirty",
     "npm:dry": "npm pack --dry-run",
     "prepublish:dry": "npm run build",
-    "publish:dry": "npm run jsr:dry && npm run npm:dry"
+    "publish:dry": "npm run jsr:dry && npm run npm:dry",
+    "test": "node --test src/**/*_test.mts"
   },
-  "author": "federico-paolillo",
+  "author": "saitodisse",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^22.13.5",
@@ -23,7 +24,7 @@
     "typescript": "^5.7.3"
   },
   "exports": {
-    ".": "./dist/src/index.mjs"
+    ".": "./dist/src/mod.mjs"
   },
   "files": [
     "dist/src/**/*.mjs",
