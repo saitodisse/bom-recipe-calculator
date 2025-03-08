@@ -8,7 +8,7 @@ export type ProductCategoryIds =
 
 export type ProductCategoryProps = {
   id: ProductCategoryIds;
-  code: string;
+  acronym: string;
   description: string;
 };
 
@@ -17,32 +17,32 @@ export const ProductCategory: {
 } = {
   p: {
     id: "p",
-    code: "p",
+    acronym: "p",
     description: "Final Product",
   },
   u: {
     id: "u",
-    code: "u",
+    acronym: "u",
     description: "Unit Product",
   },
   s: {
     id: "s",
-    code: "s",
+    acronym: "s",
     description: "Semi-finished",
   },
   m: {
     id: "m",
-    code: "m",
+    acronym: "m",
     description: "Raw Material",
   },
   e: {
     id: "e",
-    code: "e",
+    acronym: "e",
     description: "Packaging/Disposables",
   },
   c: {
     id: "c",
-    code: "c",
+    acronym: "c",
     description: "Cleaning",
   },
 };

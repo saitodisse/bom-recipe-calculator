@@ -13,7 +13,7 @@ export type ProductUnitIds =
 
 export type ProductUnitProps = {
     id: ProductUnitIds;
-    code: string;
+    acronym: string;
     description: string;
 };
 
@@ -22,52 +22,52 @@ export const ProductUnit: {
 } = {
     TR: {
         id: "TR",
-        code: "TR",
+        acronym: "TR",
         description: "Tray",
     },
     BX: {
         id: "BX",
-        code: "BX",
+        acronym: "BX",
         description: "Box",
     },
     PK: {
         id: "PK",
-        code: "PK",
+        acronym: "PK",
         description: "Pack",
     },
     BT: {
         id: "BT",
-        code: "BT",
+        acronym: "BT",
         description: "Bottle",
     },
     KG: {
         id: "KG",
-        code: "KG",
+        acronym: "KG",
         description: "Kilogram",
     },
     L: {
         id: "L",
-        code: "L",
+        acronym: "L",
         description: "Liter",
     },
     JR: {
         id: "JR",
-        code: "JR",
+        acronym: "JR",
         description: "Jar",
     },
     RL: {
         id: "RL",
-        code: "RL",
+        acronym: "RL",
         description: "Roll",
     },
     BG: {
         id: "BG",
-        code: "BG",
+        acronym: "BG",
         description: "Bag",
     },
     UN: {
         id: "UN",
-        code: "UN",
+        acronym: "UN",
         description: "Unit",
     },
 };

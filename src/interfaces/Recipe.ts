@@ -1,9 +1,9 @@
-import { Maybe } from "./Maybe.ts";
-import { ProductCategoryIds } from "../enums/ProductCategory.ts";
-import { ProductUnitIds } from "../enums/ProductUnit.ts";
+import type { Maybe } from "./Maybe.ts";
+import type { ProductCategoryIds } from "../enums/ProductCategory.ts";
+import type { ProductUnitIds } from "../enums/ProductUnit.ts";
 
 export interface Product {
-  code: string;
+  productId: string;
   active: boolean;
   name: string;
   category: ProductCategoryIds;
@@ -15,17 +15,17 @@ export interface Product {
 }
 
 export type RecipeArray = {
-  code: string;
+  productId: string;
   quantity: number;
 }[];
 
 export type ProductMap = {
-  [code: string]: Product;
+  [productId: string]: Product;
 };
 
 export interface RecipeNode {
-  [code: string]: {
-    code: string;
+  [productId: string]: {
+    productId: string;
     name: string;
     unit: string;
     level: number;
