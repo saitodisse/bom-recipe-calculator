@@ -1,9 +1,9 @@
 // Core functionality
-export { createPureTreeComposition } from "./createPureTreeComposition.ts";
+export { createMaterialsTree } from "./createMaterialsTree.ts";
 
 // Types and interfaces
 export type {
-  CreatePureTreeCompositionParams,
+  createMaterialsTreeParams,
   Product,
   ProductMap,
   RecipeArray,

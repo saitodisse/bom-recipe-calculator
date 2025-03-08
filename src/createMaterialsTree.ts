@@ -1,4 +1,4 @@
-import { CreatePureTreeCompositionParams, RecipeNode, ProductMap } from "./interfaces/Recipe.ts";
+import { createMaterialsTreeParams, RecipeNode, ProductMap } from "./interfaces/Recipe.ts";
 import { calculateChildrenCost } from "./calculators/calculateCosts.ts";
 import { calculateChildrenWeight } from "./calculators/calculateWeights.ts";
 import { extractRecipeQuantities } from "./extractRecipeQuantities.ts";
@@ -16,12 +16,12 @@ function roundToThreeDecimals(value: number): number {
  * @param params Parameters for creating the composition tree
  * @returns Product's composition tree
  */
-export function createPureTreeComposition({
+export function createMaterialsTree({
   productsList,
   productCode,
   initialQuantity = 1,
   extraPropertiesForMother = {},
-}: CreatePureTreeCompositionParams): RecipeNode {
+}: createMaterialsTreeParams): RecipeNode {
   // Input validation
   if (!productsList || !productCode) {
     throw new Error("Required parameters not provided");

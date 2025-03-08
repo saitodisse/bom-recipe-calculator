@@ -45,7 +45,7 @@ export interface RecipeNode {
   };
 }
 
-export interface CreatePureTreeCompositionParams {
+export interface createMaterialsTreeParams {
   productsList: ProductMap;
   productCode: string;
   initialQuantity?: number;

@@ -14,13 +14,13 @@ A Bill of Materials (BOM) recipe calculator for nested product recipes. Calculat
 ## Installation
 
 ```ts
-import { createPureTreeComposition } from "jsr:@saitodisse/bom-recipe-calculator";
+import { createMaterialsTree } from "jsr:@saitodisse/bom-recipe-calculator";
 ```
 
 ## Usage
 
 ```ts
-import { createPureTreeComposition } from "jsr:@saitodisse/bom-recipe-calculator";
+import { createMaterialsTree } from "jsr:@saitodisse/bom-recipe-calculator";
 
 // Define your products with their recipes
 const products = {
@@ -40,7 +40,7 @@ const products = {
 };
 
 // Calculate recipe tree for 5 cheeseburgers
-const recipeTree = createPureTreeComposition({
+const recipeTree = createMaterialsTree({
   productsList: products,
   productCode: "cheeseburger",
   initialQuantity: 5
@@ -54,12 +54,12 @@ console.log(recipeTree.cheeseburger.children.patty.calculatedQuantity); // Quant
 
 ## API
 
-### createPureTreeComposition
+### createMaterialsTree
 
 Main function to create a recipe calculation tree.
 
 ```ts
-function createPureTreeComposition(params: CreatePureTreeCompositionParams): RecipeNode
+function createMaterialsTree(params: createMaterialsTreeParams): RecipeNode
 ```
 
 Parameters:

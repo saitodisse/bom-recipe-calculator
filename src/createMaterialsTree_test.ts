@@ -1,5 +1,5 @@
 import { assertEquals } from "jsr:@std/assert";
-import { createPureTreeComposition } from "./createPureTreeComposition.ts";
+import { createMaterialsTree } from "./createMaterialsTree.ts";
 import { ProductMap } from "./interfaces/Recipe.ts";
 import { ProductCategory } from "./enums/ProductCategory.ts";
 import { ProductUnit } from "./enums/ProductUnit.ts";
@@ -66,8 +66,8 @@ const PRODUCTS_MAP: ProductMap = {
   },
 };
 
-Deno.test("createPureTreeComposition - Basic cheeseburger recipe", () => {
-  const tree = createPureTreeComposition({
+Deno.test("createMaterialsTree - Basic cheeseburger recipe", () => {
+  const tree = createMaterialsTree({
     productsList: PRODUCTS_MAP,
     productCode: "cheeseburger",
     initialQuantity: 1,
@@ -91,8 +91,8 @@ Deno.test("createPureTreeComposition - Basic cheeseburger recipe", () => {
   );
 });
 
-Deno.test("createPureTreeComposition - Cheeseburger recipe with quantity 5", () => {
-  const tree = createPureTreeComposition({
+Deno.test("createMaterialsTree - Cheeseburger recipe with quantity 5", () => {
+  const tree = createMaterialsTree({
     productsList: PRODUCTS_MAP,
     productCode: "cheeseburger",
     initialQuantity: 5,
