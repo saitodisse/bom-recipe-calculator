@@ -13,14 +13,14 @@ export type {
 // Enums
 export {
   ProductCategory,
-  type ProductCategoryIds,
-  type ProductCategoryProps,
+  type ProductCategoryEntry,
+  type ProductCategoryId,
 } from "./enums/ProductCategory.ts";
 
 export {
   ProductUnit,
-  type ProductUnitIds,
-  type ProductUnitProps,
+  type ProductUnitEntry,
+  type ProductUnitId,
 } from "./enums/ProductUnit.ts";
 
 // Utility types

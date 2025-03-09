@@ -1,61 +1,46 @@
 /**
- * Valid product category identifiers used in the system
- */
-export type ProductCategoryIds =
-  | "p"  // Final Product
-  | "u"  // Unit Product
-  | "s"  // Semi-finished
-  | "m"  // Raw Material
-  | "e"  // Packaging/Disposables
-  | "c"; // Cleaning
-
-/**
- * Properties that describe a product category
- */
-export type ProductCategoryProps = {
-  /** Category identifier */
-  id: ProductCategoryIds;
-  /** Short code for the category */
-  acronym: string;
-  /** Human readable description */
-  description: string;
-};
-
-/**
  * Product categories used to classify items in the bill of materials.
  * Each category has an ID, acronym, and description.
  */
-export const ProductCategory: {
-  [id in ProductCategoryIds]: ProductCategoryProps;
-} = {
+export const ProductCategory = {
+  /** Final Product - Completed items ready for sale */
   p: {
     id: "p",
-    acronym: "p",
     description: "Final Product",
   },
+  /** Unit Product - Individual component that can be sold separately */
   u: {
     id: "u",
-    acronym: "u",
     description: "Unit Product",
   },
+  /** Semi-finished - Partially processed materials */
   s: {
     id: "s",
-    acronym: "s",
     description: "Semi-finished",
   },
+  /** Raw Material - Unprocessed ingredients or components */
   m: {
     id: "m",
-    acronym: "m",
     description: "Raw Material",
   },
+  /** Packaging/Disposables - Materials used for wrapping or containing products */
   e: {
     id: "e",
-    acronym: "e",
     description: "Packaging/Disposables",
   },
+  /** Cleaning - Materials used for sanitation and maintenance */
   c: {
     id: "c",
-    acronym: "c",
     description: "Cleaning",
   },
+} as const;
+
+// Extract the category ID type from the ProductCategory object
+export type ProductCategoryId =
+  typeof ProductCategory[keyof typeof ProductCategory]["id"];
+
+// Type for a single category entry
+export type ProductCategoryEntry = {
+  id: ProductCategoryId;
+  description: string;
 };

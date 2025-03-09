@@ -1,17 +1,35 @@
+/// <reference lib="deno.ns" />
 import { assertEquals } from "jsr:@std/assert";
 import { createMaterialsTree } from "./createMaterialsTree.ts";
 import type { ProductMap } from "./interfaces/Recipe.ts";
 import { ProductCategory } from "./enums/ProductCategory.ts";
 import { ProductUnit } from "./enums/ProductUnit.ts";
 
-// Sample test data
+/**
+ * Map of all products in the bill of materials.
+ * Each product has an ID, name, category, unit, purchase quote value, notes, and recipe.
+ * The recipe is an array of objects, each with an ID and quantity.
+ * The ID is the ID of the product that is the component of the current product.
+ * The quantity is the quantity of the component needed to make the current product.
+ */
 const PRODUCTS_MAP: ProductMap = {
-  "cheeseburger": {
-    id: "cheeseburger",
+  "cheeseburger_product": {
+    id: "cheeseburger_product",
     name: "Cheeseburger",
     category: ProductCategory.p.id,
     unit: ProductUnit.UN.id,
-    weight: 0.180,
+    purchaseQuoteValue: 12.90,
+    notes: "",
+    recipe: [
+      { id: "cheeseburger_unit", quantity: 1 },
+      { id: "packaging", quantity: 1 },
+    ],
+  },
+  "cheeseburger_unit": {
+    id: "cheeseburger_unit",
+    name: "Cheeseburger",
+    category: ProductCategory.u.id,
+    unit: ProductUnit.UN.id,
     purchaseQuoteValue: 12.90,
     notes: "",
     recipe: [
@@ -25,20 +43,17 @@ const PRODUCTS_MAP: ProductMap = {
     name: "Burger Bun",
     category: ProductCategory.m.id,
     unit: ProductUnit.UN.id,
-    weight: 0.060,
+    weight: 0.050,
     purchaseQuoteValue: 2.50,
-    notes: "",
   },
   "patty": {
     id: "patty",
     name: "Beef Patty",
     category: ProductCategory.s.id,
-    unit: ProductUnit.KG.id,
-    weight: 0.100,
-    purchaseQuoteValue: 45.00,
+    unit: ProductUnit.UN.id,
     notes: "",
     recipe: [
-      { id: "beef", quantity: 0.100 },
+      { id: "beef", quantity: 0.200 },
     ],
   },
   "beef": {
@@ -46,25 +61,29 @@ const PRODUCTS_MAP: ProductMap = {
     name: "Ground Beef",
     category: ProductCategory.m.id,
     unit: ProductUnit.KG.id,
-    weight: null,
     purchaseQuoteValue: 35.00,
-    notes: "",
   },
   "cheese": {
     id: "cheese",
     name: "Cheese Slice",
     category: ProductCategory.m.id,
+    unit: ProductUnit.KG.id,
+    purchaseQuoteValue: 20.00,
+  },
+  "packaging": {
+    id: "packaging",
+    name: "Burger Packaging",
+    category: ProductCategory.e.id,
     unit: ProductUnit.UN.id,
-    weight: 0.020,
-    purchaseQuoteValue: 1.20,
-    notes: "",
+    weight: 0.100,
+    purchaseQuoteValue: 0.75,
   },
 };
 
 Deno.test("createMaterialsTree - Basic cheeseburger recipe", () => {
   const tree = createMaterialsTree({
     productsList: PRODUCTS_MAP,
-    productCode: "cheeseburger",
+    productCode: "cheeseburger_product",
     initialQuantity: 1,
   });
 
@@ -86,26 +105,35 @@ Deno.test("createMaterialsTree - Basic cheeseburger recipe", () => {
   );
 });
 
-Deno.test("createMaterialsTree - Cheeseburger recipe with quantity 5", () => {
+Deno.test("createMaterialsTree - Cheeseburger recipe with quantity 10", () => {
   const tree = createMaterialsTree({
     productsList: PRODUCTS_MAP,
-    productCode: "cheeseburger",
-    initialQuantity: 5,
+    productCode: "cheeseburger_product",
+    initialQuantity: 10,
   });
 
   // Check main product properties
-  assertEquals(tree["cheeseburger"].calculatedQuantity, 5);
-  assertEquals(tree["cheeseburger"].childrenWeight, 0.900); // 0.180 * 5
+  assertEquals(tree["cheeseburger_product"].calculatedQuantity, 10);
+  assertEquals(tree["cheeseburger_product"].childrenWeight, 1.800); // 0.180 * 10
 
   // Check children quantities
-  assertEquals(tree["cheeseburger"].children?.["bun"].calculatedQuantity, 5);
-  assertEquals(tree["cheeseburger"].children?.["patty"].calculatedQuantity, 5);
-  assertEquals(tree["cheeseburger"].children?.["cheese"].calculatedQuantity, 5);
+  assertEquals(
+    tree["cheeseburger_product"].children?.["bun"].calculatedQuantity,
+    10,
+  );
+  assertEquals(
+    tree["cheeseburger_product"].children?.["patty"].calculatedQuantity,
+    10,
+  );
+  assertEquals(
+    tree["cheeseburger_product"].children?.["cheese"].calculatedQuantity,
+    10,
+  );
 
   // Check nested recipe quantities
   assertEquals(
-    tree["cheeseburger"].children?.["patty"].children?.["beef"]
+    tree["cheeseburger_product"].children?.["patty"].children?.["beef"]
       .calculatedQuantity,
-    0.500, // 0.100 * 5
+    1.000, // 0.100 * 10
   );
 });

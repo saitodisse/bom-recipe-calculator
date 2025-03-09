@@ -41,7 +41,7 @@ function processItem({
 
   // Calculate cost based on quantity and mother factor
   const calculatedCost = quantity
-    ? product.purchaseQuoteValue * calculatedFactor
+    ? (product.purchaseQuoteValue || 0) * calculatedFactor
     : 0;
 
   // Calculate weight considering product weight or 1 as fallback
@@ -75,7 +75,7 @@ function processItem({
     calculatedQuantity: calculatedFactor,
     originalWeight: product.weight || 0,
     childrenWeight,
-    originalCost: product.purchaseQuoteValue,
+    originalCost: product.purchaseQuoteValue ?? null,
     calculatedCost,
     children,
   };

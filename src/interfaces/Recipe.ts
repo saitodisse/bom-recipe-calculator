@@ -1,6 +1,6 @@
 import type { Maybe } from "./Maybe.ts";
-import type { ProductCategoryIds } from "../enums/ProductCategory.ts";
-import type { ProductUnitIds } from "../enums/ProductUnit.ts";
+import type { ProductCategoryId } from "../enums/ProductCategory.ts";
+import type { ProductUnitId } from "../enums/ProductUnit.ts";
 
 /**
  * Represents a product in the bill of materials system.
@@ -12,15 +12,15 @@ export interface Product {
   /** Display name of the product */
   name: string;
   /** Product category (e.g., final product, raw material, etc.) */
-  category: ProductCategoryIds;
+  category: ProductCategoryId;
   /** Unit of measurement for the product */
-  unit: ProductUnitIds;
+  unit: ProductUnitId;
   /** Weight of one unit of the product in kilograms (optional) */
   weight?: number | null;
   /** Cost per unit of the product */
-  purchaseQuoteValue: number;
+  purchaseQuoteValue?: number;
   /** Additional information about the product */
-  notes: string;
+  notes?: string;
   /** Recipe composition if this is a compound product */
   recipe?: RecipeArray | null;
 }

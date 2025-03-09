@@ -95,7 +95,6 @@ export function createMaterialsTree({
       childrenWeight = roundToThreeDecimals(calculateChildrenWeight(children));
     }
   }
-
   // Create composition tree
   const compositionTree: RecipeNode = {
     [productCode]: {
@@ -115,7 +114,7 @@ export function createMaterialsTree({
       originalWeight,
       childrenWeight,
 
-      originalCost: product.purchaseQuoteValue,
+      originalCost: product.purchaseQuoteValue ?? null,
       calculatedCost,
 
       // Children composition
