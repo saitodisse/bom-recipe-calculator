@@ -1,4 +1,4 @@
-import { createMaterialsTreeParams, RecipeNode, ProductMap } from "./interfaces/Recipe.ts";
+import type { createMaterialsTreeParams, RecipeNode, ProductMap } from "./interfaces/Recipe.ts";
 import { calculateChildrenCost } from "./calculators/calculateCosts.ts";
 import { calculateChildrenWeight } from "./calculators/calculateWeights.ts";
 import { extractRecipeQuantities } from "./extractRecipeQuantities.ts";

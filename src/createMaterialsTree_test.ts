@@ -1,6 +1,6 @@
 import { assertEquals } from "jsr:@std/assert";
 import { createMaterialsTree } from "./createMaterialsTree.ts";
-import { ProductMap } from "./interfaces/Recipe.ts";
+import type { ProductMap } from "./interfaces/Recipe.ts";
 import { ProductCategory } from "./enums/ProductCategory.ts";
 import { ProductUnit } from "./enums/ProductUnit.ts";
 

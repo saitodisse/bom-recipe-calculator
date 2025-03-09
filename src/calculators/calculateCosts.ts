@@ -1,4 +1,4 @@
-import { RecipeNode } from "../interfaces/Recipe.ts";
+import type { RecipeNode } from "../interfaces/Recipe.ts";
 import { ProductUnit } from "../enums/ProductUnit.ts";
 
 /**
