@@ -2,6 +2,13 @@
 
 A Bill of Materials (BOM) recipe calculator for nested product recipes. Calculate costs and weights for complex product recipes with multiple levels of ingredients.
 
+## example
+
+### fresh site
+- TODO
+### cloudfare
+- https://saitodisse.bom-recipe-calculator.workers.dev/
+
 ## Features
 
 - Calculate costs and weights for nested product recipes
