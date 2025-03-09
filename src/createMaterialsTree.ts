@@ -5,16 +5,37 @@ import { extractRecipeQuantities } from "./extractRecipeQuantities.ts";
 import { ProductUnit } from "./enums/ProductUnit.ts";
 
 /**
- * Round to 3 decimal places to avoid floating point precision issues
+ * Rounds a number to 3 decimal places to avoid floating point precision issues.
+ * This is particularly important when dealing with weight and cost calculations.
+ * @param value The number to round
+ * @returns The rounded number
  */
 function roundToThreeDecimals(value: number): number {
   return Math.round(value * 1000) / 1000;
 }
 
 /**
- * Creates a pure tree composition for a product
- * @param params Parameters for creating the composition tree
- * @returns Product's composition tree
+ * Creates a complete bill of materials tree for a product.
+ * This is the main entry point of the library, handling:
+ * 
+ * 1. Input validation and product lookup
+ * 2. Initial recipe tree creation
+ * 3. Weight calculations throughout the tree
+ * 4. Cost calculations throughout the tree
+ * 
+ * The function combines data from multiple sources:
+ * - Product catalog with base information
+ * - Recipe relationships between products
+ * - Weight and cost information
+ * 
+ * And produces a tree structure that includes:
+ * - Original and calculated quantities at each level
+ * - Weight totals considering unit conversions
+ * - Cost totals including all sub-components
+ * 
+ * @param params Configuration object for tree creation
+ * @throws Error if required parameters are missing or product is not found
+ * @returns Complete bill of materials tree with all calculations
  */
 export function createMaterialsTree({
   productsList,

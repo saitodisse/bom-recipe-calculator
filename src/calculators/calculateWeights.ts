@@ -2,16 +2,23 @@ import type { RecipeNode } from "../interfaces/Recipe.ts";
 import { ProductUnit } from "../enums/ProductUnit.ts";
 
 /**
- * Round to 3 decimal places to avoid floating point precision issues
+ * Rounds a number to 3 decimal places to avoid floating point precision issues.
+ * This is particularly important when dealing with weight calculations in kilograms.
+ * @param value The number to round
+ * @returns The rounded number
  */
 function roundToThreeDecimals(value: number): number {
   return Math.round(value * 1000) / 1000;
 }
 
 /**
- * Calculates the total weight of items in a composition recursively
+ * Calculates the total weight of items in a composition recursively.
+ * For items measured in KG, uses the quantity directly.
+ * For other units, uses the item's registered weight multiplied by quantity.
+ * If an item has children (sub-recipe), their weights are summed up.
+ * 
  * @param children Object containing the composition items
- * @returns Sum of calculated weights of all items
+ * @returns Sum of calculated weights of all items in kilograms
  */
 export function calculateChildrenWeight(children: RecipeNode): number {
   if (!children) return 0;

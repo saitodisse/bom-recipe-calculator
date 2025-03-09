@@ -1,3 +1,6 @@
+/**
+ * Valid product unit identifiers used for measurements
+ */
 export type ProductUnitIds =
     | "TR" // Tray
     | "BX" // Box
@@ -11,12 +14,22 @@ export type ProductUnitIds =
     | "BG" // Bag
     | "UN"; // Unit
 
+/**
+ * Properties that describe a product unit of measurement
+ */
 export type ProductUnitProps = {
+    /** Unit identifier */
     id: ProductUnitIds;
+    /** Short code for the unit */
     acronym: string;
+    /** Human readable description */
     description: string;
 };
 
+/**
+ * Standard units of measurement used in the bill of materials.
+ * Each unit has an ID, acronym, and description.
+ */
 export const ProductUnit: {
     [id in ProductUnitIds]: ProductUnitProps;
 } = {

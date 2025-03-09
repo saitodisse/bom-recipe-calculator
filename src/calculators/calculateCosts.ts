@@ -2,9 +2,14 @@ import type { RecipeNode } from "../interfaces/Recipe.ts";
 import { ProductUnit } from "../enums/ProductUnit.ts";
 
 /**
- * Calculates the total cost of items in a composition recursively
+ * Calculates the total cost of items in a composition recursively.
+ * For each item:
+ * 1. Calculates its own cost based on originalCost * calculatedQuantity
+ * 2. Recursively calculates costs of child items if present
+ * 3. Updates the item's calculatedCost to be the sum of its own cost plus children costs
+ * 
  * @param children Object containing the composition items
- * @returns Sum of calculated costs of all items
+ * @returns Total cost including all children costs
  */
 export function calculateChildrenCost(children: RecipeNode): number {
   if (!children) return 0;

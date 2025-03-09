@@ -1,15 +1,29 @@
 import type { ProductMap, RecipeArray, RecipeNode } from "./interfaces/Recipe.ts";
 
+/**
+ * Parameters required to process a single recipe item
+ */
 interface ProcessItemParams {
+  /** The recipe item being processed */
   item: { id: string; quantity?: number };
+  /** The full product data for this item */
   product: ProductMap[string];
+  /** Parent recipe's multiplication factor */
   motherFactor: number;
+  /** Current depth in recipe tree */
   level: number;
+  /** ID of the parent recipe */
   motherId: string;
+  /** Full path to this item in the recipe tree */
   motherPath: string;
+  /** Complete product catalog */
   productsList: ProductMap;
 }
 
+/**
+ * Processes a single item in a recipe, calculating its quantities and costs.
+ * Also recursively processes any sub-recipes (children) of this item.
+ */
 function processItem({
   item,
   product,
@@ -68,15 +82,24 @@ function processItem({
 }
 
 /**
- * Extracts quantities from a recipe composition
- * @param productsList List of products in the recipe
+ * Extracts and calculates quantities from a recipe composition.
+ * This is the core function that builds the recipe tree, handling:
+ * - Quantity calculations with multiplication factors
+ * - Weight calculations
+ * - Cost calculations
+ * - Recursive processing of sub-recipes
+ * 
+ * The function includes a maximum level check to prevent infinite recursion
+ * in case of circular recipe dependencies.
+ * 
+ * @param productsList List of all available products
  * @param comp Recipe composition array
- * @param motherFactor Mother's multiplier factor
- * @param motherId Mother's ID
- * @param motherPath Mother's path in the tree
- * @param level Current level in the tree (default: 1)
- * @param maxLevel Maximum levels to traverse (default: 100)
- * @returns Composition object with calculated quantities or null if exceeding level limit
+ * @param motherFactor Parent recipe's multiplication factor
+ * @param motherId Parent recipe's ID
+ * @param motherPath Path to parent in recipe tree
+ * @param level Current depth in recipe tree (default: 1)
+ * @param maxLevel Maximum allowed depth (default: 100)
+ * @returns Recipe tree with calculated quantities or null if exceeding level limit
  */
 export function extractRecipeQuantities(
   productsList: ProductMap,
