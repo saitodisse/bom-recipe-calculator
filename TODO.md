@@ -1,6 +1,6 @@
 # TODO
 
-## JSR Score Tasks (Current Score: 52%)
+## JSR Score Tasks (Current Score: 82%)
 
 ### Documentation
 - [x] Add symbol documentation to improve coverage (currently only 7% documented, target is 80%)
@@ -12,4 +12,10 @@
 
 ### Security & Trust
 - [x] Set up CI/CD workflow for verifiable publishing and public transparency log entry
+
+### Pending Tasks to Improve JSR Score
+- [x] Add a package description in package settings
+- [x] Mark at least one runtime as compatible (Deno/Node.js/Bun)
+- [x] Mark at least two runtimes as compatible
+- [x] Set up CI/CD workflow for verifiable publishing (provenance)
 

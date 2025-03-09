@@ -1,6 +1,6 @@
 {
   "name": "@saitodisse/bom-recipe-calculator",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A Bill of Materials (BOM) recipe calculator for nested product recipes. Calculate costs and weights for complex product recipes with multiple levels of ingredients.",
   "exports": {
     ".": "./src/mod.ts"
