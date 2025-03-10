@@ -1,8 +1,9 @@
 import type {
   createMaterialsTreeParams,
+  ProductMap,
+  RecipeArray,
   RecipeNode,
 } from "./interfaces/Recipe.ts";
-import { extractRecipeQuantities } from "./extractRecipeQuantities.ts";
 import { ProductUnit } from "./enums/ProductUnit.ts";
 
 /**
@@ -23,16 +24,6 @@ function roundToThreeDecimals(value: number): number {
  * 2. Initial recipe tree creation
  * 3. Weight calculations throughout the tree
  * 4. Cost calculations throughout the tree
- *
- * The function combines data from multiple sources:
- * - Product catalog with base information
- * - Recipe relationships between products
- * - Weight and cost information
- *
- * And produces a tree structure that includes:
- * - Original and calculated quantities at each level
- * - Weight totals considering unit conversions
- * - Cost totals including all sub-components
  *
  * @param params Configuration object for tree creation
  * @throws Error if required parameters are missing or product is not found
@@ -63,22 +54,105 @@ export function createMaterialsTree({
     return {} as RecipeNode;
   }
 
-  // Extract composition quantities for children
-  const children = extractRecipeQuantities(
-    productsList,
+  // Define a recursive function to process recipe items
+  function processRecipeItems(
+    comp: RecipeArray,
+    motherFactor: number,
+    motherId: string,
+    motherPath: string,
+    level = 1,
+    maxLevel = 100
+  ): RecipeNode | null {
+    // Check if exceeded level limit
+    if (maxLevel && level > maxLevel) {
+      return null;
+    }
+
+    const values = Array.isArray(comp) ? comp : Object.values(comp);
+    const result: RecipeNode = {};
+
+    for (const curr of values) {
+      // Verify if current item exists and is an object
+      if (!curr || typeof curr !== "object") continue;
+
+      const item = curr as { quantity?: number; id: string };
+      const itemProduct = productsList[item.id];
+
+      // Verify if product exists in products list
+      if (!itemProduct) continue;
+
+      // Process item
+      const { id, quantity } = item;
+      const productId = `${id}_${motherId}`;
+      const path = `${motherPath}.children.${id}`;
+      const numericQuantity = Number(quantity);
+      const calculatedFactor = quantity ? quantity * motherFactor : 0;
+      
+      // Calculate item's own cost and weight
+      const itemCost = quantity ? (itemProduct.purchaseQuoteValue || 0) * calculatedFactor : 0;
+      const itemWeight = quantity ? (itemProduct.weight || 1) * calculatedFactor : 0;
+      
+      // Check if product has children (sub-recipe)
+      const hasChildren = itemProduct.recipe && Object.keys(itemProduct.recipe).length > 0;
+      
+      // Process children recursively if they exist
+      const children = hasChildren && itemProduct.recipe
+        ? processRecipeItems(
+            itemProduct.recipe,
+            calculatedFactor,
+            productId,
+            path,
+            level + 1
+          )
+        : null;
+      
+      // Calculate total cost and weight including children
+      let childrenWeight = 0;
+      let childrenCost = 0;
+      
+      if (children) {
+        Object.values(children).forEach((child) => {
+          if (!child) return;
+          childrenWeight += roundToThreeDecimals(child.childrenWeight || 0);
+          childrenCost += roundToThreeDecimals(child.calculatedCost || 0);
+        });
+      }
+      
+      // Create the node with all calculated values
+      result[item.id] = {
+        name: itemProduct.name,
+        unit: itemProduct.unit,
+        level,
+        id,
+        motherFactor,
+        quantity: numericQuantity,
+        originalQuantity: numericQuantity,
+        calculatedQuantity: calculatedFactor,
+        weight: roundToThreeDecimals(itemWeight),
+        childrenWeight: roundToThreeDecimals(childrenWeight),
+        originalCost: itemProduct.purchaseQuoteValue ?? null,
+        calculatedCost: roundToThreeDecimals(itemCost + childrenCost),
+        children,
+      };
+    }
+
+    return result;
+  }
+
+  // Process recipe items
+  const children = processRecipeItems(
     initialComposition,
     Number(initialQuantity),
     productCode,
-    productCode,
-    1,
+    productCode
   );
 
   // Calculate total cost of children
   const calculatedCost = children
     ? Object.values(children).reduce((acc, child) => {
-      if (!child) return acc;
-      return acc + (child.calculatedCost || 0);
-    }, 0)
+        if (!child) return acc;
+        return acc + (child.calculatedCost || 0);
+      }, 0)
     : 0;
 
   // Original weight of the product
