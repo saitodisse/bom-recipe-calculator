@@ -169,8 +169,22 @@ Deno.test.only("createMaterialsTree - chopped_onion 1x", () => {
   assertEquals(tree["chopped_onion"].calculatedQuantity, 1);
   assertEquals(tree["chopped_onion"].childrenWeight, 1);
   assertEquals(
-    tree["chopped_onion"].children?.["raw_onion"].calculatedQuantity,
-    1.1,
+    tree["chopped_onion"].children?.["raw_onion"],
+    {
+      "name": "Raw Onion",
+      "unit": "KG",
+      "level": 1,
+      "id": "raw_onion",
+      "motherFactor": 1,
+      "quantity": 1.1,
+      "originalQuantity": 1.1,
+      "calculatedQuantity": 1.1,
+      "weight": 1.1,
+      "childrenWeight": 0,
+      "originalCost": 4.5,
+      "calculatedCost": 4.95,
+      "children": null,
+    },
   );
   assertEquals(
     tree["chopped_onion"].children?.["raw_onion"].childrenWeight,

@@ -5,82 +5,6 @@ import type {
 } from "./interfaces/Recipe.ts";
 
 /**
- * Parameters required to process a single recipe item
- */
-interface ProcessItemParams {
-  /** The recipe item being processed */
-  item: { id: string; quantity?: number };
-  /** The full product data for this item */
-  product: ProductMap[string];
-  /** Parent recipe's multiplication factor */
-  motherFactor: number;
-  /** Current depth in recipe tree */
-  level: number;
-  /** ID of the parent recipe */
-  motherId: string;
-  /** Full path to this item in the recipe tree */
-  motherPath: string;
-  /** Complete product catalog */
-  productsList: ProductMap;
-}
-
-/**
- * Processes a single item in a recipe, calculating its quantities and costs.
- * Also recursively processes any sub-recipes (children) of this item.
- */
-function processItem({
-  item,
-  product,
-  motherFactor,
-  level,
-  motherId,
-  motherPath,
-  productsList,
-}: ProcessItemParams) {
-  const { id, quantity } = item;
-  const productId = `${id}_${motherId}`;
-  const path = `${motherPath}.children.${id}`;
-  const numericQuantity = Number(quantity);
-  const calculatedFactor = quantity ? quantity * motherFactor : 0;
-
-  // Calculate cost based on quantity and mother factor
-  const calculatedCost = quantity
-    ? (product.purchaseQuoteValue || 0) * calculatedFactor
-    : 0;
-
-  // Check if product has children (sub-recipe)
-  const hasChildren = product.recipe && Object.keys(product.recipe).length > 0;
-
-  // Process children recursively if they exist
-  const children = hasChildren && product.recipe
-    ? extractRecipeQuantities(
-      productsList,
-      product.recipe,
-      calculatedFactor,
-      productId,
-      path,
-      level + 1,
-    )
-    : null;
-
-  return {
-    name: product.name,
-    unit: product.unit,
-    level,
-    id,
-    motherFactor,
-    quantity: numericQuantity,
-    originalQuantity: numericQuantity,
-    calculatedQuantity: calculatedFactor,
-    weight: quantity ? (product.weight || 1) * calculatedFactor : 0,
-    childrenWeight: 0,
-    originalCost: product.purchaseQuoteValue ?? null,
-    calculatedCost,
-    children,
-  };
-}
-
-/**
  * Extracts and calculates quantities from a recipe composition.
  * This is the core function that builds the recipe tree, handling:
  * - Quantity calculations with multiplication factors
@@ -130,15 +54,49 @@ export function extractRecipeQuantities(
       return prev;
     }
 
-    prev[item.id] = processItem({
-      item,
-      product,
-      motherFactor,
+    // Inline processItem function
+    const { id, quantity } = item;
+    const productId = `${id}_${motherId}`;
+    const path = `${motherPath}.children.${id}`;
+    const numericQuantity = Number(quantity);
+    const calculatedFactor = quantity ? quantity * motherFactor : 0;
+
+    // Calculate cost based on quantity and mother factor
+    const calculatedCost = quantity
+      ? (product.purchaseQuoteValue || 0) * calculatedFactor
+      : 0;
+
+    // Check if product has children (sub-recipe)
+    const hasChildren = product.recipe &&
+      Object.keys(product.recipe).length > 0;
+
+    // Process children recursively if they exist
+    const children = hasChildren && product.recipe
+      ? extractRecipeQuantities(
+        productsList,
+        product.recipe,
+        calculatedFactor,
+        productId,
+        path,
+        level + 1,
+      )
+      : null;
+
+    prev[item.id] = {
+      name: product.name,
+      unit: product.unit,
       level,
-      motherId,
-      motherPath,
-      productsList,
-    });
+      id,
+      motherFactor,
+      quantity: numericQuantity,
+      originalQuantity: numericQuantity,
+      calculatedQuantity: calculatedFactor,
+      weight: quantity ? (product.weight || 1) * calculatedFactor : 0,
+      childrenWeight: 0,
+      originalCost: product.purchaseQuoteValue ?? null,
+      calculatedCost,
+      children,
+    };
 
     return prev;
   }, {});
