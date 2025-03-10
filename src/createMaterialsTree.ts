@@ -1,20 +1,5 @@
-import type {
-  createMaterialsTreeParams,
-  ProductMap,
-  RecipeArray,
-  RecipeNode,
-} from "./interfaces/Recipe.ts";
 import { ProductUnit } from "./enums/ProductUnit.ts";
-
-/**
- * Rounds a number to 3 decimal places to avoid floating point precision issues.
- * This is particularly important when dealing with weight and cost calculations.
- * @param value The number to round
- * @returns The rounded number
- */
-function roundToThreeDecimals(value: number): number {
-  return Math.round(value * 1000) / 1000;
-}
+import type { createMaterialsTreeParams, RecipeNode, RecipeArray } from "./interfaces/Recipe.ts";
 
 /**
  * Creates a complete bill of materials tree for a product.
@@ -26,15 +11,25 @@ function roundToThreeDecimals(value: number): number {
  * 4. Cost calculations throughout the tree
  *
  * @param params Configuration object for tree creation
+ * @param motherFactor Multiplication factor from parent recipe (default: 1)
+ * @param motherId ID of the parent product (default: productCode)
+ * @param motherPath Path to the current node in the tree (default: productCode)
+ * @param level Current depth level in the tree (default: 0)
+ * @param maxLevel Maximum depth level to process (default: 100)
+ * @param isProcessingChildren Whether this call is processing children (internal use)
  * @throws Error if required parameters are missing or product is not found
  * @returns Complete bill of materials tree with all calculations
  */
 export function createMaterialsTree({
-  productsList,
-  productCode,
-  initialQuantity = 1,
-  extraPropertiesForMother = {},
-}: createMaterialsTreeParams): RecipeNode {
+  productsList, productCode, initialQuantity = 1, extraPropertiesForMother = {},
+}: createMaterialsTreeParams, 
+  motherFactor: number = Number(initialQuantity),
+  motherId: string = productCode,
+  motherPath: string = productCode,
+  level: number = 0,
+  maxLevel: number = 100,
+  isProcessingChildren: boolean = false
+): RecipeNode {
   // Input validation
   if (!productsList || !productCode) {
     throw new Error("Required parameters not provided");
@@ -46,36 +41,29 @@ export function createMaterialsTree({
     throw new Error(`Product not found: ${productCode}`);
   }
 
-  // Get initial composition of the product
-  const initialComposition = product.recipe || [];
-
-  // If no composition, return empty object
-  if (!initialComposition || initialComposition.length === 0) {
+  // Check if exceeded level limit when processing children
+  if (isProcessingChildren && maxLevel && level > maxLevel) {
     return {} as RecipeNode;
   }
 
-  // Define a recursive function to process recipe items
-  function processRecipeItems(
-    comp: RecipeArray,
-    motherFactor: number,
-    motherId: string,
-    motherPath: string,
-    level = 1,
-    maxLevel = 100
-  ): RecipeNode | null {
-    // Check if exceeded level limit
-    if (maxLevel && level > maxLevel) {
-      return null;
-    }
+  // Get composition of the product
+  const composition = product.recipe || [];
 
-    const values = Array.isArray(comp) ? comp : Object.values(comp);
+  // If no composition and not processing children, return empty object
+  if (!composition || composition.length === 0) {
+    return isProcessingChildren ? {} as RecipeNode : {} as RecipeNode;
+  }
+
+  // If processing children, create a result object for the children
+  if (isProcessingChildren) {
     const result: RecipeNode = {};
+    const values = Array.isArray(composition) ? composition : Object.values(composition);
 
     for (const curr of values) {
       // Verify if current item exists and is an object
       if (!curr || typeof curr !== "object") continue;
 
-      const item = curr as { quantity?: number; id: string };
+      const item = curr as { quantity?: number; id: string; };
       const itemProduct = productsList[item.id];
 
       // Verify if product exists in products list
@@ -87,37 +75,39 @@ export function createMaterialsTree({
       const path = `${motherPath}.children.${id}`;
       const numericQuantity = Number(quantity);
       const calculatedFactor = quantity ? quantity * motherFactor : 0;
-      
+
       // Calculate item's own cost and weight
       const itemCost = quantity ? (itemProduct.purchaseQuoteValue || 0) * calculatedFactor : 0;
       const itemWeight = quantity ? (itemProduct.weight || 1) * calculatedFactor : 0;
-      
+
       // Check if product has children (sub-recipe)
       const hasChildren = itemProduct.recipe && Object.keys(itemProduct.recipe).length > 0;
-      
+
       // Process children recursively if they exist
-      const children = hasChildren && itemProduct.recipe
-        ? processRecipeItems(
-            itemProduct.recipe,
+      const children = hasChildren
+        ? createMaterialsTree(
+            { productsList, productCode: item.id, initialQuantity: 1 },
             calculatedFactor,
             productId,
             path,
-            level + 1
+            level + 1,
+            maxLevel,
+            true
           )
-        : null;
-      
+        : {} as RecipeNode;
+
       // Calculate total cost and weight including children
       let childrenWeight = 0;
       let childrenCost = 0;
-      
-      if (children) {
+
+      if (children && Object.keys(children).length > 0) {
         Object.values(children).forEach((child) => {
           if (!child) return;
           childrenWeight += roundToThreeDecimals(child.childrenWeight || 0);
           childrenCost += roundToThreeDecimals(child.calculatedCost || 0);
         });
       }
-      
+
       // Create the node with all calculated values
       result[item.id] = {
         name: itemProduct.name,
@@ -139,20 +129,24 @@ export function createMaterialsTree({
     return result;
   }
 
-  // Process recipe items
-  const children = processRecipeItems(
-    initialComposition,
-    Number(initialQuantity),
-    productCode,
-    productCode
+  // This is the root call (level 0)
+  // Process children recursively
+  const children = createMaterialsTree(
+    { productsList, productCode, initialQuantity: 1 },
+    motherFactor,
+    motherId,
+    motherPath,
+    level + 1,
+    maxLevel,
+    true
   );
 
   // Calculate total cost of children
   const calculatedCost = children
     ? Object.values(children).reduce((acc, child) => {
-        if (!child) return acc;
-        return acc + (child.calculatedCost || 0);
-      }, 0)
+      if (!child) return acc;
+      return acc + (child.calculatedCost || 0);
+    }, 0)
     : 0;
 
   // Original weight of the product
@@ -160,13 +154,13 @@ export function createMaterialsTree({
 
   // Calculate total weight considering product unit
   let childrenWeight = 0;
-  if (children) {
+  if (children && Object.keys(children).length > 0) {
     if (product.unit !== ProductUnit.KG.id) {
       // For products not measured in KG
       if (weight > 0) {
         // If has registered weight, use it * quantity
         childrenWeight = roundToThreeDecimals(
-          weight * Number(initialQuantity),
+          weight * Number(initialQuantity)
         );
       } else {
         // If no registered weight, sum children's weights * quantity
@@ -174,7 +168,7 @@ export function createMaterialsTree({
           Object.values(children).reduce((acc, child) => {
             if (!child) return acc;
             return acc + (child.childrenWeight || 0);
-          }, 0),
+          }, 0)
         );
       }
     } else {
@@ -183,7 +177,7 @@ export function createMaterialsTree({
         Object.values(children).reduce((acc, child) => {
           if (!child) return acc;
           return acc + (child.childrenWeight || 0);
-        }, 0),
+        }, 0)
       );
     }
   } else {
@@ -225,3 +219,14 @@ export function createMaterialsTree({
 
   return compositionTree;
 }
+
+/**
+ * Rounds a number to 3 decimal places to avoid floating point precision issues.
+ * This is particularly important when dealing with weight and cost calculations.
+ * @param value The number to round
+ * @returns The rounded number
+ */
+export function roundToThreeDecimals(value: number): number {
+  return Math.round(value * 1000) / 1000;
+}
+
