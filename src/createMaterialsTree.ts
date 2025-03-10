@@ -41,7 +41,7 @@ export function createMaterialsTree({
     throw new Error(`Product not found: ${productCode}`);
   }
 
-  // Check if exceeded level limit when processing children
+  // Check if exceeded level limit when processing children - this is an internal check to prevent infinite loops
   if (isProcessingChildren && maxLevel && level > maxLevel) {
     return {} as RecipeNode;
   }
@@ -51,6 +51,7 @@ export function createMaterialsTree({
 
   // If no composition and not processing children, return empty object
   if (!composition || composition.length === 0) {
+    // If processing children, return empty object to avoid infinite loops
     return isProcessingChildren ? {} as RecipeNode : {} as RecipeNode;
   }
 
@@ -179,6 +180,8 @@ export function createMaterialsTree({
           return acc + (child.childrenWeight || 0);
         }, 0)
       );
+      // Get weight like calculatedFactor
+      weight = Number(initialQuantity);
     }
   } else {
     if (product.unit === ProductUnit.KG.id) {
