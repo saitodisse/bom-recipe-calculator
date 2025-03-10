@@ -1,4 +1,8 @@
-import type { ProductMap, RecipeArray, RecipeNode } from "./interfaces/Recipe.ts";
+import type {
+  ProductMap,
+  RecipeArray,
+  RecipeNode,
+} from "./interfaces/Recipe.ts";
 
 /**
  * Parameters required to process a single recipe item
@@ -44,11 +48,6 @@ function processItem({
     ? (product.purchaseQuoteValue || 0) * calculatedFactor
     : 0;
 
-  // Calculate weight considering product weight or 1 as fallback
-  const childrenWeight = quantity
-    ? (product.weight || 1) * calculatedFactor
-    : 0;
-
   // Check if product has children (sub-recipe)
   const hasChildren = product.recipe && Object.keys(product.recipe).length > 0;
 
@@ -73,8 +72,8 @@ function processItem({
     quantity: numericQuantity,
     originalQuantity: numericQuantity,
     calculatedQuantity: calculatedFactor,
-    originalWeight: product.weight || 0,
-    childrenWeight,
+    weight: quantity ? (product.weight || 1) * calculatedFactor : 0,
+    childrenWeight: 0,
     originalCost: product.purchaseQuoteValue ?? null,
     calculatedCost,
     children,
@@ -88,10 +87,10 @@ function processItem({
  * - Weight calculations
  * - Cost calculations
  * - Recursive processing of sub-recipes
- * 
+ *
  * The function includes a maximum level check to prevent infinite recursion
  * in case of circular recipe dependencies.
- * 
+ *
  * @param productsList List of all available products
  * @param comp Recipe composition array
  * @param motherFactor Parent recipe's multiplication factor

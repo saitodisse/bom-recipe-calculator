@@ -5,6 +5,9 @@
   "exports": {
     ".": "./src/mod.ts"
   },
+  "tasks": {
+    "test": "deno test --watch"
+  },
   "runtime": {
     "deno": true,
     "node": true,

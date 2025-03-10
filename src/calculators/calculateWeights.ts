@@ -16,7 +16,7 @@ function roundToThreeDecimals(value: number): number {
  * For items measured in KG, uses the quantity directly.
  * For other units, uses the item's registered weight multiplied by quantity.
  * If an item has children (sub-recipe), their weights are summed up.
- * 
+ *
  * @param children Object containing the composition items
  * @returns Sum of calculated weights of all items in kilograms
  */
@@ -30,31 +30,29 @@ export function calculateChildrenWeight(children: RecipeNode): number {
       // If has children, calculate their weight
       if (child.children) {
         const childrenWeight = calculateChildrenWeight(child.children);
-        
+
         // For products not measured in KG
         if (child.unit && child.unit !== ProductUnit.KG.id) {
           // If has registered weight, use it
-          if (child.originalWeight) {
-            child.childrenWeight = roundToThreeDecimals(child.originalWeight * child.calculatedQuantity);
+          if (child.weight) {
+            child.childrenWeight = roundToThreeDecimals(
+              child.weight * child.calculatedQuantity,
+            );
           } else {
             // If no registered weight, use children's weight
             child.childrenWeight = roundToThreeDecimals(childrenWeight);
           }
         } else {
-          // For products in KG, use children's weight directly
+          // For products in KG, use children's its quantity directly
           child.childrenWeight = roundToThreeDecimals(childrenWeight);
         }
       } else {
         // If no children, use direct weight of the item
-        if (child.unit === ProductUnit.KG.id) {
-          child.childrenWeight = roundToThreeDecimals(child.calculatedQuantity);
-        } else {
-          child.childrenWeight = roundToThreeDecimals((child.originalWeight || 0) * child.calculatedQuantity);
-        }
+        child.weight = roundToThreeDecimals(child.calculatedQuantity);
       }
 
       return roundToThreeDecimals(acc + child.childrenWeight);
     },
-    0
+    0,
   );
 }

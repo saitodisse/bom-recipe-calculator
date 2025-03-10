@@ -62,7 +62,7 @@ export interface RecipeNode {
     /** Quantity after applying all multiplication factors */
     calculatedQuantity: number;
     /** Original weight per unit */
-    originalWeight: number;
+    weight: number;
     /** Total weight including all children */
     childrenWeight: number;
     /** Original cost per unit */

@@ -1,4 +1,7 @@
-import type { createMaterialsTreeParams, RecipeNode, ProductMap } from "./interfaces/Recipe.ts";
+import type {
+  createMaterialsTreeParams,
+  RecipeNode,
+} from "./interfaces/Recipe.ts";
 import { calculateChildrenCost } from "./calculators/calculateCosts.ts";
 import { calculateChildrenWeight } from "./calculators/calculateWeights.ts";
 import { extractRecipeQuantities } from "./extractRecipeQuantities.ts";
@@ -17,22 +20,22 @@ function roundToThreeDecimals(value: number): number {
 /**
  * Creates a complete bill of materials tree for a product.
  * This is the main entry point of the library, handling:
- * 
+ *
  * 1. Input validation and product lookup
  * 2. Initial recipe tree creation
  * 3. Weight calculations throughout the tree
  * 4. Cost calculations throughout the tree
- * 
+ *
  * The function combines data from multiple sources:
  * - Product catalog with base information
  * - Recipe relationships between products
  * - Weight and cost information
- * 
+ *
  * And produces a tree structure that includes:
  * - Original and calculated quantities at each level
  * - Weight totals considering unit conversions
  * - Cost totals including all sub-components
- * 
+ *
  * @param params Configuration object for tree creation
  * @throws Error if required parameters are missing or product is not found
  * @returns Complete bill of materials tree with all calculations
@@ -76,25 +79,35 @@ export function createMaterialsTree({
   const calculatedCost = children ? calculateChildrenCost(children) : 0;
 
   // Original weight of the product
-  const originalWeight = product.weight || 0;
+  let weight = product.weight || 0;
 
   // Calculate total weight considering product unit
   let childrenWeight = 0;
   if (children) {
     if (product.unit !== ProductUnit.KG.id) {
       // For products not measured in KG
-      if (originalWeight > 0) {
+      if (weight > 0) {
         // If has registered weight, use it * quantity
-        childrenWeight = roundToThreeDecimals(originalWeight * Number(initialQuantity));
+        childrenWeight = roundToThreeDecimals(
+          weight * Number(initialQuantity),
+        );
       } else {
         // If no registered weight, sum children's weights * quantity
-        childrenWeight = roundToThreeDecimals(calculateChildrenWeight(children));
+        childrenWeight = roundToThreeDecimals(
+          calculateChildrenWeight(children),
+        );
       }
     } else {
       // For products in KG, sum children's weights directly
       childrenWeight = roundToThreeDecimals(calculateChildrenWeight(children));
     }
+  } else {
+    if (product.unit === ProductUnit.KG.id) {
+      weight = Number(initialQuantity);
+    }
+    childrenWeight = 0;
   }
+
   // Create composition tree
   const compositionTree: RecipeNode = {
     [productCode]: {
@@ -111,14 +124,14 @@ export function createMaterialsTree({
       originalQuantity: 1,
       calculatedQuantity: Number(initialQuantity),
 
-      originalWeight,
+      weight,
       childrenWeight,
 
       originalCost: product.purchaseQuoteValue ?? null,
       calculatedCost,
 
       // Children composition
-      children: children,
+      children,
 
       // Extra properties (if provided)
       ...extraPropertiesForMother,
