@@ -2,8 +2,6 @@ import type {
   createMaterialsTreeParams,
   RecipeNode,
 } from "./interfaces/Recipe.ts";
-import { calculateChildrenCost } from "./calculators/calculateCosts.ts";
-import { calculateChildrenWeight } from "./calculators/calculateWeights.ts";
 import { extractRecipeQuantities } from "./extractRecipeQuantities.ts";
 import { ProductUnit } from "./enums/ProductUnit.ts";
 
@@ -76,7 +74,12 @@ export function createMaterialsTree({
   );
 
   // Calculate total cost of children
-  const calculatedCost = children ? calculateChildrenCost(children) : 0;
+  const calculatedCost = children
+    ? Object.values(children).reduce((acc, child) => {
+      if (!child) return acc;
+      return acc + (child.calculatedCost || 0);
+    }, 0)
+    : 0;
 
   // Original weight of the product
   let weight = product.weight || 0;
@@ -94,12 +97,20 @@ export function createMaterialsTree({
       } else {
         // If no registered weight, sum children's weights * quantity
         childrenWeight = roundToThreeDecimals(
-          calculateChildrenWeight(children),
+          Object.values(children).reduce((acc, child) => {
+            if (!child) return acc;
+            return acc + (child.childrenWeight || 0);
+          }, 0),
         );
       }
     } else {
       // For products in KG, sum children's weights directly
-      childrenWeight = roundToThreeDecimals(calculateChildrenWeight(children));
+      childrenWeight = roundToThreeDecimals(
+        Object.values(children).reduce((acc, child) => {
+          if (!child) return acc;
+          return acc + (child.childrenWeight || 0);
+        }, 0),
+      );
     }
   } else {
     if (product.unit === ProductUnit.KG.id) {

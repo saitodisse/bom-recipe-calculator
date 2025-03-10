@@ -5,6 +5,16 @@ import type {
 } from "./interfaces/Recipe.ts";
 
 /**
+ * Rounds a number to 3 decimal places to avoid floating point precision issues.
+ * This is particularly important when dealing with weight calculations in kilograms.
+ * @param value The number to round
+ * @returns The rounded number
+ */
+function roundToThreeDecimals(value: number): number {
+  return Math.round(value * 1000) / 1000;
+}
+
+/**
  * Extracts and calculates quantities from a recipe composition.
  * This is the core function that builds the recipe tree, handling:
  * - Quantity calculations with multiplication factors
@@ -40,7 +50,7 @@ export function extractRecipeQuantities(
 
   const values = Array.isArray(comp) ? comp : Object.values(comp);
 
-  return values.reduce<RecipeNode>((prev, curr) => {
+  const result = values.reduce<RecipeNode>((prev, curr) => {
     // Verify if current item exists and is an object
     if (!curr || typeof curr !== "object") {
       return prev;
@@ -54,17 +64,20 @@ export function extractRecipeQuantities(
       return prev;
     }
 
-    // Inline processItem function
+    // Process item
     const { id, quantity } = item;
     const productId = `${id}_${motherId}`;
     const path = `${motherPath}.children.${id}`;
     const numericQuantity = Number(quantity);
     const calculatedFactor = quantity ? quantity * motherFactor : 0;
 
-    // Calculate cost based on quantity and mother factor
-    const calculatedCost = quantity
+    // Calculate item's own cost
+    const itemCost = quantity
       ? (product.purchaseQuoteValue || 0) * calculatedFactor
       : 0;
+
+    // Calculate item's own weight
+    const itemWeight = quantity ? (product.weight || 1) * calculatedFactor : 0;
 
     // Check if product has children (sub-recipe)
     const hasChildren = product.recipe &&
@@ -82,6 +95,20 @@ export function extractRecipeQuantities(
       )
       : null;
 
+    // Calculate total cost and weight including children
+    let childrenWeight = 0;
+    let childrenCost = 0;
+
+    if (children) {
+      Object.values(children).forEach((child) => {
+        if (!child) return;
+
+        childrenWeight += roundToThreeDecimals(child.childrenWeight || 0);
+        childrenCost += roundToThreeDecimals(child.calculatedCost || 0);
+      });
+    }
+
+    // Create the node with all calculated values
     prev[item.id] = {
       name: product.name,
       unit: product.unit,
@@ -91,13 +118,15 @@ export function extractRecipeQuantities(
       quantity: numericQuantity,
       originalQuantity: numericQuantity,
       calculatedQuantity: calculatedFactor,
-      weight: quantity ? (product.weight || 1) * calculatedFactor : 0,
-      childrenWeight: 0,
+      weight: roundToThreeDecimals(itemWeight),
+      childrenWeight: roundToThreeDecimals(childrenWeight),
       originalCost: product.purchaseQuoteValue ?? null,
-      calculatedCost,
+      calculatedCost: roundToThreeDecimals(itemCost + childrenCost),
       children,
     };
 
     return prev;
   }, {});
+
+  return result;
 }
