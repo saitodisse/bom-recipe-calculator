@@ -209,236 +209,14 @@ Deno.test("createMaterialsTree - chopped_onion 2x", () => {
   );
 });
 
-Deno.test.only("createMaterialsTree - cheeseburger_product 1x", () => {
+Deno.test("createMaterialsTree - check onion weight in cheeseburger_product 1x", () => {
   const tree = createMaterialsTree({
     productsList: PRODUCTS_MAP,
     productCode: "cheeseburger_product",
     initialQuantity: 10,
   });
 
-  /**
-  Example result:
-
-  {
-  "cheeseburger_product": {
-    "name": "Cheeseburger",
-    "unit": "UN",
-    "id": "cheeseburger_product",
-    "quantity": null,
-    "level": 0,
-    "motherFactor": 1,
-    "originalQuantity": 1,
-    "calculatedQuantity": 1,
-    "weight": 0,
-    "childrenWeight": 0,
-    "originalCost": null,
-    "calculatedCost": 2.4370000000000003,
-    "children": {
-      "cheeseburger_unit": {
-        "name": "Cheeseburger",
-        "unit": "UN",
-        "level": 1,
-        "id": "cheeseburger_unit",
-        "motherFactor": 1,
-        "quantity": 1,
-        "originalQuantity": 1,
-        "calculatedQuantity": 1,
-        "weight": 1,
-        "childrenWeight": 0,
-        "originalCost": null,
-        "calculatedCost": 2.197,
-        "children": {
-          "burger_bun": {
-            "name": "Burger Bun",
-            "unit": "UN",
-            "level": 2,
-            "id": "burger_bun",
-            "motherFactor": 1,
-            "quantity": 1,
-            "originalQuantity": 1,
-            "calculatedQuantity": 1,
-            "weight": 0.05,
-            "childrenWeight": 0,
-            "originalCost": 0.75,
-            "calculatedCost": 0.75,
-            "children": {}
-          },
-          "beef_patty": {
-            "name": "Beef Patty",
-            "unit": "KG",
-            "level": 2,
-            "id": "beef_patty",
-            "motherFactor": 1,
-            "quantity": 0.15,
-            "originalQuantity": 0.15,
-            "calculatedQuantity": 0.15,
-            "weight": 0.15,
-            "childrenWeight": 0,
-            "originalCost": null,
-            "calculatedCost": 1.259,
-            "children": {
-              "ground_beef": {
-                "name": "Ground Beef",
-                "unit": "KG",
-                "level": 3,
-                "id": "ground_beef",
-                "motherFactor": 0.15,
-                "quantity": 1,
-                "originalQuantity": 1,
-                "calculatedQuantity": 0.15,
-                "weight": 0.15,
-                "childrenWeight": 0,
-                "originalCost": 8,
-                "calculatedCost": 1.2,
-                "children": {}
-              },
-              "salt": {
-                "name": "Salt",
-                "unit": "KG",
-                "level": 3,
-                "id": "salt",
-                "motherFactor": 0.15,
-                "quantity": 0.018,
-                "originalQuantity": 0.018,
-                "calculatedQuantity": 0.0026999999999999997,
-                "weight": 0.003,
-                "childrenWeight": 0,
-                "originalCost": 1,
-                "calculatedCost": 0.003,
-                "children": {}
-              },
-              "black_pepper": {
-                "name": "Black Pepper",
-                "unit": "KG",
-                "level": 3,
-                "id": "black_pepper",
-                "motherFactor": 0.15,
-                "quantity": 0.005,
-                "originalQuantity": 0.005,
-                "calculatedQuantity": 0.00075,
-                "weight": 0.001,
-                "childrenWeight": 0,
-                "originalCost": 15,
-                "calculatedCost": 0.011,
-                "children": {}
-              },
-              "chopped_onion": {
-                "name": "Finely Chopped Onion",
-                "unit": "KG",
-                "level": 3,
-                "id": "chopped_onion",
-                "motherFactor": 0.15,
-                "quantity": 0.05,
-                "originalQuantity": 0.05,
-                "calculatedQuantity": 0.0075,
-                "weight": 0.008,
-                "childrenWeight": 0, // this is WRONG
-                "originalCost": null,
-                "calculatedCost": 0.017,
-                "children": {
-                  "raw_onion": {
-                    "name": "Raw Onion",
-                    "unit": "KG",
-                    "level": 4,
-                    "id": "raw_onion",
-                    "motherFactor": 0.0075,
-                    "quantity": 1.1,
-                    "originalQuantity": 1.1,
-                    "calculatedQuantity": 0.00825,
-                    "weight": 0.008,
-                    "childrenWeight": 0,
-                    "originalCost": 2,
-                    "calculatedCost": 0.017,
-                    "children": {}
-                  }
-                }
-              },
-              "chopped_garlic": {
-                "name": "Finely Chopped Garlic",
-                "unit": "KG",
-                "level": 3,
-                "id": "chopped_garlic",
-                "motherFactor": 0.15,
-                "quantity": 0.006,
-                "originalQuantity": 0.006,
-                "calculatedQuantity": 0.0009,
-                "weight": 0.001,
-                "childrenWeight": 0,
-                "originalCost": null,
-                "calculatedCost": 0.005,
-                "children": {
-                  "garlic_clove": {
-                    "name": "Garlic Clove",
-                    "unit": "KG",
-                    "level": 4,
-                    "id": "garlic_clove",
-                    "motherFactor": 0.0009,
-                    "quantity": 1.15,
-                    "originalQuantity": 1.15,
-                    "calculatedQuantity": 0.001035,
-                    "weight": 0.001,
-                    "childrenWeight": 0,
-                    "originalCost": 4.5,
-                    "calculatedCost": 0.005,
-                    "children": {}
-                  }
-                }
-              },
-              "worcestershire_sauce": {
-                "name": "Worcestershire Sauce",
-                "unit": "L",
-                "level": 3,
-                "id": "worcestershire_sauce",
-                "motherFactor": 0.15,
-                "quantity": 0.015,
-                "originalQuantity": 0.015,
-                "calculatedQuantity": 0.00225,
-                "weight": 0.002,
-                "childrenWeight": 0,
-                "originalCost": 10,
-                "calculatedCost": 0.023,
-                "children": {}
-              }
-            }
-          },
-          "cheese_slice": {
-            "name": "Cheese Slice",
-            "unit": "KG",
-            "level": 2,
-            "id": "cheese_slice",
-            "motherFactor": 1,
-            "quantity": 0.019,
-            "originalQuantity": 0.019,
-            "calculatedQuantity": 0.019,
-            "weight": 0.019,
-            "childrenWeight": 0,
-            "originalCost": 9.87,
-            "calculatedCost": 0.188,
-            "children": {}
-          }
-        }
-      },
-      "burger_packaging": {
-        "name": "Burger Packaging",
-        "unit": "UN",
-        "level": 1,
-        "id": "burger_packaging",
-        "motherFactor": 1,
-        "quantity": 1,
-        "originalQuantity": 1,
-        "calculatedQuantity": 1,
-        "weight": 0.1,
-        "childrenWeight": 0,
-        "originalCost": 0.24,
-        "calculatedCost": 0.24,
-        "children": {}
-      }
-    }
-  }
-}
-  */
-
-  console.log(JSON.stringify(tree, null, 2));
+  // console.log(JSON.stringify(tree, null, 2));
 
   assertEquals(
     tree["cheeseburger_product"].children?.["cheeseburger_unit"].children
@@ -446,7 +224,18 @@ Deno.test.only("createMaterialsTree - cheeseburger_product 1x", () => {
       ?.weight,
     0.083,
   );
+  assertEquals(
+    tree["cheeseburger_product"].children?.["cheeseburger_unit"].children
+      ?.["beef_patty"].children?.["chopped_onion"]?.children?.["raw_onion"]
+      ?.childrenWeight,
+    0,
+  );
 
+  assertEquals(
+    tree["cheeseburger_product"].children?.["cheeseburger_unit"].children
+      ?.["beef_patty"].children?.["chopped_onion"]?.weight,
+    0.083 * 0.9,
+  );
   assertEquals(
     tree["cheeseburger_product"].children?.["cheeseburger_unit"].children
       ?.["beef_patty"].children?.["chopped_onion"]?.childrenWeight,
