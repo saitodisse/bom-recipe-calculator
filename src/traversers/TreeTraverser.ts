@@ -1,4 +1,4 @@
-import { TreeNode } from "../models/TreeNode";
+import { TreeNode } from "../models/TreeNode.ts";
 
 /**
  * Class for traversing and manipulating a materials tree.
