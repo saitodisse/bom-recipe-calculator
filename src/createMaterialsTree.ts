@@ -1,5 +1,8 @@
 import { ProductUnit } from "./enums/ProductUnit.ts";
-import type { createMaterialsTreeParams, RecipeNode, RecipeArray } from "./interfaces/Recipe.ts";
+import type {
+  createMaterialsTreeParams,
+  RecipeNode,
+} from "./interfaces/Recipe.ts";
 
 /**
  * Creates a complete bill of materials tree for a product.
@@ -20,15 +23,19 @@ import type { createMaterialsTreeParams, RecipeNode, RecipeArray } from "./inter
  * @throws Error if required parameters are missing or product is not found
  * @returns Complete bill of materials tree with all calculations
  */
-export function createMaterialsTree({
-  productsList, productCode, initialQuantity = 1, extraPropertiesForMother = {},
-}: createMaterialsTreeParams, 
+export function createMaterialsTree(
+  {
+    productsList,
+    productCode,
+    initialQuantity = 1,
+    extraPropertiesForMother = {},
+  }: createMaterialsTreeParams,
   motherFactor: number = Number(initialQuantity),
   motherId: string = productCode,
   motherPath: string = productCode,
   level: number = 0,
   maxLevel: number = 100,
-  isProcessingChildren: boolean = false
+  isProcessingChildren: boolean = false,
 ): RecipeNode {
   // Input validation
   if (!productsList || !productCode) {
@@ -58,13 +65,15 @@ export function createMaterialsTree({
   // If processing children, create a result object for the children
   if (isProcessingChildren) {
     const result: RecipeNode = {};
-    const values = Array.isArray(composition) ? composition : Object.values(composition);
+    const values = Array.isArray(composition)
+      ? composition
+      : Object.values(composition);
 
     for (const curr of values) {
       // Verify if current item exists and is an object
       if (!curr || typeof curr !== "object") continue;
 
-      const item = curr as { quantity?: number; id: string; };
+      const item = curr as { quantity?: number; id: string };
       const itemProduct = productsList[item.id];
 
       // Verify if product exists in products list
@@ -78,23 +87,28 @@ export function createMaterialsTree({
       const calculatedFactor = quantity ? quantity * motherFactor : 0;
 
       // Calculate item's own cost and weight
-      const itemCost = quantity ? (itemProduct.purchaseQuoteValue || 0) * calculatedFactor : 0;
-      const itemWeight = quantity ? (itemProduct.weight || 1) * calculatedFactor : 0;
+      const itemCost = quantity
+        ? (itemProduct.purchaseQuoteValue || 0) * calculatedFactor
+        : 0;
+      const itemWeight = quantity
+        ? (itemProduct.weight || 1) * calculatedFactor
+        : 0;
 
       // Check if product has children (sub-recipe)
-      const hasChildren = itemProduct.recipe && Object.keys(itemProduct.recipe).length > 0;
+      const hasChildren = itemProduct.recipe &&
+        Object.keys(itemProduct.recipe).length > 0;
 
       // Process children recursively if they exist
       const children = hasChildren
         ? createMaterialsTree(
-            { productsList, productCode: item.id, initialQuantity: 1 },
-            calculatedFactor,
-            productId,
-            path,
-            level + 1,
-            maxLevel,
-            true
-          )
+          { productsList, productCode: item.id, initialQuantity: 1 },
+          calculatedFactor,
+          productId,
+          path,
+          level + 1,
+          maxLevel,
+          true,
+        )
         : {} as RecipeNode;
 
       // Calculate total cost and weight including children
@@ -139,7 +153,7 @@ export function createMaterialsTree({
     motherPath,
     level + 1,
     maxLevel,
-    true
+    true,
   );
 
   // Calculate total cost of children
@@ -153,6 +167,11 @@ export function createMaterialsTree({
   // Original weight of the product
   let weight = product.weight || 0;
 
+  // If product is in KG, use the initial quantity as weight
+  if (product.unit === ProductUnit.KG.id) {
+    weight = Number(initialQuantity);
+  }
+
   // Calculate total weight considering product unit
   let childrenWeight = 0;
   if (children && Object.keys(children).length > 0) {
@@ -161,7 +180,7 @@ export function createMaterialsTree({
       if (weight > 0) {
         // If has registered weight, use it * quantity
         childrenWeight = roundToThreeDecimals(
-          weight * Number(initialQuantity)
+          weight * Number(initialQuantity),
         );
       } else {
         // If no registered weight, sum children's weights * quantity
@@ -169,7 +188,7 @@ export function createMaterialsTree({
           Object.values(children).reduce((acc, child) => {
             if (!child) return acc;
             return acc + (child.childrenWeight || 0);
-          }, 0)
+          }, 0),
         );
       }
     } else {
@@ -177,8 +196,8 @@ export function createMaterialsTree({
       childrenWeight = roundToThreeDecimals(
         Object.values(children).reduce((acc, child) => {
           if (!child) return acc;
-          return acc + (child.childrenWeight || 0);
-        }, 0)
+          return acc + (child.weight || 0);
+        }, 0),
       );
       // Get weight like calculatedFactor
       weight = Number(initialQuantity);
@@ -232,4 +251,3 @@ export function createMaterialsTree({
 export function roundToThreeDecimals(value: number): number {
   return Math.round(value * 1000) / 1000;
 }
-
