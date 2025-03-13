@@ -1,8 +1,8 @@
-import type { ICreateMaterialsTreeParams } from "../interfaces/ICreateMaterialsTreeParams";
-import { Product } from "../models/Product";
-import { TreeNode } from "../models/TreeNode";
-import { NodeProcessor } from "./NodeProcessor";
-import { TreeValidator } from "../services/TreeValidator";
+import type { ICreateMaterialsTreeParams } from "../interfaces/ICreateMaterialsTreeParams.ts";
+import { Product } from "../models/Product.ts";
+import type { TreeNode } from "../models/TreeNode.ts";
+import { NodeProcessor } from "./NodeProcessor.ts";
+import { TreeValidator } from "../services/TreeValidator.ts";
 
 /**
  * Builder class for creating a materials tree.

@@ -1,9 +1,8 @@
-import { Product } from "../models/Product";
-import { RecipeItem } from "../models/RecipeItem";
-import { TreeNode } from "../models/TreeNode";
-import { Calculator } from "../services/Calculator";
-import { TreeValidator } from "../services/TreeValidator";
-import { Utils } from "../services/Utils";
+import type { Product } from "../models/Product.ts";
+import type { RecipeItem } from "../models/RecipeItem.ts";
+import { TreeNode } from "../models/TreeNode.ts";
+import { Calculator } from "../services/Calculator.ts";
+import { Utils } from "../services/Utils.ts";
 
 /**
  * Class responsible for processing nodes in the materials tree.

@@ -1,5 +1,5 @@
-import type { IRecipeItem } from "../interfaces/IRecipeItem";
-import { Utils } from "../services/Utils";
+import type { IRecipeItem } from "../interfaces/IRecipeItem.ts";
+import { Utils } from "../services/Utils.ts";
 
 /**
  * Class representing an item in a product recipe.

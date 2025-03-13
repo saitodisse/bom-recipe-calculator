@@ -3,7 +3,6 @@ import { assertEquals } from "jsr:@std/assert";
 import { assertThrows } from "jsr:@std/assert";
 import { MaterialsTreeBuilder } from "../../builders/MaterialsTreeBuilder.ts";
 import { testData } from "../testData.ts";
-import { Product } from "../../models/Product.ts";
 
 /**
  * Tests for the MaterialsTreeBuilder class.

@@ -1,4 +1,4 @@
-import { Utils } from "./Utils";
+import { Utils } from "./Utils.ts";
 
 /**
  * Calculator class responsible for all cost and weight calculations in the materials tree.

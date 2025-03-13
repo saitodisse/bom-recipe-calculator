@@ -1,4 +1,4 @@
-import type { IProduct } from "./IProduct";
+import type { IProduct } from "./IProduct.ts";
 
 /**
  * Interface for parameters used to create a materials calculation tree.

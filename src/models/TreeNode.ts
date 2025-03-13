@@ -1,5 +1,5 @@
-import type { ITreeNode } from "../interfaces/ITreeNode";
-import { Utils } from "../services/Utils";
+import type { ITreeNode } from "../interfaces/ITreeNode.ts";
+import { Utils } from "../services/Utils.ts";
 
 /**
  * Class representing a node in the materials tree.

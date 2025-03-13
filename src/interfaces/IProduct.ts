@@ -1,6 +1,6 @@
-import type { ProductCategoryId } from "../../enums/ProductCategory";
-import type { ProductUnitId } from "../../enums/ProductUnit";
-import type { IRecipeItem } from "./IRecipeItem";
+import type { IRecipeItem } from "./IRecipeItem.ts";
+import type { ProductCategoryId } from "./ProductCategory.ts";
+import type { ProductUnitId } from "./ProductUnit.ts";
 
 /**
  * Interface representing a product in the bill of materials system.
