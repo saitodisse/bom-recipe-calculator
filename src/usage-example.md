@@ -1,9 +1,9 @@
-# Exemplos de Uso da Nova API
+# Examples of Using the New API
 
-Este documento demonstra como utilizar a nova API orientada a objetos para criar
-árvores de materiais.
+This document demonstrates how to use the new object-oriented API to create
+materials trees.
 
-## Exemplo Básico
+## Basic Example
 
 ```typescript
 import { MaterialsTreeBuilder } from "./MaterialsTreeBuilder";
@@ -11,7 +11,7 @@ import { Product } from "./models/Product";
 import { ProductUnit } from "../enums/ProductUnit";
 import { ProductCategory } from "../enums/ProductCategory";
 
-// Definir produtos
+// Define products
 const flour = new Product({
   id: "flour",
   name: "Wheat Flour",
@@ -55,7 +55,7 @@ const bread = new Product({
   ],
 });
 
-// Criar mapa de produtos
+// Create product map
 const productsList = {
   "flour": flour,
   "water": water,
@@ -63,42 +63,42 @@ const productsList = {
   "bread": bread,
 };
 
-// Criar árvore de materiais
+// Create materials tree
 const materialsTree = new MaterialsTreeBuilder({
   productsList,
   productCode: "bread",
   initialQuantity: 10,
 }).build();
 
-// Acessar informações da árvore
-console.log(`Produto: ${materialsTree.bread.getName()}`);
-console.log(`Custo total: ${materialsTree.bread.getCalculatedCost()}`);
-console.log(`Peso total: ${materialsTree.bread.getChildrenWeight()}`);
+// Access tree information
+console.log(`Product: ${materialsTree.bread.getName()}`);
+console.log(`Total cost: ${materialsTree.bread.getCalculatedCost()}`);
+console.log(`Total weight: ${materialsTree.bread.getChildrenWeight()}`);
 
-// Percorrer a árvore
+// Traverse the tree
 import { TreeTraverser } from "./TreeTraverser";
 
 TreeTraverser.traverse(materialsTree, (node) => {
-  console.log(`Nó: ${node.getName()}, Nível: ${node.getLevel()}`);
+  console.log(`Node: ${node.getName()}, Level: ${node.getLevel()}`);
 });
 
-// Encontrar um nó específico
+// Find a specific node
 const flourNode = TreeTraverser.findNode(materialsTree, "flour");
 if (flourNode) {
-  console.log(`Quantidade de farinha: ${flourNode.getCalculatedQuantity()} kg`);
+  console.log(`Flour quantity: ${flourNode.getCalculatedQuantity()} kg`);
 }
 ```
 
-## Exemplo com Configurações Avançadas
+## Example with Advanced Configuration
 
 ```typescript
-// Configuração avançada usando o padrão Builder
+// Advanced configuration using the Builder pattern
 const advancedTree = new MaterialsTreeBuilder({
   productsList,
   productCode: "bread",
 })
   .setInitialQuantity(10)
-  .setMaxLevel(5) // Limitar profundidade da árvore
+  .setMaxLevel(5) // Limit tree depth
   .setExtraProperties({
     date: new Date(),
     batchNumber: "B12345",
@@ -106,18 +106,18 @@ const advancedTree = new MaterialsTreeBuilder({
   })
   .build();
 
-// Acessar propriedades extras
-console.log(`Data: ${advancedTree.bread.date}`);
-console.log(`Lote: ${advancedTree.bread.batchNumber}`);
+// Access extra properties
+console.log(`Date: ${advancedTree.bread.date}`);
+console.log(`Batch: ${advancedTree.bread.batchNumber}`);
 ```
 
-## Exemplo com Cálculos Personalizados
+## Example with Custom Calculations
 
 ```typescript
 import { Calculator } from "./services/Calculator";
 import { TreeNode } from "./models/TreeNode";
 
-// Estender a classe Calculator para adicionar cálculos personalizados
+// Extend the Calculator class to add custom calculations
 class CustomCalculator extends Calculator {
   static calculateProfit(node: TreeNode, sellingPrice: number): number {
     const cost = node.getCalculatedCost() || 0;
@@ -125,19 +125,19 @@ class CustomCalculator extends Calculator {
   }
 }
 
-// Usar o calculador personalizado
+// Use the custom calculator
 const breadNode = materialsTree.bread;
-const sellingPrice = 80; // Para 10 pães
+const sellingPrice = 80; // For 10 loaves
 const profit = CustomCalculator.calculateProfit(breadNode, sellingPrice);
-console.log(`Lucro: ${profit}`);
+console.log(`Profit: ${profit}`);
 ```
 
-## Exemplo com Validação Personalizada
+## Example with Custom Validation
 
 ```typescript
 import { TreeValidator } from "./services/TreeValidator";
 
-// Estender a classe TreeValidator para adicionar validações personalizadas
+// Extend the TreeValidator class to add custom validations
 class CustomValidator extends TreeValidator {
   static validateProfitMargin(
     node: TreeNode,
@@ -150,7 +150,7 @@ class CustomValidator extends TreeValidator {
     const margin = (sellingPrice - cost) / cost;
     if (margin < minMargin) {
       throw new Error(
-        `Margem de lucro insuficiente: ${margin * 100}% (mínimo: ${
+        `Insufficient profit margin: ${margin * 100}% (minimum: ${
           minMargin * 100
         }%)`,
       );
@@ -159,10 +159,10 @@ class CustomValidator extends TreeValidator {
   }
 }
 
-// Usar o validador personalizado
+// Use the custom validator
 try {
-  CustomValidator.validateProfitMargin(breadNode, sellingPrice, 0.3); // 30% de margem mínima
-  console.log("Margem de lucro válida!");
+  CustomValidator.validateProfitMargin(breadNode, sellingPrice, 0.3); // 30% minimum margin
+  console.log("Valid profit margin!");
 } catch (error) {
   console.error(error.message);
 }

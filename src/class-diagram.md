@@ -1,4 +1,4 @@
-# Diagrama de Classes para Refatoração do createMaterialsTree
+# Class Diagram for createMaterialsTree Refactoring
 
 ```mermaid
 classDiagram
@@ -38,7 +38,7 @@ classDiagram
         +Map~string, ITreeNode~? children
     }
 
-    %% Modelos de Dados
+    %% Data Models
     class Product {
         -string _id
         -string _name
@@ -104,7 +104,7 @@ classDiagram
         +toJSON(): object
     }
 
-    %% Serviços e Utilitários
+    %% Services and Utilities
     class Calculator {
         +static roundToThreeDecimals(value: number): number
         +static calculateItemCost(quantity: number, factor: number, unitCost: number): number
@@ -126,7 +126,7 @@ classDiagram
         +static generateNodePath(motherPath: string, id: string): string
     }
 
-    %% Construtores e Gerenciadores
+    %% Builders and Managers
     class MaterialsTreeBuilder {
         -Map~string, Product~ _productsList
         -string _productCode
@@ -158,7 +158,7 @@ classDiagram
         +static filterNode(node: TreeNode, filterFn: Function): TreeNode?
     }
 
-    %% Relações
+    %% Relationships
     IProduct <|.. Product
     IRecipeItem <|.. RecipeItem
     ITreeNode <|.. TreeNode
@@ -177,48 +177,48 @@ classDiagram
     TreeTraverser --> TreeNode : traverses
 ```
 
-## Descrição da Arquitetura
+## Architecture Description
 
-A arquitetura proposta segue os princípios SOLID e utiliza padrões de design
-como Builder e Strategy para criar uma solução modular e extensível.
+The proposed architecture follows SOLID principles and uses design patterns such
+as Builder and Strategy to create a modular and extensible solution.
 
-### Principais Componentes
+### Main Components
 
-1. **Modelos de Dados**
-   - `Product`: Representa um produto com todas suas propriedades e métodos
-     auxiliares
-   - `RecipeItem`: Representa um item de receita com quantidade e métodos de
-     cálculo
-   - `TreeNode`: Representa um nó na árvore de materiais, com propriedades
-     calculadas
+1. **Data Models**
+   - `Product`: Represents a product with all its properties and helper methods
+   - `RecipeItem`: Represents a recipe item with quantity and calculation
+     methods
+   - `TreeNode`: Represents a node in the materials tree, with calculated
+     properties
 
-2. **Serviços e Utilitários**
-   - `Calculator`: Centraliza todos os cálculos de custo e peso
-   - `TreeValidator`: Realiza validações em diferentes níveis da árvore
-   - `Utils`: Fornece funções utilitárias como arredondamento e geração de IDs
+2. **Services and Utilities**
+   - `Calculator`: Centralizes all cost and weight calculations
+   - `TreeValidator`: Performs validations at different levels of the tree
+   - `Utils`: Provides utility functions such as rounding and ID generation
 
-3. **Construtores e Gerenciadores**
-   - `MaterialsTreeBuilder`: Implementa o padrão Builder para construção da
-     árvore
-   - `NodeProcessor`: Processa nós individuais e gerencia a recursão
-   - `TreeTraverser`: Fornece métodos para percorrer e manipular a árvore
+3. **Builders and Managers**
+   - `MaterialsTreeBuilder`: Implements the Builder pattern for tree
+     construction
+   - `NodeProcessor`: Processes individual nodes and manages recursion
+   - `TreeTraverser`: Provides methods to traverse and manipulate the tree
 
-### Fluxo de Execução
+### Execution Flow
 
-1. O cliente instancia um `MaterialsTreeBuilder` com os parâmetros necessários
-2. O builder configura as opções e delega a criação da árvore para o
+1. The client instantiates a `MaterialsTreeBuilder` with the necessary
+   parameters
+2. The builder configures the options and delegates tree creation to the
    `NodeProcessor`
-3. O `NodeProcessor` cria o nó raiz e processa recursivamente os filhos
-4. O `Calculator` é usado para realizar cálculos de custo e peso
-5. O `TreeValidator` valida a estrutura em diferentes pontos
-6. O resultado final é uma árvore de objetos `TreeNode` que pode ser convertida
-   para JSON
+3. The `NodeProcessor` creates the root node and recursively processes the
+   children
+4. The `Calculator` is used to perform cost and weight calculations
+5. The `TreeValidator` validates the structure at different points
+6. The final result is a tree of `TreeNode` objects that can be converted to
+   JSON
 
-### Vantagens da Nova Arquitetura
+### Advantages of the New Architecture
 
-1. **Separação de Responsabilidades**: Cada classe tem uma responsabilidade
-   única
-2. **Extensibilidade**: Fácil adicionar novos tipos de cálculos ou validações
-3. **Testabilidade**: Classes pequenas e focadas são mais fáceis de testar
-4. **Manutenibilidade**: Código mais organizado e legível
-5. **Reutilização**: Componentes podem ser reutilizados em outros contextos
+1. **Separation of Concerns**: Each class has a single responsibility
+2. **Extensibility**: Easy to add new types of calculations or validations
+3. **Testability**: Small, focused classes are easier to test
+4. **Maintainability**: More organized and readable code
+5. **Reusability**: Components can be reused in other contexts

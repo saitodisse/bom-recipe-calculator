@@ -1,32 +1,32 @@
-# Testes da Refatoração do BOM Recipe Calculator
+# BOM Recipe Calculator Refactoring Tests
 
-Este diretório contém os testes unitários e de integração para a refatoração do
-módulo de cálculo de receitas (Bill of Materials).
+This directory contains unit and integration tests for the refactoring of the
+recipe calculation module (Bill of Materials).
 
-## Estrutura de Diretórios
+## Directory Structure
 
-Os testes estão organizados nas seguintes categorias:
+The tests are organized into the following categories:
 
-- **models**: Testes para as classes de modelo (Product, TreeNode, etc.)
-- **services**: Testes para os serviços (Calculator, TreeValidator, Utils, etc.)
-- **builders**: Testes para os construtores (MaterialsTreeBuilder, etc.)
-- **traversers**: Testes para os traversers (TreeTraverser, etc.)
-- **integration**: Testes de integração para o fluxo completo
+- **models**: Tests for model classes (Product, TreeNode, etc.)
+- **services**: Tests for services (Calculator, TreeValidator, Utils, etc.)
+- **builders**: Tests for builders (MaterialsTreeBuilder, etc.)
+- **traversers**: Tests for traversers (TreeTraverser, etc.)
+- **integration**: Integration tests for the complete flow
 
-## Dados de Teste
+## Test Data
 
-O arquivo `testData.ts` contém dados de teste compartilhados entre os diferentes
-testes, incluindo:
+The `testData.ts` file contains test data shared between different tests,
+including:
 
-- Produtos de exemplo (farinha, água, sal, fermento)
-- Produtos semi-acabados (massa)
-- Produtos finais (pão)
-- Produtos para testar dependências circulares
-- Resultados esperados para validação
+- Example products (flour, water, salt, yeast)
+- Semi-finished products (dough)
+- Final products (bread)
+- Products for testing circular dependencies
+- Expected results for validation
 
-## Como Executar os Testes
+## How to Run the Tests
 
-### Executar Todos os Testes
+### Run All Tests
 
 #### Windows (PowerShell)
 
@@ -46,21 +46,21 @@ run_all_tests.bat
 ./run_all_tests.sh
 ```
 
-### Executar Testes Específicos
+### Run Specific Tests
 
 #### Windows (PowerShell)
 
 ```powershell
-# Versão padrão
+# Standard version
 .\run_tests.ps1
 
-# Versão compacta
+# Compact version
 .\run_tests_compact.ps1
 
-# Versão ultra-compacta (todos os testes em uma linha)
+# Ultra-compact version (all tests in one line)
 .\run_tests_oneline.ps1
 
-# Executar apenas testes que estão passando
+# Run only passing tests
 .\run_passing_tests.ps1
 ```
 
@@ -76,24 +76,24 @@ run_tests.bat
 ./run_tests.sh
 ```
 
-### Executar um Teste Individual
+### Run an Individual Test
 
 ```
-deno test --allow-all src/refactoring/tests/[categoria]/[NomeDoArquivo].test.ts
+deno test --allow-all src/refactoring/tests/[category]/[FileName].test.ts
 ```
 
-Exemplo:
+Example:
 
 ```
 deno test --allow-all src/refactoring/tests/traversers/TreeTraverser.test.ts
 ```
 
-## Requisitos
+## Requirements
 
-- Deno runtime (versão 1.x ou superior)
+- Deno runtime (version 1.x or higher)
 
-## Convenções de Nomenclatura
+## Naming Conventions
 
-- Arquivos de teste: `[NomeClasse].test.ts`
-- Funções de teste:
-  `Deno.test("[NomeClasse].[método] should [comportamento esperado]", () => { ... })`
+- Test files: `[ClassName].test.ts`
+- Test functions:
+  `Deno.test("[ClassName].[method] should [expected behavior]", () => { ... })`
