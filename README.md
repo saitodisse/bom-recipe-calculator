@@ -1,12 +1,17 @@
 # BOM Recipe Calculator
 
-A Bill of Materials (BOM) recipe calculator for nested product recipes. Calculate costs and weights for complex product recipes with multiple levels of ingredients.
+A Bill of Materials (BOM) recipe calculator for nested product recipes.
+Calculate costs and weights for complex product recipes with multiple levels of
+ingredients.
 
 ## example
 
 ### fresh site
+
 - TODO
+
 ### cloudfare
+
 - https://saitodisse.bom-recipe-calculator.workers.dev/
 
 ## Features
@@ -17,6 +22,7 @@ A Bill of Materials (BOM) recipe calculator for nested product recipes. Calculat
 - Pure functional approach with no side effects
 - TypeScript support with full type definitions
 - Deno/JSR compatible
+- Object-oriented refactored implementation with Builder pattern
 
 ## Installation
 
@@ -26,83 +32,68 @@ import { createMaterialsTree } from "jsr:@saitodisse/bom-recipe-calculator";
 
 ## Usage
 
+The library now offers a refactored object-oriented implementation with improved
+architecture and flexibility.
+
+#### Using MaterialsTreeBuilder
+
 ```ts
-import { createMaterialsTree } from "jsr:@saitodisse/bom-recipe-calculator";
+import { MaterialsTreeBuilder } from "jsr:@saitodisse/bom-recipe-calculator/refactoring";
 
 // Define your products with their recipes
 const products = {
-  "cheeseburger": {
-    code: "cheeseburger",
-    name: "Cheeseburger",
-    unit: "UN",
-    weight: 0.180,
-    purchaseQuoteValue: 12.90,
-    recipe: [
-      { code: "bun", quantity: 1 },
-      { code: "patty", quantity: 1 },
-      { code: "cheese", quantity: 1 }
-    ]
+  "flour": {
+    id: "flour",
+    name: "Wheat Flour",
+    category: "m",
+    unit: "KG",
+    weight: 1,
+    purchaseQuoteValue: 2.5,
+    recipe: null,
   },
-  // ... other products
+  "water": {
+    id: "water",
+    name: "Water",
+    category: "m",
+    unit: "L",
+    weight: 1,
+    purchaseQuoteValue: 0.5,
+    recipe: null,
+  },
+  "dough": {
+    id: "dough",
+    name: "Basic Dough",
+    category: "s",
+    unit: "KG",
+    weight: 2,
+    purchaseQuoteValue: null,
+    recipe: [
+      { id: "flour", quantity: 1 },
+      { id: "water", quantity: 0.5 },
+    ],
+  },
 };
 
-// Calculate recipe tree for 5 cheeseburgers
-const recipeTree = createMaterialsTree({
+// Create a builder for the materials tree
+const builder = new MaterialsTreeBuilder({
   productsList: products,
-  productCode: "cheeseburger",
-  initialQuantity: 5
+  productCode: "dough",
+  initialQuantity: 2,
 });
 
+// Build the tree
+const tree = builder.build();
+
 // Access calculated values
-console.log(recipeTree.cheeseburger.childrenWeight); // Total weight
-console.log(recipeTree.cheeseburger.calculatedCost); // Total cost
-console.log(recipeTree.cheeseburger.children.patty.calculatedQuantity); // Quantity needed
+console.log(tree["dough"].name); // "Basic Dough"
+console.log(tree["dough"].calculatedQuantity); // 2
+console.log(tree["dough"].children?.["flour"].calculatedQuantity); // 2
 ```
 
-## API
-
-### createMaterialsTree
-
-Main function to create a recipe calculation tree.
-
 ```ts
-function createMaterialsTree(params: createMaterialsTreeParams): RecipeNode
-```
-
-Parameters:
-- `productsList`: Map of all available products
-- `productCode`: Code of the product to calculate
-- `initialQuantity`: Initial quantity to calculate (default: 1)
-- `extraPropertiesForMother`: Additional properties to add to the root node
-
-### Types
-
-```ts
-interface Product {
-  code: string;
-  name: string;
-  unit: ProductUnitIds;
-  weight?: number;
-  purchaseQuoteValue: number;
-  recipe?: RecipeArray;
-}
-
-type RecipeArray = {
-  code: string;
-  quantity: number;
-}[];
-
-interface RecipeNode {
-  [code: string]: {
-    name: string;
-    unit: string;
-    calculatedQuantity: number;
-    childrenWeight: number;
-    calculatedCost: number;
-    children?: RecipeNode;
-    // ... other properties
-  };
-}
+import { MaterialsTreeBuilder } from "jsr:@saitodisse/bom-recipe-calculator/refactoring";
+const builder = new MaterialsTreeBuilder(params);
+const tree = builder.build();
 ```
 
 ## License
