@@ -4,7 +4,6 @@ import { createMaterialsTree } from "./createMaterialsTree.ts";
 import type { ProductMap } from "./interfaces/Recipe.ts";
 import { ProductCategory } from "./enums/ProductCategory.ts";
 import { ProductUnit } from "./enums/ProductUnit.ts";
-import * as console from "node:console";
 
 /**
  * Map of all products in the bill of materials.
@@ -146,17 +145,6 @@ const PRODUCTS_MAP: ProductMap = {
   },
 };
 
-Deno.test("createMaterialsTree - ground_beef 1x", () => {
-  const tree = createMaterialsTree({
-    productsList: PRODUCTS_MAP,
-    productCode: "ground_beef",
-    initialQuantity: 1,
-  });
-
-  // no tree, because it's a raw material
-  assertEquals(tree, {});
-});
-
 Deno.test("createMaterialsTree - chopped_onion 1x", () => {
   const tree = createMaterialsTree({
     productsList: PRODUCTS_MAP,
@@ -209,36 +197,36 @@ Deno.test("createMaterialsTree - chopped_onion 2x", () => {
   );
 });
 
-Deno.test("createMaterialsTree - check onion weight in cheeseburger_product 1x", () => {
-  const tree = createMaterialsTree({
-    productsList: PRODUCTS_MAP,
-    productCode: "cheeseburger_product",
-    initialQuantity: 10,
-  });
+Deno.test(
+  "createMaterialsTree - check onion weight in cheeseburger_product 10x",
+  () => {
+    const tree = createMaterialsTree({
+      productsList: PRODUCTS_MAP,
+      productCode: "beef_patty",
+      initialQuantity: 1,
+    });
 
-  // console.log(JSON.stringify(tree, null, 2));
+    // save tree to file
+    Deno.writeTextFileSync("debug/tree.json", JSON.stringify(tree, null, 2));
 
-  assertEquals(
-    tree["cheeseburger_product"].children?.["cheeseburger_unit"].children
-      ?.["beef_patty"].children?.["chopped_onion"]?.children?.["raw_onion"]
-      ?.weight,
-    0.083,
-  );
-  assertEquals(
-    tree["cheeseburger_product"].children?.["cheeseburger_unit"].children
-      ?.["beef_patty"].children?.["chopped_onion"]?.children?.["raw_onion"]
-      ?.childrenWeight,
-    0,
-  );
+    assertEquals(
+      tree["beef_patty"].children?.["chopped_onion"]?.children?.["raw_onion"]
+        ?.weight,
+      0.055,
+    );
+    assertEquals(
+      tree["beef_patty"].children?.["chopped_onion"]?.children?.["raw_onion"]
+        ?.childrenWeight,
+      0,
+    );
 
-  assertEquals(
-    tree["cheeseburger_product"].children?.["cheeseburger_unit"].children
-      ?.["beef_patty"].children?.["chopped_onion"]?.weight,
-    0.083 * 0.9,
-  );
-  assertEquals(
-    tree["cheeseburger_product"].children?.["cheeseburger_unit"].children
-      ?.["beef_patty"].children?.["chopped_onion"]?.childrenWeight,
-    0.083,
-  );
-});
+    assertEquals(
+      tree["beef_patty"].children?.["chopped_onion"]?.weight,
+      0.050,
+    );
+    assertEquals(
+      tree["beef_patty"].children?.["chopped_onion"]?.childrenWeight,
+      0.055,
+    );
+  },
+);

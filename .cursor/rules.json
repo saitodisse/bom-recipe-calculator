@@ -1,0 +1,115 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "name": "TypeScript Strict Mode",
+      "description": "Enforce TypeScript strict mode for type safety",
+      "pattern": "*.ts",
+      "guidelines": [
+        "Use strict TypeScript typing with explicit type annotations",
+        "Avoid using 'any' type when possible",
+        "Use interfaces for complex object structures",
+        "Use type aliases for simpler types or unions"
+      ]
+    },
+    {
+      "name": "Debug Logging Format",
+      "description": "Follow the project's debug logging format",
+      "pattern": "*.ts",
+      "guidelines": [
+        "Use the debug() function for logging debug information",
+        "Format debug messages with [DEBUG][LINE_NUMBER] prefix",
+        "Use debugError() for error messages",
+        "Keep DEBUG_ENABLED flag for toggling debug output"
+      ]
+    },
+    {
+      "name": "Documentation Standards",
+      "description": "Follow consistent documentation standards",
+      "pattern": "*.ts",
+      "guidelines": [
+        "Use JSDoc comments for functions, interfaces, and classes",
+        "Document parameters with @param tags",
+        "Document return values with @returns tags",
+        "Document exceptions with @throws tags",
+        "Use inline comments for complex logic"
+      ]
+    },
+    {
+      "name": "Naming Conventions",
+      "description": "Follow consistent naming conventions",
+      "pattern": "*.ts",
+      "guidelines": [
+        "Use camelCase for variables, parameters, and function names",
+        "Use PascalCase for interfaces, types, and enums",
+        "Use descriptive names that indicate purpose",
+        "Prefix boolean variables with 'is', 'has', or similar"
+      ]
+    },
+    {
+      "name": "Function Structure",
+      "description": "Follow consistent function structure",
+      "pattern": "*.ts",
+      "guidelines": [
+        "Keep functions focused on a single responsibility",
+        "Use early returns for validation and error handling",
+        "Document complex calculations with comments",
+        "Use helper functions for repeated logic"
+      ]
+    },
+    {
+      "name": "Error Handling",
+      "description": "Follow consistent error handling practices",
+      "pattern": "*.ts",
+      "guidelines": [
+        "Validate input parameters at the beginning of functions",
+        "Throw descriptive error messages",
+        "Use debugError() for logging errors",
+        "Handle edge cases explicitly"
+      ]
+    },
+    {
+      "name": "Testing Standards",
+      "description": "Follow consistent testing standards",
+      "pattern": "*_test.ts",
+      "guidelines": [
+        "Test both normal and edge cases",
+        "Use descriptive test names",
+        "Structure tests with arrange-act-assert pattern",
+        "Test error conditions"
+      ]
+    },
+    {
+      "name": "Numeric Precision",
+      "description": "Handle numeric precision consistently",
+      "pattern": "*.ts",
+      "guidelines": [
+        "Use roundToThreeDecimals() for weight and cost calculations",
+        "Be aware of floating-point precision issues",
+        "Document precision requirements in comments"
+      ]
+    },
+    {
+      "name": "Deno Compatibility",
+      "description": "Ensure code is compatible with Deno runtime",
+      "pattern": "*.ts",
+      "guidelines": [
+        "Use Deno-compatible imports",
+        "Follow Deno best practices",
+        "Use /// <reference lib=\"deno.ns\" /> when needed",
+        "Avoid Node.js-specific APIs when possible"
+      ]
+    },
+    {
+      "name": "PowerShell Command Formatting",
+      "description": "Format PowerShell commands consistently",
+      "pattern": "*.ps1",
+      "guidelines": [
+        "Split multiple PowerShell commands using semicolons (;)",
+        "Avoid using line breaks or pipes for command separation when possible",
+        "Use semicolons for commands in terminal tool calls",
+        "Format complex commands with proper indentation for readability"
+      ]
+    }
+  ]
+} 

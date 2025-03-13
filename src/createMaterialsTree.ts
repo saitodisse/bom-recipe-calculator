@@ -1,3 +1,5 @@
+/// <reference lib="deno.ns" />
+import { debug, debugError } from "./debug.ts";
 import { ProductUnit } from "./enums/ProductUnit.ts";
 import type {
   createMaterialsTreeParams,
@@ -39,12 +41,16 @@ export function createMaterialsTree(
 ): RecipeNode {
   // Input validation
   if (!productsList || !productCode) {
+    debugError(
+      `[d] Missing required parameters: productsList=${!!productsList}, productCode=${productCode}`,
+    );
     throw new Error("Required parameters not provided");
   }
 
   // Get product from list
   const product = productsList[productCode];
   if (!product) {
+    debugError(`[d] Product not found: ${productCode}`);
     throw new Error(`Product not found: ${productCode}`);
   }
 
@@ -71,16 +77,21 @@ export function createMaterialsTree(
 
     for (const curr of values) {
       // Verify if current item exists and is an object
-      if (!curr || typeof curr !== "object") continue;
+      if (!curr || typeof curr !== "object") {
+        continue;
+      }
 
       const item = curr as { quantity?: number; id: string };
       const itemProduct = productsList[item.id];
 
       // Verify if product exists in products list
-      if (!itemProduct) continue;
+      if (!itemProduct) {
+        continue;
+      }
 
       // Process item
       const { id, quantity } = item;
+
       const productId = `${id}_${motherId}`;
       const path = `${motherPath}.children.${id}`;
       const numericQuantity = Number(quantity);
@@ -118,6 +129,7 @@ export function createMaterialsTree(
       if (children && Object.keys(children).length > 0) {
         Object.values(children).forEach((child) => {
           if (!child) return;
+
           childrenWeight += roundToThreeDecimals(child.childrenWeight || 0);
           childrenCost += roundToThreeDecimals(child.calculatedCost || 0);
         });
@@ -145,6 +157,7 @@ export function createMaterialsTree(
   }
 
   // This is the root call (level 0)
+
   // Process children recursively
   const children = createMaterialsTree(
     { productsList, productCode, initialQuantity: 1 },
@@ -187,18 +200,22 @@ export function createMaterialsTree(
         childrenWeight = roundToThreeDecimals(
           Object.values(children).reduce((acc, child) => {
             if (!child) return acc;
+
             return acc + (child.childrenWeight || 0);
           }, 0),
         );
       }
     } else {
       // For products in KG, sum children's weights directly
+
       childrenWeight = roundToThreeDecimals(
         Object.values(children).reduce((acc, child) => {
           if (!child) return acc;
+
           return acc + (child.weight || 0);
         }, 0),
       );
+
       // Get weight like calculatedFactor
       weight = Number(initialQuantity);
     }
@@ -249,5 +266,6 @@ export function createMaterialsTree(
  * @returns The rounded number
  */
 export function roundToThreeDecimals(value: number): number {
-  return Math.round(value * 1000) / 1000;
+  const rounded = Math.round(value * 1000) / 1000;
+  return rounded;
 }
