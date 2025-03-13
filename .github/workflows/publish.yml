@@ -1,16 +1,19 @@
-name: Publish to JSR
-
+name: Publish
 on:
   push:
-    tags:
-      - '*'
+    branches:
+      - main
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+
     permissions:
       contents: read
       id-token: write
+
     steps:
       - uses: actions/checkout@v4
-      - uses: jsr-io/publish-action@v1
+
+      - name: Publish package
+        run: npx jsr publish
