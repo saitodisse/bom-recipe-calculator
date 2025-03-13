@@ -12,7 +12,7 @@ ingredients.
 
 ### Cloudflare
 
-- https://saitodisse.bom-recipe-calculator.workers.dev/
+- [deprecated] https://saitodisse.bom-recipe-calculator.workers.dev/ (TODO: fix)
 
 ## Features
 
@@ -27,7 +27,8 @@ ingredients.
 ## Installation
 
 ```ts
-import { createMaterialsTree } from "jsr:@saitodisse/bom-recipe-calculator";
+// TODO: fix
+// import { createMaterialsTree } from "jsr:@saitodisse/bom-recipe-calculator";
 ```
 
 ## Usage
