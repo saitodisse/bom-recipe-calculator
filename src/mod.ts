@@ -1,27 +1,29 @@
-// Core functionality
-export { createMaterialsTree } from "./createMaterialsTree.ts";
+/**
+ * Bill of Materials Recipe Calculator
+ * A library for calculating costs and weights in product recipes.
+ *
+ * This is the main entry point for the refactored version using classes.
+ */
 
-// Types and interfaces
-export type {
-  createMaterialsTreeParams,
-  Product,
-  ProductMap,
-  RecipeArray,
-  RecipeNode,
-} from "./interfaces/Recipe.ts";
+// Export models
+export { Product } from "./models/Product";
+export { RecipeItem } from "./models/RecipeItem";
+export { TreeNode } from "./models/TreeNode";
 
-// Enums
-export {
-  ProductCategory,
-  type ProductCategoryEntry,
-  type ProductCategoryId,
-} from "./enums/ProductCategory.ts";
+// Export services
+export { Calculator } from "./services/Calculator";
+export { TreeValidator } from "./services/TreeValidator";
+export { Utils } from "./services/Utils";
 
-export {
-  ProductUnit,
-  type ProductUnitEntry,
-  type ProductUnitId,
-} from "./enums/ProductUnit.ts";
+// Export builders
+export { MaterialsTreeBuilder } from "./builders/MaterialsTreeBuilder";
+export { NodeProcessor } from "./builders/NodeProcessor";
 
-// Utility types
-export type { Maybe } from "./interfaces/Maybe.ts";
+// Export traversers
+export { TreeTraverser } from "./traversers/TreeTraverser";
+
+// Export interfaces
+export type { IProduct } from "./interfaces/IProduct";
+export type { IRecipeItem } from "./interfaces/IRecipeItem";
+export type { ITreeNode } from "./interfaces/ITreeNode";
+export type { ICreateMaterialsTreeParams } from "./interfaces/ICreateMaterialsTreeParams";

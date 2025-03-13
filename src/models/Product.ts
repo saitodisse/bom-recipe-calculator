@@ -1,7 +1,7 @@
-import type { ProductCategoryId } from "../../enums/ProductCategory";
-import { ProductUnit, type ProductUnitId } from "../../enums/ProductUnit";
-import type { IProduct } from "../interfaces/IProduct";
-import { RecipeItem } from "./RecipeItem";
+import type { ProductCategoryId } from "../interfaces/ProductCategory.ts";
+import { ProductUnit, type ProductUnitId } from "../interfaces/ProductUnit.ts";
+import type { IProduct } from "../interfaces/IProduct.ts";
+import { RecipeItem } from "./RecipeItem.ts";
 
 /**
  * Class representing a product in the bill of materials system.

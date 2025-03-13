@@ -1,6 +1,6 @@
-import { ProductCategory } from "../../enums/ProductCategory";
-import { ProductUnit } from "../../enums/ProductUnit";
-import type { IProduct } from "../interfaces/IProduct";
+import { ProductCategory } from "../interfaces/ProductCategory.ts";
+import { ProductUnit } from "../interfaces/ProductUnit.ts";
+import type { IProduct } from "../interfaces/IProduct.ts";
 
 /**
  * Test data for unit tests.

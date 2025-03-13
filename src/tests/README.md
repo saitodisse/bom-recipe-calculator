@@ -11,7 +11,6 @@ Os testes estão organizados nas seguintes categorias:
 - **services**: Testes para os serviços (Calculator, TreeValidator, Utils, etc.)
 - **builders**: Testes para os construtores (MaterialsTreeBuilder, etc.)
 - **traversers**: Testes para os traversers (TreeTraverser, etc.)
-- **adapters**: Testes para os adaptadores (LegacyAdapter, etc.)
 - **integration**: Testes de integração para o fluxo completo
 
 ## Dados de Teste

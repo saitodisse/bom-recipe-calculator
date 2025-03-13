@@ -6,31 +6,24 @@
  */
 
 // Export models
-export { Product } from "./models/Product";
-export { RecipeItem } from "./models/RecipeItem";
-export { TreeNode } from "./models/TreeNode";
+export { Product } from "./models/Product.ts";
+export { RecipeItem } from "./models/RecipeItem.ts";
+export { TreeNode } from "./models/TreeNode.ts";
 
 // Export services
-export { Calculator } from "./services/Calculator";
-export { TreeValidator } from "./services/TreeValidator";
-export { Utils } from "./services/Utils";
+export { Calculator } from "./services/Calculator.ts";
+export { TreeValidator } from "./services/TreeValidator.ts";
+export { Utils } from "./services/Utils.ts";
 
 // Export builders
-export { MaterialsTreeBuilder } from "./builders/MaterialsTreeBuilder";
-export { NodeProcessor } from "./builders/NodeProcessor";
+export { MaterialsTreeBuilder } from "./builders/MaterialsTreeBuilder.ts";
+export { NodeProcessor } from "./builders/NodeProcessor.ts";
 
 // Export traversers
-export { TreeTraverser } from "./traversers/TreeTraverser";
-
-// Export adapters
-export { LegacyAdapter } from "./adapters/LegacyAdapter";
+export { TreeTraverser } from "./traversers/TreeTraverser.ts";
 
 // Export interfaces
-export type { IProduct } from "./interfaces/IProduct";
-export type { IRecipeItem } from "./interfaces/IRecipeItem";
-export type { ITreeNode } from "./interfaces/ITreeNode";
-export type { ICreateMaterialsTreeParams } from "./interfaces/ICreateMaterialsTreeParams";
-
-// Export legacy function for backward compatibility
-import { LegacyAdapter } from "./adapters/LegacyAdapter";
-export const createMaterialsTree = LegacyAdapter.createMaterialsTree;
+export type { IProduct } from "./interfaces/IProduct.ts";
+export type { IRecipeItem } from "./interfaces/IRecipeItem.ts";
+export type { ITreeNode } from "./interfaces/ITreeNode.ts";
+export type { ICreateMaterialsTreeParams } from "./interfaces/ICreateMaterialsTreeParams.ts";

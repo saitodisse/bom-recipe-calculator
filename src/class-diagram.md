@@ -158,12 +158,6 @@ classDiagram
         +static filterNode(node: TreeNode, filterFn: Function): TreeNode?
     }
 
-    %% Adaptadores
-    class LegacyAdapter {
-        +static createMaterialsTree(params: ICreateMaterialsTreeParams, ...args): object
-        -static convertToLegacyFormat(node: TreeNode): object
-    }
-
     %% Relações
     IProduct <|.. Product
     IRecipeItem <|.. RecipeItem
@@ -180,7 +174,6 @@ classDiagram
     NodeProcessor --> Product : processes
     NodeProcessor --> RecipeItem : processes
     
-    LegacyAdapter --> MaterialsTreeBuilder : uses
     TreeTraverser --> TreeNode : traverses
 ```
 
@@ -209,9 +202,6 @@ como Builder e Strategy para criar uma solução modular e extensível.
      árvore
    - `NodeProcessor`: Processa nós individuais e gerencia a recursão
    - `TreeTraverser`: Fornece métodos para percorrer e manipular a árvore
-
-4. **Adaptadores**
-   - `LegacyAdapter`: Mantém compatibilidade com a API antiga
 
 ### Fluxo de Execução
 

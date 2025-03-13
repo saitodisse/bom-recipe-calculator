@@ -2,8 +2,8 @@
 import { assertEquals } from "jsr:@std/assert";
 import { assertThrows } from "jsr:@std/assert";
 import { Product } from "../../models/Product.ts";
-import { ProductCategory } from "../../../enums/ProductCategory.ts";
-import { ProductUnit } from "../../../enums/ProductUnit.ts";
+import { ProductCategory } from "../../interfaces/ProductCategory.ts";
+import { ProductUnit } from "../../interfaces/ProductUnit.ts";
 import { testData } from "../testData.ts";
 
 /**

@@ -89,23 +89,6 @@ if (flourNode) {
 }
 ```
 
-## Exemplo com Adaptador de Compatibilidade
-
-```typescript
-import { LegacyAdapter } from "./adapters/LegacyAdapter";
-
-// Usar a API antiga
-const legacyTree = LegacyAdapter.createMaterialsTree({
-  productsList,
-  productCode: "bread",
-  initialQuantity: 10,
-});
-
-// O resultado é compatível com o formato antigo
-console.log(legacyTree.bread.calculatedCost);
-console.log(legacyTree.bread.children.dough.calculatedQuantity);
-```
-
 ## Exemplo com Configurações Avançadas
 
 ```typescript
