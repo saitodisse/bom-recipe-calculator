@@ -12,7 +12,8 @@ ingredients.
 
 ### Cloudflare
 
-- [deprecated] https://saitodisse.bom-recipe-calculator.workers.dev/ (TODO: fix)
+- https://saitodisse.bom-recipe-calculator.workers.dev/?quantity=10 - _you can
+  change quantity query string to change the quantity of the product_
 
 ## Features
 
@@ -27,8 +28,10 @@ ingredients.
 ## Installation
 
 ```ts
-// TODO: fix
-// import { createMaterialsTree } from "jsr:@saitodisse/bom-recipe-calculator";
+// deno
+deno add jsr:@saitodisse/bom-recipe-calculator
+// npm
+npx jsr add @saitodisse/bom-recipe-calculator
 ```
 
 ## Usage
@@ -39,15 +42,20 @@ architecture and flexibility.
 #### Using MaterialsTreeBuilder
 
 ```ts
-import { MaterialsTreeBuilder } from "jsr:@saitodisse/bom-recipe-calculator/refactoring";
+import {
+  IProduct,
+  MaterialsTreeBuilder,
+  ProductCategory,
+  ProductUnit,
+} from "jsr:@saitodisse/bom-recipe-calculator";
 
 // Define your products with their recipes
-const products = {
+const products: Record<string, IProduct> = {
   "flour": {
     id: "flour",
     name: "Wheat Flour",
-    category: "m",
-    unit: "KG",
+    category: ProductCategory.m.id,
+    unit: ProductUnit.KG.id,
     weight: 1,
     purchaseQuoteValue: 2.5,
     recipe: null,
@@ -55,8 +63,8 @@ const products = {
   "water": {
     id: "water",
     name: "Water",
-    category: "m",
-    unit: "L",
+    category: ProductCategory.m.id,
+    unit: ProductUnit.L.id,
     weight: 1,
     purchaseQuoteValue: 0.5,
     recipe: null,
@@ -64,8 +72,8 @@ const products = {
   "dough": {
     id: "dough",
     name: "Basic Dough",
-    category: "s",
-    unit: "KG",
+    category: ProductCategory.s.id,
+    unit: ProductUnit.KG.id,
     weight: 2,
     purchaseQuoteValue: null,
     recipe: [
