@@ -1,7 +1,6 @@
 /// <reference lib="deno.ns" />
 import { assertEquals } from "jsr:@std/assert";
 import { Calculator } from "../../services/Calculator.ts";
-import { ProductUnit } from "../../../enums/ProductUnit.ts";
 
 /**
  * Tests for the Calculator class.
