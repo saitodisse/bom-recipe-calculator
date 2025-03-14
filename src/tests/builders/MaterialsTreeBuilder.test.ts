@@ -87,6 +87,8 @@ Deno.test(
     assertEquals(tree.motherFactor, 1);
     assertEquals(tree.originalQuantity, 1);
     assertEquals(tree.calculatedQuantity, 1);
+    assertEquals(tree.weight, 1);
+    assertEquals(tree.childrenWeight, 1.205);
 
     // Verify children exist
     assertEquals(tree.children !== null, true);
@@ -102,6 +104,7 @@ Deno.test(
     assertEquals(flourChild?.quantity, 0.5);
     assertEquals(flourChild?.calculatedQuantity, 0.5);
     assertEquals(flourChild?.weight, 0.5);
+    assertEquals(flourChild?.childrenWeight, 0);
 
     // Verify water child
     const waterChild = tree.children?.["water"];
@@ -111,6 +114,7 @@ Deno.test(
     assertEquals(waterChild?.quantity, 0.7);
     assertEquals(waterChild?.calculatedQuantity, 0.7);
     assertEquals(waterChild?.weight, 0.7);
+    assertEquals(waterChild?.childrenWeight, 0);
   },
 );
 
