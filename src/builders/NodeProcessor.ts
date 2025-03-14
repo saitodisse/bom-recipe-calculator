@@ -149,15 +149,20 @@ export class NodeProcessor {
     // Calculate item's own cost and weight
     const originalCost = product.purchaseQuoteValue;
     const itemCost = Calculator.calculateItemCost(
-      item.quantity,
-      motherFactor,
-      originalCost || 0,
+      {
+        quantity: item.quantity,
+        factor: motherFactor,
+        unitCost: originalCost || 0,
+      },
     );
 
     const itemWeight = Calculator.calculateItemWeight(
-      item.quantity,
-      motherFactor,
-      product.weight || 0,
+      {
+        quantity: item.quantity,
+        factor: motherFactor,
+        customWeight: product.weight || 0,
+        unit: product.unit,
+      },
     );
 
     // Process children recursively if they exist

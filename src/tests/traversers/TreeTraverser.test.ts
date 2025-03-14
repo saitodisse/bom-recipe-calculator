@@ -86,13 +86,13 @@ Deno.test("TreeTraverser.mapNodes - should map all nodes in the tree", () => {
 });
 
 Deno.test(
-  "TreeTraverser.filterNodes - should filter nodes in the tree",
+  "TreeTraverser.filterNodes - should filter nodes based on a predicate",
   () => {
     const tree = createTestTree();
 
-    // Filter to keep only nodes with weight > 0.1
+    // Filter to exclude salt and yeast nodes
     const filteredTree = TreeTraverser.filterNodes(tree, (node: TreeNode) => {
-      return node.weight > 0.1;
+      return node.id !== "salt" && node.id !== "yeast";
     });
 
     // Verify the filtering
@@ -114,12 +114,15 @@ Deno.test(
         true,
       );
 
-      // Salt and yeast should be filtered out (weight <= 0.1)
+      // Salt and yeast should be filtered out
       assertEquals(
         filteredTree["bread"].children?.["dough"].children?.["salt"] ===
-            undefined ||
-          filteredTree["bread"].children?.["dough"].children?.["salt"].weight <=
-            0.1,
+          undefined,
+        true,
+      );
+      assertEquals(
+        filteredTree["bread"].children?.["dough"].children?.["yeast"] ===
+          undefined,
         true,
       );
     }

@@ -14,37 +14,182 @@ Deno.test("Calculator.roundToThreeDecimals - should round a number to three deci
 });
 
 Deno.test("Calculator.calculateItemCost - should calculate cost correctly", () => {
-  assertEquals(Calculator.calculateItemCost(2, 3, 5), 30);
-  assertEquals(Calculator.calculateItemCost(0, 5, 10), 0);
-  assertEquals(Calculator.calculateItemCost(5, 0, 10), 0);
-  assertEquals(Calculator.calculateItemCost(5, 2, 0), 0);
-  assertEquals(Calculator.calculateItemCost(1.5, 2, 3), 9);
+  assertEquals(
+    Calculator.calculateItemCost({ quantity: 2, factor: 3, unitCost: 5 }),
+    30,
+  );
+  assertEquals(
+    Calculator.calculateItemCost({ quantity: 0, factor: 5, unitCost: 10 }),
+    0,
+  );
+  assertEquals(
+    Calculator.calculateItemCost({ quantity: 5, factor: 0, unitCost: 10 }),
+    0,
+  );
+  assertEquals(
+    Calculator.calculateItemCost({ quantity: 5, factor: 2, unitCost: 0 }),
+    0,
+  );
+  assertEquals(
+    Calculator.calculateItemCost({ quantity: 1.5, factor: 2, unitCost: 3 }),
+    9,
+  );
 });
 
 Deno.test("Calculator.calculateItemCost - should handle null or undefined values", () => {
-  assertEquals(Calculator.calculateItemCost(null as any, 5, 10), 0);
-  assertEquals(Calculator.calculateItemCost(5, null as any, 10), 0);
-  assertEquals(Calculator.calculateItemCost(5, 10, null as any), 0);
-  assertEquals(Calculator.calculateItemCost(undefined as any, 5, 10), 0);
-  assertEquals(Calculator.calculateItemCost(5, undefined as any, 10), 0);
-  assertEquals(Calculator.calculateItemCost(5, 10, undefined as any), 0);
+  assertEquals(
+    Calculator.calculateItemCost({
+      quantity: null as any,
+      factor: 5,
+      unitCost: 10,
+    }),
+    0,
+  );
+  assertEquals(
+    Calculator.calculateItemCost({
+      quantity: 5,
+      factor: null as any,
+      unitCost: 10,
+    }),
+    0,
+  );
+  assertEquals(
+    Calculator.calculateItemCost({
+      quantity: 5,
+      factor: 10,
+      unitCost: null as any,
+    }),
+    0,
+  );
+  assertEquals(
+    Calculator.calculateItemCost({
+      quantity: undefined as any,
+      factor: 5,
+      unitCost: 10,
+    }),
+    0,
+  );
+  assertEquals(
+    Calculator.calculateItemCost({
+      quantity: 5,
+      factor: undefined as any,
+      unitCost: 10,
+    }),
+    0,
+  );
+  assertEquals(
+    Calculator.calculateItemCost({
+      quantity: 5,
+      factor: 10,
+      unitCost: undefined as any,
+    }),
+    0,
+  );
 });
 
 Deno.test("Calculator.calculateItemWeight - should calculate weight correctly", () => {
-  assertEquals(Calculator.calculateItemWeight(2, 3, 5), 30);
-  assertEquals(Calculator.calculateItemWeight(0, 5, 10), 0);
-  assertEquals(Calculator.calculateItemWeight(5, 0, 10), 0);
-  assertEquals(Calculator.calculateItemWeight(5, 2, 0), 0);
-  assertEquals(Calculator.calculateItemWeight(1.5, 2, 3), 9);
+  assertEquals(
+    Calculator.calculateItemWeight({
+      quantity: 2,
+      factor: 3,
+      customWeight: 5,
+      unit: "KG",
+    }),
+    6,
+  );
+  assertEquals(
+    Calculator.calculateItemWeight({
+      quantity: 0,
+      factor: 5,
+      customWeight: 10,
+      unit: "KG",
+    }),
+    0,
+  );
+  assertEquals(
+    Calculator.calculateItemWeight({
+      quantity: 5,
+      factor: 0,
+      customWeight: 10,
+      unit: "KG",
+    }),
+    0,
+  );
+  assertEquals(
+    Calculator.calculateItemWeight({
+      quantity: 5,
+      factor: 2,
+      customWeight: 0,
+      unit: "KG",
+    }),
+    10,
+  );
+  assertEquals(
+    Calculator.calculateItemWeight({
+      quantity: 1.5,
+      factor: 2,
+      customWeight: 3,
+      unit: "UN",
+    }),
+    9,
+  );
 });
 
 Deno.test("Calculator.calculateItemWeight - should handle null or undefined values", () => {
-  assertEquals(Calculator.calculateItemWeight(null as any, 5, 10), 0);
-  assertEquals(Calculator.calculateItemWeight(5, null as any, 10), 0);
-  assertEquals(Calculator.calculateItemWeight(5, 10, null as any), 0);
-  assertEquals(Calculator.calculateItemWeight(undefined as any, 5, 10), 0);
-  assertEquals(Calculator.calculateItemWeight(5, undefined as any, 10), 0);
-  assertEquals(Calculator.calculateItemWeight(5, 10, undefined as any), 0);
+  assertEquals(
+    Calculator.calculateItemWeight({
+      quantity: null as any,
+      factor: 5,
+      customWeight: 10,
+      unit: "KG",
+    }),
+    0,
+  );
+  assertEquals(
+    Calculator.calculateItemWeight({
+      quantity: 5,
+      factor: null as any,
+      customWeight: 10,
+      unit: "KG",
+    }),
+    0,
+  );
+  assertEquals(
+    Calculator.calculateItemWeight({
+      quantity: 5,
+      factor: 10,
+      customWeight: null as any,
+      unit: "KG",
+    }),
+    50,
+  );
+  assertEquals(
+    Calculator.calculateItemWeight({
+      quantity: undefined as any,
+      factor: 5,
+      customWeight: 10,
+      unit: "KG",
+    }),
+    0,
+  );
+  assertEquals(
+    Calculator.calculateItemWeight({
+      quantity: 5,
+      factor: undefined as any,
+      customWeight: 10,
+      unit: "KG",
+    }),
+    0,
+  );
+  assertEquals(
+    Calculator.calculateItemWeight({
+      quantity: 5,
+      factor: 10,
+      customWeight: undefined as any,
+      unit: "KG",
+    }),
+    50,
+  );
 });
 
 Deno.test("Calculator.calculateTotalChildrenWeight - should calculate total children weight", () => {

@@ -25,9 +25,11 @@ export class Calculator {
    * @returns The calculated cost, rounded to three decimals
    */
   public static calculateItemCost(
-    quantity: number,
-    factor: number,
-    unitCost: number,
+    { quantity, factor, unitCost }: {
+      quantity: number;
+      factor: number;
+      unitCost: number;
+    },
   ): number {
     if (!quantity || !unitCost) {
       return 0;
@@ -44,22 +46,27 @@ export class Calculator {
    *
    * @param quantity The base quantity of the item
    * @param factor The multiplication factor from parent recipe
-   * @param unitWeight The weight per unit of the item
+   * @param customWeight The custom weight of the item
+   * @param unit The unit of the item
    * @returns The calculated weight, rounded to three decimals
    */
   public static calculateItemWeight(
-    quantity: number,
-    factor: number,
-    unitWeight: number,
+    { quantity, factor, customWeight, unit }: {
+      quantity: number;
+      factor: number;
+      customWeight: number;
+      unit: string;
+    },
   ): number {
-    if (!quantity || !unitWeight) {
-      return 0;
+    const calculatedFactor = quantity * factor;
+
+    if (unit === "KG") {
+      return this.roundToThreeDecimals(calculatedFactor);
+    } else if (customWeight > 0) {
+      return this.roundToThreeDecimals(customWeight * calculatedFactor);
     }
 
-    const calculatedFactor = quantity * factor;
-    const weight = unitWeight * calculatedFactor;
-
-    return this.roundToThreeDecimals(weight);
+    return 0;
   }
 
   /**
