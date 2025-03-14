@@ -8,76 +8,111 @@ import { testData } from "../testData.ts";
  * Tests for the MaterialsTreeBuilder class.
  */
 
-Deno.test("MaterialsTreeBuilder - should build a materials tree for a simple product", () => {
-  // Build a tree for flour (raw material)
-  const builder = new MaterialsTreeBuilder({
-    productsList: testData.productLists.breadRecipe,
-    productCode: "flour",
-    initialQuantity: 1,
-  });
+Deno.test(
+  "MaterialsTreeBuilder - should build a materials tree for a simple product",
+  () => {
+    // Build a tree for flour (raw material)
+    const builder = new MaterialsTreeBuilder({
+      productsList: testData.productLists.breadRecipe,
+      productCode: "flour",
+      initialQuantity: 1,
+    });
 
-  const treeMap = builder.build();
+    const treeMap = builder.build();
 
-  // Verify the tree structure
-  assertEquals(Object.keys(treeMap).length, 1);
+    // Verify the tree structure
+    assertEquals(Object.keys(treeMap).length, 1);
 
-  const tree = treeMap["flour"];
-  assertEquals(tree.id, "flour");
-  assertEquals(tree.name, "Wheat Flour");
-  assertEquals(tree.unit, "KG");
-  assertEquals(tree.level, 0);
-  assertEquals(tree.motherFactor, 1);
-  assertEquals(tree.originalQuantity, 1);
-  assertEquals(tree.calculatedQuantity, 1);
-  assertEquals(tree.weight, 1);
-  assertEquals(tree.childrenWeight, 0);
-  assertEquals(tree.originalCost, 2.5);
-  assertEquals(tree.calculatedCost, 2.5);
-  assertEquals(tree.children, null);
-});
+    const tree = treeMap["flour"];
+    assertEquals(tree.id, "flour");
+    assertEquals(tree.name, "Wheat Flour");
+    assertEquals(tree.unit, "KG");
+    assertEquals(tree.level, 0);
+    assertEquals(tree.motherFactor, 1);
+    assertEquals(tree.originalQuantity, 1);
+    assertEquals(tree.calculatedQuantity, 1);
+    assertEquals(tree.weight, 1);
+    assertEquals(tree.childrenWeight, 0);
+    assertEquals(tree.originalCost, 2.5);
+    assertEquals(tree.calculatedCost, 2.5);
+    assertEquals(tree.children, null);
+  },
+);
 
-Deno.test("MaterialsTreeBuilder - should build a materials tree for a product with recipe", () => {
-  // Build a tree for dough (has recipe)
-  const builder = new MaterialsTreeBuilder({
-    productsList: testData.productLists.breadRecipe,
-    productCode: "dough",
-    initialQuantity: 1,
-  });
+Deno.test(
+  "MaterialsTreeBuilder - should build a materials tree for a product with recipe",
+  () => {
+    // Build a tree for dough (has recipe)
+    const builder = new MaterialsTreeBuilder({
+      productsList: testData.productLists.breadRecipe,
+      productCode: "dough",
+      initialQuantity: 1,
+    });
 
-  const treeMap = builder.build();
+    const treeMap = builder.build();
 
-  // Verify the tree structure
-  const tree = treeMap["dough"];
-  assertEquals(tree.id, "dough");
-  assertEquals(tree.name, "Basic Dough");
-  assertEquals(tree.unit, "KG");
-  assertEquals(tree.level, 0);
-  assertEquals(tree.motherFactor, 1);
-  assertEquals(tree.originalQuantity, 1);
-  assertEquals(tree.calculatedQuantity, 1);
+    // Verify the tree structure
+    const tree = treeMap["dough"];
 
-  // Verify children exist
-  assertEquals(tree.children !== null, true);
-  assertEquals(Object.keys(tree.children || {}).length, 4);
+    const humanReadableResult = tree.toHumanReadable();
 
-  // Verify flour child
-  const flourChild = tree.children?.["flour"];
-  assertEquals(flourChild !== undefined, true);
-  assertEquals(flourChild?.id, "flour");
-  assertEquals(flourChild?.name, "Wheat Flour");
-  assertEquals(flourChild?.level, 1);
-  assertEquals(flourChild?.motherFactor, 1);
-  assertEquals(flourChild?.quantity, 1);
-  assertEquals(flourChild?.calculatedQuantity, 1);
+    const humanReadableResultArray = humanReadableResult.split("\n");
 
-  // Verify water child
-  const waterChild = tree.children?.["water"];
-  assertEquals(waterChild !== undefined, true);
-  assertEquals(waterChild?.id, "water");
-  assertEquals(waterChild?.level, 1);
-  assertEquals(waterChild?.quantity, 0.5);
-  assertEquals(waterChild?.calculatedQuantity, 0.5);
-});
+    assertEquals(humanReadableResultArray[0], "dough [s] 1 KG");
+    assertEquals(humanReadableResultArray[1], "  flour [m] 0.5 KG");
+    assertEquals(humanReadableResultArray[2], "  water [m] 0.7 L");
+    assertEquals(humanReadableResultArray[3], "  salt [m] 0.002 KG");
+    assertEquals(humanReadableResultArray[4], "  yeast [m] 0.003 KG");
+  },
+);
+
+Deno.test(
+  "MaterialsTreeBuilder - should build a materials tree for a product with recipe",
+  () => {
+    // Build a tree for dough (has recipe)
+    const builder = new MaterialsTreeBuilder({
+      productsList: testData.productLists.breadRecipe,
+      productCode: "dough",
+      initialQuantity: 1,
+    });
+
+    const treeMap = builder.build();
+
+    // Verify the tree structure
+    const tree = treeMap["dough"];
+    assertEquals(tree.id, "dough");
+    assertEquals(tree.name, "Basic Dough");
+    assertEquals(tree.unit, "KG");
+    assertEquals(tree.level, 0);
+    assertEquals(tree.motherFactor, 1);
+    assertEquals(tree.originalQuantity, 1);
+    assertEquals(tree.calculatedQuantity, 1);
+
+    // Verify children exist
+    assertEquals(tree.children !== null, true);
+    assertEquals(Object.keys(tree.children || {}).length, 4);
+
+    // Verify flour child
+    const flourChild = tree.children?.["flour"];
+    assertEquals(flourChild !== undefined, true);
+    assertEquals(flourChild?.id, "flour");
+    assertEquals(flourChild?.name, "Wheat Flour");
+    assertEquals(flourChild?.level, 1);
+    assertEquals(flourChild?.motherFactor, 1);
+    assertEquals(flourChild?.quantity, 0.5);
+    assertEquals(flourChild?.calculatedQuantity, 0.5);
+    assertEquals(flourChild?.weight, 0.5);
+
+    // Verify water child
+    const waterChild = tree.children?.["water"];
+    assertEquals(waterChild !== undefined, true);
+    assertEquals(waterChild?.id, "water");
+    assertEquals(waterChild?.level, 1);
+    assertEquals(waterChild?.quantity, 0.7);
+    assertEquals(waterChild?.calculatedQuantity, 0.7);
+    assertEquals(waterChild?.weight, 0.7);
+  },
+);
 
 Deno.test("MaterialsTreeBuilder - should handle quantity multiplication", () => {
   // Build a tree for dough with quantity 2
@@ -97,12 +132,12 @@ Deno.test("MaterialsTreeBuilder - should handle quantity multiplication", () => 
 
   // Verify children quantities are multiplied
   const flourChild = tree.children?.["flour"];
-  assertEquals(flourChild?.quantity, 1);
-  assertEquals(flourChild?.calculatedQuantity, 2);
+  assertEquals(flourChild?.quantity, 0.5);
+  assertEquals(flourChild?.calculatedQuantity, 1);
 
   const waterChild = tree.children?.["water"];
-  assertEquals(waterChild?.quantity, 0.5);
-  assertEquals(waterChild?.calculatedQuantity, 1);
+  assertEquals(waterChild?.quantity, 0.7);
+  assertEquals(waterChild?.calculatedQuantity, 1.4);
 });
 
 Deno.test("MaterialsTreeBuilder - should throw error for invalid parameters", () => {

@@ -95,6 +95,7 @@ export class NodeProcessor {
     const rootNode = new TreeNode({
       id: productCode,
       name: product.name,
+      category: product.category,
       unit: product.unit,
       level: 0,
       motherFactor: 1,
@@ -178,6 +179,7 @@ export class NodeProcessor {
     return new TreeNode({
       id: productId,
       name: product.name,
+      category: product.category,
       unit: product.unit,
       level,
       motherFactor,

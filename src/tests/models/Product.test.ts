@@ -17,7 +17,7 @@ Deno.test("Product.constructor - should create a product with valid data", () =>
   assertEquals(product.name, "Wheat Flour");
   assertEquals(product.category, ProductCategory.m.id);
   assertEquals(product.unit, ProductUnit.KG.id);
-  assertEquals(product.weight, 1);
+  assertEquals(product.weight, null);
   assertEquals(product.purchaseQuoteValue, 2.5);
   assertEquals(product.notes, "Basic wheat flour");
   assertEquals(product.recipe, null);
@@ -134,7 +134,7 @@ Deno.test("Product.toJSON - should convert product to plain object", () => {
   assertEquals(json.name, "Wheat Flour");
   assertEquals(json.category, ProductCategory.m.id);
   assertEquals(json.unit, ProductUnit.KG.id);
-  assertEquals(json.weight, 1);
+  assertEquals(json.weight, null);
   assertEquals(json.purchaseQuoteValue, 2.5);
   assertEquals(json.notes, "Basic wheat flour");
   assertEquals(json.recipe, null);

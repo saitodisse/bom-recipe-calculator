@@ -8,6 +8,7 @@ import { Utils } from "../services/Utils.ts";
 export class TreeNode implements ITreeNode {
   private _id: string;
   private _name: string;
+  private _category: string;
   private _unit: string;
   private _level: number;
   private _motherFactor: number;
@@ -36,6 +37,7 @@ export class TreeNode implements ITreeNode {
     // Set default values
     this._id = data.id || "";
     this._name = data.name || "";
+    this._category = data.category || "";
     this._unit = data.unit || "";
     this._level = data.level ?? 0;
     this._motherFactor = data.motherFactor ?? 1;
@@ -57,6 +59,7 @@ export class TreeNode implements ITreeNode {
         ![
           "id",
           "name",
+          "category",
           "unit",
           "level",
           "motherFactor",
@@ -95,6 +98,15 @@ export class TreeNode implements ITreeNode {
    */
   public get name(): string {
     return this._name;
+  }
+
+  /**
+   * Gets the node category.
+   *
+   * @returns The node category
+   */
+  public get category(): string {
+    return this._category;
   }
 
   /**
@@ -256,6 +268,7 @@ export class TreeNode implements ITreeNode {
     const result: Record<string, unknown> = {
       id: this._id,
       name: this._name,
+      category: this._category,
       unit: this._unit,
       level: this._level,
       motherFactor: this._motherFactor,
@@ -277,6 +290,33 @@ export class TreeNode implements ITreeNode {
     };
 
     return result;
+  }
+
+  /**
+    - bread [p]  1 UN
+      - dough [s] 0.5 UN
+        - flour [m] 0.5 kg
+        - water [m] 0.25 L
+        - salt [m] 0.01 kg
+        - yeast [m] 0.015 kg
+   */
+  public toHumanReadable(): string {
+    let result = "";
+    result += getLine(this);
+    if (this._children) {
+      for (const child of Object.values(this._children)) {
+        result += getLine(child);
+      }
+    }
+    return result;
+
+    function getLine(item: TreeNode) {
+      return `${
+        item._level > 0 ? "  ".repeat(item._level) : ""
+      }${item._id} [${item._category}] ${
+        item._calculatedQuantity || item._quantity
+      } ${item._unit}\n`;
+    }
   }
 
   /**
@@ -340,6 +380,8 @@ export class TreeNode implements ITreeNode {
         return this._id;
       case "name":
         return this._name;
+      case "category":
+        return this._category;
       case "unit":
         return this._unit;
       case "level":

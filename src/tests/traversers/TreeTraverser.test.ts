@@ -85,40 +85,46 @@ Deno.test("TreeTraverser.mapNodes - should map all nodes in the tree", () => {
   }
 });
 
-Deno.test("TreeTraverser.filterNodes - should filter nodes in the tree", () => {
-  const tree = createTestTree();
+Deno.test(
+  "TreeTraverser.filterNodes - should filter nodes in the tree",
+  () => {
+    const tree = createTestTree();
 
-  // Filter to keep only nodes with weight > 0.1
-  const filteredTree = TreeTraverser.filterNodes(tree, (node: TreeNode) => {
-    return node.weight > 0.1;
-  });
+    // Filter to keep only nodes with weight > 0.1
+    const filteredTree = TreeTraverser.filterNodes(tree, (node: TreeNode) => {
+      return node.weight > 0.1;
+    });
 
-  // Verify the filtering
-  assertEquals(filteredTree !== null, true);
-  if (filteredTree) {
-    assertEquals(filteredTree["bread"] !== undefined, true);
-    assertEquals(filteredTree["bread"].children?.["dough"] !== undefined, true);
-    assertEquals(
-      filteredTree["bread"].children?.["dough"].children?.["flour"] !==
-        undefined,
-      true,
-    );
-    assertEquals(
-      filteredTree["bread"].children?.["dough"].children?.["water"] !==
-        undefined,
-      true,
-    );
+    // Verify the filtering
+    assertEquals(filteredTree !== null, true);
+    if (filteredTree) {
+      assertEquals(filteredTree["bread"] !== undefined, true);
+      assertEquals(
+        filteredTree["bread"].children?.["dough"] !== undefined,
+        true,
+      );
+      assertEquals(
+        filteredTree["bread"].children?.["dough"].children?.["flour"] !==
+          undefined,
+        true,
+      );
+      assertEquals(
+        filteredTree["bread"].children?.["dough"].children?.["water"] !==
+          undefined,
+        true,
+      );
 
-    // Salt and yeast should be filtered out (weight <= 0.1)
-    assertEquals(
-      filteredTree["bread"].children?.["dough"].children?.["salt"] ===
-          undefined ||
-        filteredTree["bread"].children?.["dough"].children?.["salt"].weight <=
-          0.1,
-      true,
-    );
-  }
-});
+      // Salt and yeast should be filtered out (weight <= 0.1)
+      assertEquals(
+        filteredTree["bread"].children?.["dough"].children?.["salt"] ===
+            undefined ||
+          filteredTree["bread"].children?.["dough"].children?.["salt"].weight <=
+            0.1,
+        true,
+      );
+    }
+  },
+);
 
 Deno.test("TreeTraverser.calculateTotalCost - should calculate total cost of the tree", () => {
   const tree = createTestTree();

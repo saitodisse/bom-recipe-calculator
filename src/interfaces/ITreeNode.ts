@@ -9,6 +9,9 @@ export interface ITreeNode {
   /** Display name of the product */
   name: string;
 
+  /** Category of the product */
+  category: string;
+
   /** Unit of measurement for the product */
   unit: string;
 

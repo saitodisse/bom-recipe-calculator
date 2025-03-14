@@ -46,9 +46,9 @@ export class Product implements IProduct {
     this._name = data.name;
     this._category = data.category;
     this._unit = data.unit;
-    this._weight = data.weight ?? null;
     this._purchaseQuoteValue = data.purchaseQuoteValue ?? null;
     this._notes = data.notes ?? null;
+    this._weight = data.weight ?? null;
 
     // Convert recipe items to RecipeItem instances if present
     this._recipe = data.recipe
