@@ -305,7 +305,7 @@ export class TreeNode implements ITreeNode {
     result += getLine(this);
     if (this._children) {
       for (const child of Object.values(this._children)) {
-        result += getLine(child);
+        result += child.toHumanReadable();
       }
     }
     return result;

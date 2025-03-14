@@ -194,8 +194,8 @@ Deno.test("Calculator.calculateItemWeight - should handle null or undefined valu
 
 Deno.test("Calculator.calculateTotalChildrenWeight - should calculate total children weight", () => {
   // Test with empty children
-  assertEquals(Calculator.calculateTotalChildrenWeight({}), 0);
-  assertEquals(Calculator.calculateTotalChildrenWeight(null), 0);
+  assertEquals(Calculator.calculateChildWeight({}), 0);
+  assertEquals(Calculator.calculateChildWeight(null), 0);
 
   // Test with children having weights
   const children = {
@@ -203,7 +203,7 @@ Deno.test("Calculator.calculateTotalChildrenWeight - should calculate total chil
     child2: { weight: 7, childrenWeight: 3 },
     child3: { weight: 0, childrenWeight: 0 },
   };
-  assertEquals(Calculator.calculateTotalChildrenWeight(children), 25);
+  assertEquals(Calculator.calculateChildWeight(children), 17);
 
   // Test with some undefined values
   const childrenWithUndefined = {
@@ -212,8 +212,8 @@ Deno.test("Calculator.calculateTotalChildrenWeight - should calculate total chil
     child3: undefined,
   };
   assertEquals(
-    Calculator.calculateTotalChildrenWeight(childrenWithUndefined),
-    15,
+    Calculator.calculateChildWeight(childrenWithUndefined),
+    10,
   );
 });
 

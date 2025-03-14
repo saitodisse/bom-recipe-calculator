@@ -70,12 +70,12 @@ export class Calculator {
   }
 
   /**
-   * Calculates the total weight of all children in a node.
+   * Calculates the weight of childs in a node.
    *
-   * @param children Map of child nodes
-   * @returns The total weight of all children, rounded to three decimals
+   * @param child The child node
+   * @returns The weight of the child, rounded to three decimals
    */
-  public static calculateTotalChildrenWeight(
+  public static calculateChildWeight(
     children:
       | Record<
         string,
@@ -92,11 +92,7 @@ export class Calculator {
     Object.values(children).forEach((child) => {
       if (!child) return;
 
-      // Add the child's own weight
       totalWeight += this.roundToThreeDecimals(child.weight || 0);
-
-      // Add the weight of the child's children
-      totalWeight += this.roundToThreeDecimals(child.childrenWeight || 0);
     });
 
     return this.roundToThreeDecimals(totalWeight);

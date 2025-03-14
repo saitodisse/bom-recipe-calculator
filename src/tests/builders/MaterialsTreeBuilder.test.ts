@@ -88,7 +88,7 @@ Deno.test(
     assertEquals(tree.originalQuantity, 1);
     assertEquals(tree.calculatedQuantity, 1);
     assertEquals(tree.weight, 1);
-    assertEquals(tree.childrenWeight, 1.205);
+    assertEquals(tree.childrenWeight, 1.205); // 0.5 + 0.7 + 0.002 + 0.003
 
     // Verify children exist
     assertEquals(tree.children !== null, true);
@@ -115,6 +115,41 @@ Deno.test(
     assertEquals(waterChild?.calculatedQuantity, 0.7);
     assertEquals(waterChild?.weight, 0.7);
     assertEquals(waterChild?.childrenWeight, 0);
+  },
+);
+
+Deno.test(
+  "MaterialsTreeBuilder - should build for bread",
+  () => {
+    // Build a tree for bread (has recipe)
+    const builder = new MaterialsTreeBuilder({
+      productsList: testData.productLists.breadRecipe,
+      productCode: "bread",
+      initialQuantity: 2,
+    });
+
+    const treeMap = builder.build();
+
+    // Verify the tree structure
+    const tree = treeMap["bread"];
+
+    console.log(tree.toHumanReadable()); // debug
+
+    assertEquals(tree.id, "bread");
+    assertEquals(tree.name, "White Bread");
+    assertEquals(tree.unit, "UN");
+    assertEquals(tree.calculatedQuantity, 2);
+    assertEquals(tree.weight, 0);
+    assertEquals(tree.childrenWeight, 1); // 0.5 + 0.5
+
+    // Verify dough child
+    const doughChild = tree.children?.["dough"];
+    assertEquals(doughChild !== undefined, true);
+    assertEquals(doughChild?.id, "dough");
+    assertEquals(doughChild?.name, "Basic Dough");
+    assertEquals(doughChild?.calculatedQuantity, 1);
+    assertEquals(doughChild?.weight, 1);
+    assertEquals(doughChild?.childrenWeight, 1.205);
   },
 );
 

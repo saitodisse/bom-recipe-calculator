@@ -72,7 +72,7 @@ export class NodeProcessor {
           );
         } else {
           // If no registered weight, sum children's weights
-          childrenWeight = Calculator.calculateTotalChildrenWeight(children);
+          childrenWeight = Calculator.calculateChildWeight(children);
         }
       } else {
         // For products in KG, sum children's weights directly
@@ -178,7 +178,7 @@ export class NodeProcessor {
 
     // Calculate total cost and weight including children
     const childrenCost = Calculator.calculateTotalChildrenCost(children);
-    const childrenWeight = Calculator.calculateTotalChildrenWeight(children);
+    const childrenWeight = Calculator.calculateChildWeight(children);
 
     // Create the node with all calculated values
     return new TreeNode({
