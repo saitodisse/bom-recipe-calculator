@@ -269,7 +269,8 @@ Deno.test(
     // Verify the tree structure
     const tree = treeMap["bread4pack"];
 
-    // console.log(tree.toHumanReadable()); // debug
+    console.log(tree.toHumanReadable()); // debug
+    console.log(JSON.stringify(tree.toJSON(), null, 2)); // debug
 
     assertEquals(tree.calculatedQuantity, 1);
     assertEquals(tree.weight, 0); // do not have self weight
