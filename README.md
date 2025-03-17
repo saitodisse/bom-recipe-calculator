@@ -54,7 +54,7 @@ const products: Record<string, IProduct> = {
   "flour": {
     id: "flour",
     name: "Wheat Flour",
-    category: ProductCategory.m.id,
+    category: ProductCategory.RAW_MATERIAL.id,
     unit: ProductUnit.KG.id,
     weight: 1,
     purchaseQuoteValue: 2.5,
@@ -63,7 +63,7 @@ const products: Record<string, IProduct> = {
   "water": {
     id: "water",
     name: "Water",
-    category: ProductCategory.m.id,
+    category: ProductCategory.RAW_MATERIAL.id,
     unit: ProductUnit.L.id,
     weight: 1,
     purchaseQuoteValue: 0.5,

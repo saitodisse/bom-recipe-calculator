@@ -15,7 +15,7 @@ Deno.test("Product.constructor - should create a product with valid data", () =>
 
   assertEquals(product.id, "flour");
   assertEquals(product.name, "Wheat Flour");
-  assertEquals(product.category, ProductCategory.m.id);
+  assertEquals(product.category, ProductCategory.RAW_MATERIAL.id);
   assertEquals(product.unit, ProductUnit.KG.id);
   assertEquals(product.weight, null);
   assertEquals(product.purchaseQuoteValue, 2.5);
@@ -28,13 +28,13 @@ Deno.test("Product.constructor - should handle optional properties", () => {
   const minimalProduct = new Product({
     id: "test",
     name: "Test Product",
-    category: ProductCategory.m.id,
+    category: ProductCategory.RAW_MATERIAL.id,
     unit: ProductUnit.UN.id,
   });
 
   assertEquals(minimalProduct.id, "test");
   assertEquals(minimalProduct.name, "Test Product");
-  assertEquals(minimalProduct.category, ProductCategory.m.id);
+  assertEquals(minimalProduct.category, ProductCategory.RAW_MATERIAL.id);
   assertEquals(minimalProduct.unit, ProductUnit.UN.id);
   assertEquals(minimalProduct.weight, null);
   assertEquals(minimalProduct.purchaseQuoteValue, null);
@@ -48,7 +48,7 @@ Deno.test("Product.constructor - should throw error with invalid data", () => {
     () => {
       new Product({
         name: "Test Product",
-        category: ProductCategory.m.id,
+        category: ProductCategory.RAW_MATERIAL.id,
         unit: ProductUnit.UN.id,
       } as any);
     },
@@ -61,7 +61,7 @@ Deno.test("Product.constructor - should throw error with invalid data", () => {
     () => {
       new Product({
         id: "test",
-        category: ProductCategory.m.id,
+        category: ProductCategory.RAW_MATERIAL.id,
         unit: ProductUnit.UN.id,
       } as any);
     },
@@ -88,7 +88,7 @@ Deno.test("Product.constructor - should throw error with invalid data", () => {
       new Product({
         id: "test",
         name: "Test Product",
-        category: ProductCategory.m.id,
+        category: ProductCategory.RAW_MATERIAL.id,
       } as any);
     },
     Error,
@@ -109,7 +109,7 @@ Deno.test("Product.hasRecipe - should check if product has recipe", () => {
   const productWithEmptyRecipe = new Product({
     id: "test",
     name: "Test Product",
-    category: ProductCategory.m.id,
+    category: ProductCategory.RAW_MATERIAL.id,
     unit: ProductUnit.UN.id,
     recipe: [],
   });
@@ -122,7 +122,7 @@ Deno.test("Product.isKilogram - should check if product unit is kilogram", () =>
   assertEquals(kgProduct.isKilogram(), true);
 
   // Non-kilogram product
-  const nonKgProduct = new Product(testData.products.bread);
+  const nonKgProduct = new Product(testData.products.breadUnitary);
   assertEquals(nonKgProduct.isKilogram(), false);
 });
 
@@ -132,7 +132,7 @@ Deno.test("Product.toJSON - should convert product to plain object", () => {
 
   assertEquals(json.id, "flour");
   assertEquals(json.name, "Wheat Flour");
-  assertEquals(json.category, ProductCategory.m.id);
+  assertEquals(json.category, ProductCategory.RAW_MATERIAL.id);
   assertEquals(json.unit, ProductUnit.KG.id);
   assertEquals(json.weight, null);
   assertEquals(json.purchaseQuoteValue, 2.5);

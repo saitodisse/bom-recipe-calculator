@@ -4,33 +4,39 @@
  */
 export const ProductCategory = {
   /** Final Product - Completed items ready for sale */
-  p: {
+  FINAL_PRODUCT: {
     id: "p",
+    constantName: "FINAL_PRODUCT",
     description: "Final Product",
   },
   /** Unit Product - Individual component that can be sold separately */
-  u: {
+  UNIT_PRODUCT: {
     id: "u",
+    constantName: "UNIT_PRODUCT",
     description: "Unit Product",
   },
   /** Semi-finished - Partially processed materials */
-  s: {
+  SEMI_FINISHED_PRODUCT: {
     id: "s",
+    constantName: "SEMI_FINISHED_PRODUCT",
     description: "Semi-finished",
   },
   /** Raw Material - Unprocessed ingredients or components */
-  m: {
+  RAW_MATERIAL: {
     id: "m",
+    constantName: "RAW_MATERIAL",
     description: "Raw Material",
   },
   /** Packaging/Disposables - Materials used for wrapping or containing products */
-  e: {
+  PACKAGING_DISPOSABLES: {
     id: "e",
+    constantName: "PACKAGING_DISPOSABLES",
     description: "Packaging/Disposables",
   },
   /** Cleaning - Materials used for sanitation and maintenance */
-  c: {
+  CLEANING: {
     id: "c",
+    constantName: "CLEANING",
     description: "Cleaning",
   },
 } as const;
@@ -42,5 +48,6 @@ export type ProductCategoryId =
 // Type for a single category entry
 export type ProductCategoryEntry = {
   id: ProductCategoryId;
+  constantName: string;
   description: string;
 };

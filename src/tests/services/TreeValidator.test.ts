@@ -11,7 +11,7 @@ import { testData } from "../testData.ts";
 Deno.test("TreeValidator.validateProductExists - should validate product exists", () => {
   // Valid product
   TreeValidator.validateProductExists(
-    testData.productLists.breadRecipe,
+    testData.productLists.allProductsAndReceipes,
     "flour",
   );
 
@@ -19,7 +19,7 @@ Deno.test("TreeValidator.validateProductExists - should validate product exists"
   assertThrows(
     () => {
       TreeValidator.validateProductExists(
-        testData.productLists.breadRecipe,
+        testData.productLists.allProductsAndReceipes,
         "nonexistent",
       );
     },
@@ -43,7 +43,7 @@ Deno.test("TreeValidator.validateProductExists - should validate product exists"
 Deno.test("TreeValidator.checkForCircularDependencies - should detect circular dependencies", () => {
   // No circular dependency
   TreeValidator.checkForCircularDependencies(
-    testData.productLists.breadRecipe,
+    testData.productLists.allProductsAndReceipes,
     "bread",
     [],
   );
@@ -65,7 +65,7 @@ Deno.test("TreeValidator.checkForCircularDependencies - should detect circular d
   assertThrows(
     () => {
       TreeValidator.checkForCircularDependencies(
-        testData.productLists.breadRecipe,
+        testData.productLists.allProductsAndReceipes,
         "bread",
         ["bread"],
       );
@@ -95,7 +95,7 @@ Deno.test("TreeValidator.validateMaxLevel - should validate max level", () => {
 Deno.test("TreeValidator.validateRequiredParams - should validate required parameters", () => {
   // Valid parameters
   TreeValidator.validateRequiredParams(
-    testData.productLists.breadRecipe,
+    testData.productLists.allProductsAndReceipes,
     "bread",
   );
 
@@ -115,7 +115,7 @@ Deno.test("TreeValidator.validateRequiredParams - should validate required param
   assertThrows(
     () => {
       TreeValidator.validateRequiredParams(
-        testData.productLists.breadRecipe,
+        testData.productLists.allProductsAndReceipes,
         "",
       );
     },

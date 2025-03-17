@@ -12,8 +12,8 @@ import { TreeNode } from "../../models/TreeNode.ts";
 // Helper function to create a test tree
 function createTestTree() {
   const builder = new MaterialsTreeBuilder({
-    productsList: testData.productLists.breadRecipe,
-    productCode: "bread",
+    productsList: testData.productLists.allProductsAndReceipes,
+    productCode: "breadUnitary",
     initialQuantity: 1,
   });
 
@@ -29,7 +29,7 @@ Deno.test("TreeTraverser.traverse - should traverse all nodes in the tree", () =
     nodeCount++;
   });
 
-  // Bread tree should have 6 nodes (bread, dough, flour, water, salt, yeast)
+  // Bread tree should have 6 nodes (breadUnitary, dough, flour, water, salt, yeast)
   assertEquals(nodeCount, 6);
 });
 
@@ -70,16 +70,17 @@ Deno.test("TreeTraverser.mapNodes - should map all nodes in the tree", () => {
     // Verificar se os nomes foram convertidos para maiúsculas
     const originalTree = createTestTree();
     assertEquals(
-      mappedTree["bread"].name,
-      (originalTree["bread"].name as string).toUpperCase(),
+      mappedTree["breadUnitary"].name,
+      (originalTree["breadUnitary"].name as string).toUpperCase(),
     );
     assertEquals(
-      mappedTree["bread"].children?.["dough"].name,
-      (originalTree["bread"].children?.["dough"].name as string).toUpperCase(),
+      mappedTree["breadUnitary"].children?.["dough"].name,
+      (originalTree["breadUnitary"].children?.["dough"].name as string)
+        .toUpperCase(),
     );
     assertEquals(
-      mappedTree["bread"].children?.["dough"].children?.["flour"].name,
-      (originalTree["bread"].children?.["dough"].children?.["flour"]
+      mappedTree["breadUnitary"].children?.["dough"].children?.["flour"].name,
+      (originalTree["breadUnitary"].children?.["dough"].children?.["flour"]
         .name as string).toUpperCase(),
     );
   }
@@ -98,30 +99,30 @@ Deno.test(
     // Verify the filtering
     assertEquals(filteredTree !== null, true);
     if (filteredTree) {
-      assertEquals(filteredTree["bread"] !== undefined, true);
+      assertEquals(filteredTree["breadUnitary"] !== undefined, true);
       assertEquals(
-        filteredTree["bread"].children?.["dough"] !== undefined,
+        filteredTree["breadUnitary"].children?.["dough"] !== undefined,
         true,
       );
       assertEquals(
-        filteredTree["bread"].children?.["dough"].children?.["flour"] !==
+        filteredTree["breadUnitary"].children?.["dough"].children?.["flour"] !==
           undefined,
         true,
       );
       assertEquals(
-        filteredTree["bread"].children?.["dough"].children?.["water"] !==
+        filteredTree["breadUnitary"].children?.["dough"].children?.["water"] !==
           undefined,
         true,
       );
 
       // Salt and yeast should be filtered out
       assertEquals(
-        filteredTree["bread"].children?.["dough"].children?.["salt"] ===
+        filteredTree["breadUnitary"].children?.["dough"].children?.["salt"] ===
           undefined,
         true,
       );
       assertEquals(
-        filteredTree["bread"].children?.["dough"].children?.["yeast"] ===
+        filteredTree["breadUnitary"].children?.["dough"].children?.["yeast"] ===
           undefined,
         true,
       );
@@ -187,7 +188,7 @@ Deno.test("TreeTraverser.getNodesAtLevel - should get nodes at a specific level"
   if (level0Nodes) {
     const level0NodesArray = Object.values(level0Nodes);
     assertEquals(level0NodesArray.length, 1);
-    assertEquals(level0NodesArray[0].id, "bread");
+    assertEquals(level0NodesArray[0].id, "breadUnitary");
   }
 
   // Get nodes at level 1

@@ -311,11 +311,15 @@ export class TreeNode implements ITreeNode {
     return result;
 
     function getLine(item: TreeNode) {
-      return `${
-        item._level > 0 ? "  ".repeat(item._level) : ""
-      }${item._id} [${item._category}] ${
-        item._calculatedQuantity || item._quantity
-      } ${item._unit}\n`;
+      const quantity = item._calculatedQuantity || item._quantity;
+      return `${addSpace()}${item._id} [${item._category}] ${quantity} ${item._unit} ( ${item.weight} kg, ${item.childrenWeight} kg )\n`;
+
+      function addSpace() {
+        if (item._level > 0) {
+          return "  ".repeat(item._level);
+        }
+        return "";
+      }
     }
   }
 
