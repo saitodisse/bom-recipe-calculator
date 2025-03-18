@@ -29,4 +29,6 @@ export type { ITreeNode } from "./interfaces/ITreeNode.ts";
 export type { ICreateMaterialsTreeParams } from "./interfaces/ICreateMaterialsTreeParams.ts";
 // Export constants
 export { ProductCategory } from "./interfaces/ProductCategory.ts";
+export type { ProductCategoryId } from "./interfaces/ProductCategory.ts";
 export { ProductUnit } from "./interfaces/ProductUnit.ts";
+export type { ProductUnitId } from "./interfaces/ProductUnit.ts";
