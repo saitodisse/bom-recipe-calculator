@@ -2,7 +2,9 @@
  * Product categories used to classify items in the bill of materials.
  * Each category has an ID, acronym, and description.
  */
-export const ProductCategory = {
+export const ProductCategory: {
+  [key: string]: ProductCategoryEntry;
+} = {
   /** Final Product - Completed items ready for sale */
   FINAL_PRODUCT: {
     id: "p",
@@ -22,6 +24,7 @@ export const ProductCategory = {
     id: "s",
     constantName: "SEMI_FINISHED_PRODUCT",
     description: "Semi-finished",
+    descriptionPtBr: "Semi-acabado",
   },
   /** Raw Material - Unprocessed ingredients or components */
   RAW_MATERIAL: {
@@ -46,20 +49,26 @@ export const ProductCategory = {
   },
   CLEANING_BR: {
     id: "l", // alias for CLEANING
-    constantName: "CLEANING_BR",
+    constantName: "CLEANING",
     description: "Cleaning Products",
     descriptionPtBr: "Produtos de Limpeza",
   },
 } as const;
 
-// Extract the category ID type from the ProductCategory object
-export type ProductCategoryId =
-  typeof ProductCategory[keyof typeof ProductCategory]["id"];
-
 // Type for a single category entry
 export type ProductCategoryEntry = {
   id: ProductCategoryId;
-  constantName: string;
+  constantName: ProductCategoryConstants;
   description: string;
   descriptionPtBr: string;
 };
+
+export type ProductCategoryId = "p" | "u" | "s" | "m" | "e" | "c" | "l";
+
+export type ProductCategoryConstants =
+  | "FINAL_PRODUCT"
+  | "UNIT_PRODUCT"
+  | "SEMI_FINISHED_PRODUCT"
+  | "RAW_MATERIAL"
+  | "PACKAGING_DISPOSABLES"
+  | "CLEANING";

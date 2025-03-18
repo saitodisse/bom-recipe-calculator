@@ -1,7 +1,7 @@
-import type { ProductCategoryId } from "../interfaces/ProductCategory.ts";
 import { ProductUnit, type ProductUnitId } from "../interfaces/ProductUnit.ts";
 import type { IProduct } from "../interfaces/IProduct.ts";
 import { RecipeItem } from "./RecipeItem.ts";
+import { ProductCategoryId } from "../interfaces/ProductCategory.ts";
 
 /**
  * Class representing a product in the bill of materials system.
