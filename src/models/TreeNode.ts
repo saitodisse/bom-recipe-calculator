@@ -312,7 +312,7 @@ export class TreeNode implements ITreeNode {
 
     function getLine(item: TreeNode) {
       const quantity = item._calculatedQuantity || item._quantity;
-      return `${addSpace()}${item._id} [${item._category}] ${quantity} ${item._unit} ( ${item.weight} kg, ${item.childrenWeight} kg )\n`;
+      return `${addSpace()}${item._id} [${item._category}] ${quantity} ${item._unit} ( ${item.weight} kg, ${item.childrenWeight} kg, $ ${item.calculatedCost} )\n`;
 
       function addSpace() {
         if (item._level > 0) {

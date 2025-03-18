@@ -77,6 +77,9 @@ Deno.test(
 
     // Verify the tree structure
     const tree = treeMap["dough"];
+
+    // console.log(tree.toHumanReadable()); // debug
+
     assertEquals(tree.id, "dough");
     assertEquals(tree.name, "Basic Dough");
     assertEquals(tree.unit, "KG");
@@ -84,6 +87,7 @@ Deno.test(
     assertEquals(tree.motherFactor, 1);
     assertEquals(tree.originalQuantity, 1);
     assertEquals(tree.calculatedQuantity, 1);
+    assertEquals(tree.calculatedCost, 1.276);
     assertEquals(tree.weight, 1);
     assertEquals(tree.childrenWeight, 1.205); // 0.5 + 0.7 + 0.002 + 0.003
 
@@ -269,8 +273,8 @@ Deno.test(
     // Verify the tree structure
     const tree = treeMap["bread4pack"];
 
-    console.log(tree.toHumanReadable()); // debug
-    console.log(JSON.stringify(tree.toJSON(), null, 2)); // debug
+    // console.log(tree.toHumanReadable()); // debug
+    // console.log(JSON.stringify(tree.toJSON(), null, 2)); // debug
 
     assertEquals(tree.calculatedQuantity, 1);
     assertEquals(tree.weight, 0); // do not have self weight
