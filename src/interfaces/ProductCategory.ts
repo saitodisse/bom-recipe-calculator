@@ -8,12 +8,14 @@ export const ProductCategory = {
     id: "p",
     constantName: "FINAL_PRODUCT",
     description: "Final Product",
+    descriptionPtBr: "Produto Final",
   },
   /** Unit Product - Individual component that can be sold separately */
   UNIT_PRODUCT: {
     id: "u",
     constantName: "UNIT_PRODUCT",
     description: "Unit Product",
+    descriptionPtBr: "Produto Unitário",
   },
   /** Semi-finished - Partially processed materials */
   SEMI_FINISHED_PRODUCT: {
@@ -26,18 +28,27 @@ export const ProductCategory = {
     id: "m",
     constantName: "RAW_MATERIAL",
     description: "Raw Material",
+    descriptionPtBr: "Materia-prima",
   },
   /** Packaging/Disposables - Materials used for wrapping or containing products */
   PACKAGING_DISPOSABLES: {
     id: "e",
     constantName: "PACKAGING_DISPOSABLES",
     description: "Packaging/Disposables",
+    descriptionPtBr: "Embalagens",
   },
   /** Cleaning - Materials used for sanitation and maintenance */
   CLEANING: {
     id: "c",
     constantName: "CLEANING",
     description: "Cleaning",
+    descriptionPtBr: "Limpeza",
+  },
+  CLEANING_BR: {
+    id: "l", // alias for CLEANING
+    constantName: "CLEANING_BR",
+    description: "Cleaning Products",
+    descriptionPtBr: "Produtos de Limpeza",
   },
 } as const;
 
@@ -50,4 +61,5 @@ export type ProductCategoryEntry = {
   id: ProductCategoryId;
   constantName: string;
   description: string;
+  descriptionPtBr: string;
 };
