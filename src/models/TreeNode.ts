@@ -300,27 +300,138 @@ export class TreeNode implements ITreeNode {
         - salt [m] 0.01 kg
         - yeast [m] 0.015 kg
    */
-  public toHumanReadable(): string {
-    let result = "";
-    result += getLine(this);
+  public toHumanReadable({
+    showCost = true,
+    showWeight = true,
+    showQuantity = true,
+  }: {
+    showCost?: boolean;
+    showWeight?: boolean;
+    showQuantity?: boolean;
+  }): string {
+    // First pass: calculate maxLength
+    const maxLength = this.calculateMaxLength();
+
+    // Second pass: generate formatted output
+    return this.generateFormattedOutput(maxLength, {
+      showCost,
+      showWeight,
+      showQuantity,
+    });
+  }
+
+  private calculateMaxLength(): number {
+    let maxLength = this.getBaseLineLength();
+
     if (this._children) {
       for (const child of Object.values(this._children)) {
-        result += child.toHumanReadable();
+        maxLength = Math.max(maxLength, child.calculateMaxLength());
       }
     }
+
+    return maxLength;
+  }
+
+  private getBaseLineLength(): number {
+    const indent = this._level > 0 ? ".   ".repeat(this._level) : "";
+    return `${indent}${this._id}`.length;
+  }
+
+  private generateFormattedOutput(
+    maxLength: number,
+    { showCost, showWeight, showQuantity }: {
+      showCost: boolean;
+      showWeight: boolean;
+      showQuantity: boolean;
+    },
+  ): string {
+    let result = this.formatLine(maxLength, {
+      showCost,
+      showWeight,
+      showQuantity,
+    });
+
+    if (this._children) {
+      for (const child of Object.values(this._children)) {
+        result += child.generateFormattedOutput(maxLength, {
+          showCost,
+          showWeight,
+          showQuantity,
+        });
+      }
+    }
+
     return result;
+  }
 
-    function getLine(item: TreeNode) {
-      const quantity = item._calculatedQuantity || item._quantity;
-      return `${addSpace()}${item._id} [${item._category}] ${quantity} ${item._unit} ( ${item.weight} kg, ${item.childrenWeight} kg, $ ${item.calculatedCost} )\n`;
+  private formatLine(
+    maxLength: number,
+    { showCost, showWeight, showQuantity }: {
+      showCost: boolean;
+      showWeight: boolean;
+      showQuantity: boolean;
+    },
+  ): string {
+    const indent = this._level > 0 ? ".   ".repeat(this._level) : "";
+    const baseLine = `${indent}${this._id}`;
+    let line = baseLine;
 
-      function addSpace() {
-        if (item._level > 0) {
-          return "  ".repeat(item._level);
-        }
-        return "";
+    // Fixed column widths
+    const QUANTITY_COL_WIDTH = 8;
+    const UNIT_COL_WIDTH = 4;
+    const WEIGHT_COL_WIDTH = 8;
+    const CHILDREN_WEIGHT_COL_WIDTH = 8;
+    const COST_COL_WIDTH = 8;
+
+    const quantity = this._calculatedQuantity || this._quantity;
+    const baseLinePadding = " ".repeat(maxLength - baseLine.length);
+    line += baseLinePadding;
+
+    // Add quantity with fixed width column
+    if (showQuantity) {
+      const quantityStr = Intl.NumberFormat("pt-BR", {
+        style: "decimal",
+        minimumFractionDigits: 3,
+        maximumFractionDigits: 3,
+      }).format(quantity ?? 0);
+      const unitStr = this._unit.padEnd(UNIT_COL_WIDTH);
+      line += ` ${quantityStr.padStart(QUANTITY_COL_WIDTH)} ${unitStr}`;
+    }
+
+    // Add weight with fixed width columns
+    if (showWeight) {
+      const weightStr = Intl.NumberFormat("pt-BR", {
+        style: "decimal",
+        minimumFractionDigits: 3,
+        maximumFractionDigits: 3,
+      }).format(this.weight);
+
+      const childrenWeightStr = Intl.NumberFormat("pt-BR", {
+        style: "decimal",
+        minimumFractionDigits: 3,
+        maximumFractionDigits: 3,
+      }).format(this.childrenWeight);
+
+      if (this.weight === 0) {
+        line += ` ${"".padStart(WEIGHT_COL_WIDTH)}   `;
+      } else {
+        line += ` ${weightStr.padStart(WEIGHT_COL_WIDTH)} kg`;
+      }
+
+      if (this.childrenWeight === 0) {
+        line += ` ${"".padStart(CHILDREN_WEIGHT_COL_WIDTH)}   `;
+      } else {
+        line += ` ${childrenWeightStr.padStart(CHILDREN_WEIGHT_COL_WIDTH)} kg`;
       }
     }
+
+    // Add cost with fixed width column
+    if (showCost) {
+      const costStr = this.calculatedCost?.toString() || "0";
+      line += `  ${costStr.padStart(COST_COL_WIDTH)} $`;
+    }
+
+    return line + "\n";
   }
 
   /**
