@@ -1,4 +1,5 @@
 import type { ITreeNode } from "../interfaces/ITreeNode.ts";
+import type { ProductCategoryId } from "../interfaces/ProductCategory.ts";
 import { Utils } from "../services/Utils.ts";
 
 /**
@@ -438,6 +439,81 @@ export class TreeNode implements ITreeNode {
     }
 
     return line + "\n";
+  }
+
+  /**
+   * Converts the node to a table string.
+   *
+   * @returns A table string representation of the node
+   */
+  public toTable(includeHeader: boolean = true): string {
+    const result = [];
+
+    // Header only included if includeHeader is true
+    if (includeHeader) {
+      result.push(
+        `"código do produto"\t"produto"\t"nível"\t"categoria"\t"unidade"\t"quantidade"\t"peso"\t"peso dos filhos"\t"custo total"`,
+      );
+    }
+
+    const _calculatedQuantity = Intl.NumberFormat("pt-BR", {
+      style: "decimal",
+      minimumFractionDigits: 3,
+      maximumFractionDigits: 3,
+    }).format(this._calculatedQuantity ?? 0);
+
+    const _weight = Intl.NumberFormat("pt-BR", {
+      style: "decimal",
+      minimumFractionDigits: 3,
+      maximumFractionDigits: 3,
+    }).format(this.weight);
+
+    const _childrenWeight = Intl.NumberFormat("pt-BR", {
+      style: "decimal",
+      minimumFractionDigits: 3,
+      maximumFractionDigits: 3,
+    }).format(this.childrenWeight);
+
+    const _calculatedCost = Intl.NumberFormat("pt-BR", {
+      style: "decimal",
+      minimumFractionDigits: 3,
+      maximumFractionDigits: 3,
+    }).format(this.calculatedCost ?? 0);
+
+    result.push(
+      `"${this._id}"\t"${this._name}"\t"${this._level}"\t"${
+        this.getCategoryPtBr(this._category as ProductCategoryId)
+      }"\t"${this._unit}"\t"${_calculatedQuantity}"\t"${_weight}"\t"${_childrenWeight}"\t"${_calculatedCost}"`,
+    );
+
+    if (this._children) {
+      for (const child of Object.values(this._children)) {
+        result.push(child.toTable(false)); // Pass false to prevent header repetition
+      }
+    }
+
+    return result.join("\n");
+  }
+
+  private getCategoryPtBr(category: ProductCategoryId) {
+    switch (category) {
+      case "p":
+        return "[p] produto";
+      case "u":
+        return "[u] produto unitário";
+      case "s":
+        return "[s] semi-acabado";
+      case "m":
+        return "[m] matéria-prima";
+      case "e":
+        return "[e] embalagem";
+      case "c":
+        return "[c] limpeza";
+      case "l":
+        return "[l] limpeza";
+      default:
+        return category;
+    }
   }
 
   /**

@@ -1,5 +1,5 @@
 /// <reference lib="deno.ns" />
-import { assertEquals, assertMatch } from "jsr:@std/assert";
+import { assertEquals, assertMatch, assertNotEquals } from "jsr:@std/assert";
 import { assertThrows } from "jsr:@std/assert";
 import { MaterialsTreeBuilder } from "../../builders/MaterialsTreeBuilder.ts";
 import { testData } from "../testData.ts";
@@ -140,11 +140,6 @@ Deno.test(
     assertEquals(tree.calculatedQuantity, 1);
     assertEquals(tree.weight, 0.200);
     assertEquals(tree.childrenWeight, 0.2);
-
-    // console.log(tree.toHumanReadable({
-    //   showCost: true,
-    // })); // debug
-
     assertEquals(tree.calculatedCost, 0.281);
 
     // Verify dough child
@@ -279,9 +274,10 @@ Deno.test(
     // Verify the tree structure
     const tree = treeMap["bread4pack"];
 
-    console.log(tree.toHumanReadable({
-      showCost: true,
-    })); // debug
+    // console.log(tree.toHumanReadable({
+    //   showCost: true,
+    // })); // debug
+    // console.log(tree.toTable()); // debug
     // console.log(JSON.stringify(tree.toJSON(), null, 2)); // debug
 
     assertEquals(tree.calculatedQuantity, 1);
@@ -333,5 +329,26 @@ Deno.test(
     assertEquals(tree.calculatedQuantity, 1);
     assertEquals(tree.weight, 0);
     assertEquals(tree.childrenWeight, 1.9);
+  },
+);
+
+Deno.test(
+  "MaterialsTreeBuilder - should output in different formats",
+  () => {
+    // Build a tree for bread packaged (has recipe)
+    const builder = new MaterialsTreeBuilder({
+      productsList: testData.productLists.allProductsAndReceipes,
+      productCode: "bread4pack",
+      initialQuantity: 1,
+    });
+
+    const treeMap = builder.build();
+
+    // Verify the tree structure
+    const tree = treeMap["bread4pack"];
+
+    assertNotEquals(tree.toHumanReadable(), undefined);
+    assertNotEquals(tree.toTable(), undefined);
+    assertNotEquals(tree.toJSON(), undefined);
   },
 );
