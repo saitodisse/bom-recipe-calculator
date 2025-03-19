@@ -301,14 +301,14 @@ export class TreeNode implements ITreeNode {
         - yeast [m] 0.015 kg
    */
   public toHumanReadable({
-    showCost = true,
-    showWeight = true,
+    showCost = false,
+    showWeight = false,
     showQuantity = true,
   }: {
     showCost?: boolean;
     showWeight?: boolean;
     showQuantity?: boolean;
-  }): string {
+  } = {}): string {
     // First pass: calculate maxLength
     const maxLength = this.calculateMaxLength();
 
@@ -381,7 +381,7 @@ export class TreeNode implements ITreeNode {
     const UNIT_COL_WIDTH = 4;
     const WEIGHT_COL_WIDTH = 8;
     const CHILDREN_WEIGHT_COL_WIDTH = 8;
-    const COST_COL_WIDTH = 8;
+    const COST_COL_WIDTH = 6;
 
     const quantity = this._calculatedQuantity || this._quantity;
     const baseLinePadding = " ".repeat(maxLength - baseLine.length);
@@ -427,8 +427,14 @@ export class TreeNode implements ITreeNode {
 
     // Add cost with fixed width column
     if (showCost) {
-      const costStr = this.calculatedCost?.toString() || "0";
-      line += `  ${costStr.padStart(COST_COL_WIDTH)} $`;
+      const calculatedCost = Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }).format(this.calculatedCost ?? 0);
+      const costStr = calculatedCost || "0";
+      line += `  ${costStr.padStart(COST_COL_WIDTH)}`;
     }
 
     return line + "\n";

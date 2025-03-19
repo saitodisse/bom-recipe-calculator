@@ -141,6 +141,12 @@ Deno.test(
     assertEquals(tree.weight, 0.200);
     assertEquals(tree.childrenWeight, 0.2);
 
+    // console.log(tree.toHumanReadable({
+    //   showCost: true,
+    // })); // debug
+
+    assertEquals(tree.calculatedCost, 0.281);
+
     // Verify dough child
     const doughChild = tree.children?.["dough"];
     assertEquals(doughChild !== undefined, true);
@@ -273,10 +279,13 @@ Deno.test(
     // Verify the tree structure
     const tree = treeMap["bread4pack"];
 
-    // console.log(tree.toHumanReadable()); // debug
+    console.log(tree.toHumanReadable({
+      showCost: true,
+    })); // debug
     // console.log(JSON.stringify(tree.toJSON(), null, 2)); // debug
 
     assertEquals(tree.calculatedQuantity, 1);
+    assertEquals(tree.calculatedCost, 1.323);
     assertEquals(tree.weight, 0); // do not have self weight
     // 4 unitary breads (0.8kg)
     // + 1 packaged bread (0.1kg)
