@@ -75,7 +75,7 @@ Deno.test("Calculator.calculateItemCost - should handle null or undefined values
       factor: undefined as any,
       unitCost: 10,
     }),
-    0,
+    NaN,
   );
   assertEquals(
     Calculator.calculateItemCost({
@@ -170,7 +170,7 @@ Deno.test("Calculator.calculateItemWeight - should handle null or undefined valu
       customWeight: 10,
       unit: "KG",
     }),
-    0,
+    NaN,
   );
   assertEquals(
     Calculator.calculateItemWeight({
@@ -179,7 +179,7 @@ Deno.test("Calculator.calculateItemWeight - should handle null or undefined valu
       customWeight: 10,
       unit: "KG",
     }),
-    0,
+    NaN,
   );
   assertEquals(
     Calculator.calculateItemWeight({

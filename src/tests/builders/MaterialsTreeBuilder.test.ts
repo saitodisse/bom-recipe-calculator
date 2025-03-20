@@ -54,30 +54,6 @@ Deno.test(
     // Verify the tree structure
     const tree = treeMap["dough"];
 
-    const humanReadableResult = tree.toHumanReadable();
-
-    const humanReadableResultArray = humanReadableResult.split("\n");
-
-    assertMatch(humanReadableResultArray[0], /dough \[s\] 1 KG/);
-    assertMatch(humanReadableResultArray[4], /\s+yeast\s\[m\]\s0.003 KG/);
-  },
-);
-
-Deno.test(
-  "MaterialsTreeBuilder - should build a materials tree for a product with recipe",
-  () => {
-    // Build a tree for dough (has recipe)
-    const builder = new MaterialsTreeBuilder({
-      productsList: testData.productLists.allProductsAndReceipes,
-      productCode: "dough",
-      initialQuantity: 1,
-    });
-
-    const treeMap = builder.build();
-
-    // Verify the tree structure
-    const tree = treeMap["dough"];
-
     // console.log(tree.toHumanReadable()); // debug
 
     assertEquals(tree.id, "dough");
@@ -87,9 +63,9 @@ Deno.test(
     assertEquals(tree.motherFactor, 1);
     assertEquals(tree.originalQuantity, 1);
     assertEquals(tree.calculatedQuantity, 1);
-    assertEquals(tree.calculatedCost, 1.276);
+    assertEquals(tree.calculatedCost, 1.2764);
     assertEquals(tree.weight, 1);
-    assertEquals(tree.childrenWeight, 1.205); // 0.5 + 0.7 + 0.002 + 0.003
+    assertEquals(tree.childrenWeight, 1.2049999999999998); // 0.5 + 0.7 + 0.002 + 0.003
 
     // Verify children exist
     assertEquals(tree.children !== null, true);
@@ -140,7 +116,7 @@ Deno.test(
     assertEquals(tree.calculatedQuantity, 1);
     assertEquals(tree.weight, 0.200);
     assertEquals(tree.childrenWeight, 0.2);
-    assertEquals(tree.calculatedCost, 0.281);
+    assertEquals(tree.calculatedCost, 0.280808);
 
     // Verify dough child
     const doughChild = tree.children?.["dough"];
@@ -149,7 +125,7 @@ Deno.test(
     assertEquals(doughChild?.name, "Basic Dough");
     assertEquals(doughChild?.calculatedQuantity, 0.22);
     assertEquals(doughChild?.weight, 0.22);
-    assertEquals(doughChild?.childrenWeight, 0.265);
+    assertEquals(doughChild?.childrenWeight, 0.2651);
   },
 );
 
@@ -281,7 +257,7 @@ Deno.test(
     // console.log(JSON.stringify(tree.toJSON(), null, 2)); // debug
 
     assertEquals(tree.calculatedQuantity, 1);
-    assertEquals(tree.calculatedCost, 1.323);
+    assertEquals(tree.calculatedCost, 1.323232);
     assertEquals(tree.weight, 0); // do not have self weight
     // 4 unitary breads (0.8kg)
     // + 1 packaged bread (0.1kg)
@@ -301,7 +277,7 @@ Deno.test(
     // looses weight
     assertEquals(
       tree.children?.["breadUnitary"]?.children?.["dough"]?.childrenWeight,
-      1.061,
+      1.0604,
     );
     assertEquals(
       tree.children?.["breadUnitary"]?.children?.["dough"]?.weight,

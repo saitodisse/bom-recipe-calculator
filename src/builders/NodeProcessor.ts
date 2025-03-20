@@ -67,9 +67,7 @@ export class NodeProcessor {
         // For products not measured in KG
         if (weight > 0) {
           // If has registered weight, use it * quantity
-          childrenWeight = Utils.roundToThreeDecimals(
-            weight * Number(initialQuantity),
-          );
+          childrenWeight = weight * Number(initialQuantity);
         } else {
           // If no registered weight, sum children's weights
           childrenWeight = Calculator.calculateChildWeight(children);
@@ -103,12 +101,10 @@ export class NodeProcessor {
       originalQuantity: initialQuantity,
       calculatedQuantity: Number(initialQuantity),
       weight,
-      childrenWeight: Utils.roundToThreeDecimals(childrenWeight),
+      childrenWeight: childrenWeight,
       originalCost: product.purchaseQuoteValue,
       calculatedCost: product.purchaseQuoteValue !== null
-        ? Utils.roundToThreeDecimals(
-          product.purchaseQuoteValue * initialQuantity,
-        )
+        ? product.purchaseQuoteValue * initialQuantity
         : calculatedCost,
       children,
       ...extraProps,
@@ -191,12 +187,10 @@ export class NodeProcessor {
       quantity: item.quantity,
       originalQuantity: item.quantity,
       calculatedQuantity: calculatedFactor,
-      weight: Utils.roundToThreeDecimals(itemWeight),
-      childrenWeight: Utils.roundToThreeDecimals(childrenWeight),
+      weight: itemWeight,
+      childrenWeight: childrenWeight,
       originalCost,
-      calculatedCost: Utils.roundToThreeDecimals(
-        originalCost !== null ? itemCost : childrenCost,
-      ),
+      calculatedCost: originalCost !== null ? itemCost : childrenCost,
       children,
     });
   }

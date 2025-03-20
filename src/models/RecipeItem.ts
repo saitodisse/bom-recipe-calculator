@@ -19,16 +19,15 @@ export class RecipeItem implements IRecipeItem {
   constructor(id: string, quantity: number) {
     // Validate required properties
     if (!id) {
-      throw new Error("Recipe item ID is required");
+      throw new Error(`Recipe item ID is required: ${id}`);
     }
 
     if (quantity === undefined || quantity === null) {
-      throw new Error("Recipe item quantity is required");
+      throw new Error(`Recipe item quantity is required: ${quantity}`);
     }
 
-    if (typeof quantity !== "number" || isNaN(quantity)) {
-      throw new Error("Recipe item quantity must be a valid number");
-    }
+    // Convert quantity to a number
+    quantity = Number(quantity);
 
     // Initialize properties
     this._id = id;
@@ -64,7 +63,7 @@ export class RecipeItem implements IRecipeItem {
       return 0;
     }
 
-    return Utils.roundToThreeDecimals(this._quantity * factor);
+    return this._quantity * factor;
   }
 
   /**

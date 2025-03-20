@@ -26,24 +26,40 @@ export class Product implements IProduct {
   constructor(data: IProduct) {
     // Validate required properties
     if (!data.id) {
-      throw new Error("Product ID is required");
+      throw new Error(
+        `Product ID is required: ${data.id}\n\n${
+          JSON.stringify(data, null, 2)
+        }`,
+      );
     }
 
-    if (!data.name) {
-      throw new Error("Product name is required");
+    if (!data.name && !data.id) {
+      throw new Error(
+        `Product name is required: ${data.name}\n\n${
+          JSON.stringify(data, null, 2)
+        }`,
+      );
     }
 
     if (!data.category) {
-      throw new Error("Product category is required");
+      throw new Error(
+        `Product category is required: ${data.category}\n\n${
+          JSON.stringify(data, null, 2)
+        }`,
+      );
     }
 
     if (!data.unit) {
-      throw new Error("Product unit is required");
+      throw new Error(
+        `Product unit is required: ${data.unit}\n\n${
+          JSON.stringify(data, null, 2)
+        }`,
+      );
     }
 
     // Initialize properties
     this._id = data.id;
-    this._name = data.name;
+    this._name = data.name ?? data.id;
     this._category = data.category;
     this._unit = data.unit;
     this._purchaseQuoteValue = data.purchaseQuoteValue ?? null;

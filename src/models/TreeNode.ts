@@ -215,7 +215,7 @@ export class TreeNode implements ITreeNode {
    * @param weight The weight to set
    */
   public setChildrenWeight(weight: number): void {
-    this._childrenWeight = Utils.roundToThreeDecimals(weight);
+    this._childrenWeight = weight;
   }
 
   /**
@@ -224,7 +224,7 @@ export class TreeNode implements ITreeNode {
    * @param cost The cost to set
    */
   public setCalculatedCost(cost: number): void {
-    this._calculatedCost = Utils.roundToThreeDecimals(cost);
+    this._calculatedCost = cost;
   }
 
   /**
@@ -536,10 +536,6 @@ export class TreeNode implements ITreeNode {
 
     if (this._level < 0) {
       throw new Error("Node level must be a non-negative number");
-    }
-
-    if (this._motherFactor <= 0) {
-      throw new Error("Node mother factor must be a positive number");
     }
   }
 

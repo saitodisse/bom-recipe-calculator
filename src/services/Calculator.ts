@@ -38,7 +38,7 @@ export class Calculator {
     const calculatedFactor = quantity * factor;
     const cost = unitCost * calculatedFactor;
 
-    return this.roundToThreeDecimals(cost);
+    return cost;
   }
 
   /**
@@ -61,9 +61,9 @@ export class Calculator {
     const calculatedFactor = quantity * factor;
 
     if (unit === "KG") {
-      return this.roundToThreeDecimals(calculatedFactor);
+      return calculatedFactor;
     } else if (customWeight > 0) {
-      return this.roundToThreeDecimals(customWeight * calculatedFactor);
+      return customWeight * calculatedFactor;
     }
 
     return 0;
@@ -92,10 +92,10 @@ export class Calculator {
     Object.values(children).forEach((child) => {
       if (!child) return;
 
-      totalWeight += this.roundToThreeDecimals(child.weight || 0);
+      totalWeight += child.weight || 0;
     });
 
-    return this.roundToThreeDecimals(totalWeight);
+    return totalWeight;
   }
 
   /**
@@ -118,10 +118,10 @@ export class Calculator {
     Object.values(children).forEach((child) => {
       if (!child) return;
 
-      totalCost += this.roundToThreeDecimals(child.calculatedCost || 0);
+      totalCost += child.calculatedCost || 0;
     });
 
-    return this.roundToThreeDecimals(totalCost);
+    return totalCost;
   }
 
   /**

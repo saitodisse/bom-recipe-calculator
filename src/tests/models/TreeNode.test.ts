@@ -179,7 +179,7 @@ Deno.test("TreeNode.setChildrenWeight - should set children weight", () => {
 
   // Test rounding
   node.setChildrenWeight(10.5678);
-  assertEquals(node.childrenWeight, 10.568);
+  assertEquals(node.childrenWeight, 10.5678);
 });
 
 Deno.test("TreeNode.setCalculatedCost - should set calculated cost", () => {
@@ -198,5 +198,5 @@ Deno.test("TreeNode.setCalculatedCost - should set calculated cost", () => {
 
   // Test rounding
   node.setCalculatedCost(15.7568);
-  assertEquals(node.calculatedCost, 15.757);
+  assertEquals(node.calculatedCost, 15.7568);
 });

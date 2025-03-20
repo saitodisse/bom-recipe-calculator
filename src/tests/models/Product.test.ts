@@ -56,19 +56,6 @@ Deno.test("Product.constructor - should throw error with invalid data", () => {
     "Product ID is required",
   );
 
-  // Missing name
-  assertThrows(
-    () => {
-      new Product({
-        id: "test",
-        category: ProductCategory.RAW_MATERIAL.id,
-        unit: ProductUnit.UN.id,
-      } as any);
-    },
-    Error,
-    "Product name is required",
-  );
-
   // Missing category
   assertThrows(
     () => {
