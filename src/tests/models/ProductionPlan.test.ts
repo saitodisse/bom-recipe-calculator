@@ -20,7 +20,7 @@ Deno.test("ProductionPlan - should add and manage entries", async () => {
   });
 
   const date1 = new Date();
-  plan.addEntry(testData.products.bread4pack, 10, date1, "First batch");
+  plan.addEntry(testData.products.bread4pack, 10, date1, "First batch", "Morning Batch");
   
   await sleep(100); // Ensure dates are different
   
@@ -29,22 +29,31 @@ Deno.test("ProductionPlan - should add and manage entries", async () => {
 
   // Check entries were added
   assertEquals(plan.entries.length, 2);
-  assertEquals(plan.entries[0].product.id, "bread4pack");
-  assertEquals(plan.entries[0].plannedQuantity, 10);
-  assertEquals(plan.entries[0].status, "planned");
-  assertEquals(plan.entries[0].notes, "First batch");
   
-  assertEquals(plan.entries[1].product.id, "breadUnitary");
-  assertEquals(plan.entries[1].plannedQuantity, 20);
-  assertEquals(plan.entries[1].status, "planned");
-  assertEquals(plan.entries[1].notes, undefined);
+  // Check first entry with name
+  const entry1 = plan.entries[0];
+  assertEquals(entry1.product.id, "bread4pack");
+  assertEquals(entry1.plannedQuantity, 10);
+  assertEquals(entry1.status, "planned");
+  assertEquals(entry1.notes, "First batch");
+  assertEquals(entry1.name, "Morning Batch");
+  assertNotEquals(entry1.id, ""); // Should have a UUID
+  
+  // Check second entry without name
+  const entry2 = plan.entries[1];
+  assertEquals(entry2.product.id, "breadUnitary");
+  assertEquals(entry2.plannedQuantity, 20);
+  assertEquals(entry2.status, "planned");
+  assertEquals(entry2.notes, undefined);
+  assertEquals(entry2.name, undefined);
+  assertNotEquals(entry2.id, ""); // Should have a UUID
 
-  // Check status update
-  plan.updateEntryStatus(testData.products.bread4pack, date1, "in-progress");
+  // Check status update using entry id
+  plan.updateEntryStatus(entry1.id, "in-progress");
   assertEquals(plan.entries[0].status, "in-progress");
 
-  // Check entry removal
-  plan.removeEntry(testData.products.bread4pack, date1);
+  // Check entry removal using entry id
+  plan.removeEntry(entry1.id);
   assertEquals(plan.entries.length, 1);
   assertEquals(plan.entries[0].product.id, "breadUnitary");
 });
@@ -80,4 +89,43 @@ Deno.test("ProductionPlan - should calculate materials needed", async () => {
   
   // And 10 boxes for packaging
   assertEquals(materialTrees["box"].calculatedQuantity, 10);
+});
+
+Deno.test("ProductionPlan - should handle entry id and name correctly", () => {
+  const plan = new ProductionPlan({
+    name: "Test Plan",
+  });
+
+  // Add entries with different name configurations
+  plan.addEntry(testData.products.bread4pack, 10, new Date(), "Notes 1", "Named Entry");
+  plan.addEntry(testData.products.breadUnitary, 20, new Date(), "Notes 2"); // No name
+  plan.addEntry(testData.products.dough, 5, new Date(), undefined, "Dough Batch"); // No notes, with name
+  
+  // Verify entries
+  assertEquals(plan.entries.length, 3);
+  
+  // Check first entry (with name and notes)
+  assertEquals(plan.entries[0].name, "Named Entry");
+  assertEquals(plan.entries[0].notes, "Notes 1");
+  assertNotEquals(plan.entries[0].id, "");
+  
+  // Check second entry (no name, with notes)
+  assertEquals(plan.entries[1].name, undefined);
+  assertEquals(plan.entries[1].notes, "Notes 2");
+  assertNotEquals(plan.entries[1].id, "");
+  
+  // Check third entry (with name, no notes)
+  assertEquals(plan.entries[2].name, "Dough Batch");
+  assertEquals(plan.entries[2].notes, undefined);
+  assertNotEquals(plan.entries[2].id, "");
+  
+  // Test updating by ID
+  const entryId = plan.entries[0].id;
+  plan.updateEntryStatus(entryId, "completed");
+  assertEquals(plan.entries[0].status, "completed");
+  
+  // Test removing by ID
+  plan.removeEntry(entryId);
+  assertEquals(plan.entries.length, 2);
+  assertEquals(plan.entries.find(e => e.id === entryId), undefined);
 });

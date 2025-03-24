@@ -54,8 +54,10 @@ export class ProductionPlan implements IProductionPlan {
   /**
    * Adds a new production entry to the plan
    */
-  public addEntry(product: IProduct, plannedQuantity: number, productionDate: Date, notes?: string): void {
+  public addEntry(product: IProduct, plannedQuantity: number, productionDate: Date, notes?: string, name?: string): void {
     this._entries.push({
+      id: crypto.randomUUID(),
+      name,
       product,
       plannedQuantity,
       productionDate,
@@ -68,11 +70,8 @@ export class ProductionPlan implements IProductionPlan {
   /**
    * Updates the status of a production entry
    */
-  public updateEntryStatus(product: IProduct, productionDate: Date, newStatus: IProductionPlanEntry["status"]): void {
-    const entry = this._entries.find(e => 
-      e.product.id === product.id && 
-      e.productionDate.getTime() === productionDate.getTime()
-    );
+  public updateEntryStatus(entryId: string, newStatus: IProductionPlanEntry["status"]): void {
+    const entry = this._entries.find(e => e.id === entryId);
     
     if (entry) {
       entry.status = newStatus;
@@ -83,11 +82,8 @@ export class ProductionPlan implements IProductionPlan {
   /**
    * Removes a production entry from the plan
    */
-  public removeEntry(product: IProduct, productionDate: Date): void {
-    this._entries = this._entries.filter(e => 
-      !(e.product.id === product.id && 
-        e.productionDate.getTime() === productionDate.getTime())
-    );
+  public removeEntry(entryId: string): void {
+    this._entries = this._entries.filter(e => e.id !== entryId);
     this._updatedAt = new Date();
   }
 

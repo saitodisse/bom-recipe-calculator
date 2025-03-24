@@ -5,6 +5,12 @@ import type { IProduct } from "./IProduct.ts";
  * Contains information about what product to produce and in what quantity.
  */
 export interface IProductionPlanEntry {
+  /** Unique identifier for the entry */
+  id: string;
+  
+  /** Optional name/description of the entry */
+  name?: string;
+  
   /** The product to be produced */
   product: IProduct;
   
