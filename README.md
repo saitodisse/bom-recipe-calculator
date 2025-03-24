@@ -321,6 +321,46 @@ const builder = new MaterialsTreeBuilder(params);
 const tree = builder.build();
 ```
 
+#### Using ProductionPlan
+
+```ts
+import { 
+  IProduct,
+  MaterialsTreeBuilder,
+  ProductCategory,
+  ProductUnit,
+  ProductionPlan,
+} from "jsr:@saitodisse/bom-recipe-calculator";
+
+// First, create a production plan
+const plan = new ProductionPlan({
+  name: "Bread Production Plan",
+});
+
+// Add production entries with planned quantities and dates
+const today = new Date();
+plan.addEntry(products.bread4pack, 10, today, "Morning batch");
+plan.addEntry(products.breadUnitary, 20, today, "Single bread units");
+
+// Update entry status as production progresses
+plan.updateEntryStatus(products.bread4pack, today, "in-progress");
+
+// Calculate materials needed for the entire production plan
+const materialTrees = await plan.calculateMaterialsNeeded(products);
+
+// Example output of required materials for 10 units of bread4pack:
+// - 40 unitary breads (4 per pack × 10 packs)
+// - 8.8kg of dough (0.220kg per bread × 40 breads)
+// - 4.4kg flour (0.5 × 8.8kg dough)
+// - 6.16L water (0.7 × 8.8kg dough)
+// - 0.0176kg salt (0.002 × 8.8kg dough)
+// - 0.0264kg yeast (0.003 × 8.8kg dough)
+// - 10 boxes (1 per pack)
+
+// Production entries can also be removed if needed
+plan.removeEntry(products.bread4pack, today);
+```
+
 ## License
 
 MIT

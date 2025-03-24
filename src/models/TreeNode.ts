@@ -1,6 +1,5 @@
 import type { ITreeNode } from "../interfaces/ITreeNode.ts";
 import type { ProductCategoryId } from "../interfaces/ProductCategory.ts";
-import { Utils } from "../services/Utils.ts";
 
 /**
  * Class representing a node in the materials tree.
@@ -225,6 +224,16 @@ export class TreeNode implements ITreeNode {
    */
   public setCalculatedCost(cost: number): void {
     this._calculatedCost = cost;
+  }
+
+  /**
+   * Sets the node's calculated quantity.
+   * Updates the calculated quantity while maintaining other properties.
+   * 
+   * @param quantity The new calculated quantity
+   */
+  public setCalculatedQuantity(quantity: number): void {
+    this._calculatedQuantity = quantity;
   }
 
   /**
