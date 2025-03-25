@@ -77,12 +77,11 @@ export default function ListProducts({}: ListProductsProps) {
 
   return (
     <div class="my-6">
-      <h2 class="text-2xl font-semibold mb-4">Products List</h2>
       <div class="overflow-x-auto">
         <table class="min-w-full bg-white border border-gray-200">
           <thead class="bg-gray-100">
             <tr>
-              <th class="py-2 px-4 border-b text-left">Name</th>
+              <th class="py-2 px-4 border-b text-left">Product</th>
               <th class="py-2 px-4 border-b text-left">Category</th>
               <th class="py-2 px-4 border-b text-left">Unit</th>
               <th class="py-2 px-4 border-b text-left">Price</th>
