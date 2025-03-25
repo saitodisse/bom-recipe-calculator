@@ -10,9 +10,11 @@ import * as $index from "./routes/index.tsx";
 import * as $products_product_id_ from "./routes/products/[product_id].tsx";
 import * as $products_list_products from "./routes/products/list-products.tsx";
 import * as $products_load_example_json_name_ from "./routes/products/load-example/[json_name].tsx";
+import * as $products_materials_tree_product_id_ from "./routes/products/materials-tree/[product_id].tsx";
 import * as $AddEditProduct from "./islands/AddEditProduct.tsx";
 import * as $ExampleLoader from "./islands/ExampleLoader.tsx";
 import * as $ListProducts from "./islands/ListProducts.tsx";
+import * as $MaterialsTree from "./islands/MaterialsTree.tsx";
 import * as $RecipeSelect from "./islands/RecipeSelect.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
@@ -27,11 +29,14 @@ const manifest = {
     "./routes/products/list-products.tsx": $products_list_products,
     "./routes/products/load-example/[json_name].tsx":
       $products_load_example_json_name_,
+    "./routes/products/materials-tree/[product_id].tsx":
+      $products_materials_tree_product_id_,
   },
   islands: {
     "./islands/AddEditProduct.tsx": $AddEditProduct,
     "./islands/ExampleLoader.tsx": $ExampleLoader,
     "./islands/ListProducts.tsx": $ListProducts,
+    "./islands/MaterialsTree.tsx": $MaterialsTree,
     "./islands/RecipeSelect.tsx": $RecipeSelect,
   },
   baseUrl: import.meta.url,

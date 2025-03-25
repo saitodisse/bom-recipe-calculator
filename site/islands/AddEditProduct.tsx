@@ -1,14 +1,10 @@
 import { useEffect, useState } from "preact/hooks";
-import { Product } from "../../src/models/Product.ts";
-import type { IProduct } from "../../src/interfaces/IProduct.ts";
-import {
-  ProductUnit,
-  type ProductUnitId,
-} from "../../src/interfaces/ProductUnit.ts";
+import { type IProduct, Product } from "@bom-recipe-calculator";
+import { ProductUnit, type ProductUnitId } from "@bom-recipe-calculator";
 import {
   ProductCategory,
   type ProductCategoryId,
-} from "../../src/interfaces/ProductCategory.ts";
+} from "@bom-recipe-calculator";
 import { PageProps } from "$fresh/server.ts";
 
 export default function AddEditProduct(props: PageProps) {

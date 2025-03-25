@@ -1,6 +1,6 @@
 import { useEffect, useState } from "preact/hooks";
-import { Product } from "../../src/models/Product.ts";
-import type { IProduct } from "../../src/interfaces/IProduct.ts";
+import { Product } from "@bom-recipe-calculator";
+import type { IProduct } from "@bom-recipe-calculator";
 
 interface ListProductsProps {
 }
@@ -91,7 +91,20 @@ export default function ListProducts({}: ListProductsProps) {
           <tbody>
             {products.map((product) => (
               <tr key={product.id} class="hover:bg-gray-50">
-                <td class="py-2 px-4 border-b">{product.name}</td>
+                <td class="py-2 px-4 border-b">
+                  {product.recipe
+                    ? (
+                      <a
+                        href={`/products/materials-tree/${product.id}`}
+                        class="underline text-blue-800"
+                      >
+                        {product.name}
+                      </a>
+                    )
+                    : (
+                      product.name
+                    )}
+                </td>
                 <td class="py-2 px-4 border-b">{product.category}</td>
                 <td class="py-2 px-4 border-b">{product.unit}</td>
                 <td class="py-2 px-4 border-b">

@@ -1,6 +1,5 @@
-import { PageProps } from "$fresh/server.ts";
 import { useEffect } from "preact/hooks";
-import { IProduct } from "../../src/interfaces/IProduct.ts";
+import { type IProduct } from "@bom-recipe-calculator";
 
 /*
 - get name from querystring (props.params.json_name)

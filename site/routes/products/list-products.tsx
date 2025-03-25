@@ -1,4 +1,3 @@
-import { Head } from "$fresh/runtime.ts";
 import ListProducts from "../../islands/ListProducts.tsx";
 import RecipeSelect from "../../islands/RecipeSelect.tsx";
 
