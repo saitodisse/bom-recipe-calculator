@@ -1,0 +1,39 @@
+{
+    "products": [
+        {
+            "id": "mGroundBeef",
+            "name": "Ground Beef",
+            "category": "m",
+            "unit": "KG",
+            "weight": null,
+            "purchaseQuoteValue": 25,
+            "recipe": null
+        },
+        {
+            "id": "mCheddarCheese",
+            "name": "Cheddar Cheese",
+            "category": "m",
+            "unit": "KG",
+            "weight": null,
+            "purchaseQuoteValue": 30,
+            "recipe": null
+        },
+        {
+            "id": "pCheeseBurger",
+            "name": "Cheese Burger",
+            "category": "p",
+            "unit": "UN",
+            "purchaseQuoteValue": null,
+            "recipe": [
+                {
+                    "id": "mGroundBeef",
+                    "quantity": 0.15
+                },
+                {
+                    "id": "mCheddarCheese",
+                    "quantity": 0.05
+                }
+            ]
+        }
+    ]
+}

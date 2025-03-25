@@ -1,0 +1,78 @@
+{
+    "products": [
+        {
+            "id": "mTapiocaStarch",
+            "name": "Tapioca Starch",
+            "category": "m",
+            "unit": "KG",
+            "weight": null,
+            "purchaseQuoteValue": 7,
+            "recipe": null
+        },
+        {
+            "id": "mMilk",
+            "name": "Milk",
+            "category": "m",
+            "unit": "L",
+            "weight": null,
+            "purchaseQuoteValue": 3,
+            "recipe": null
+        },
+        {
+            "id": "mOil",
+            "name": "Oil",
+            "category": "m",
+            "unit": "L",
+            "weight": null,
+            "purchaseQuoteValue": 5,
+            "recipe": null
+        },
+        {
+            "id": "mEggs",
+            "name": "Eggs",
+            "category": "m",
+            "unit": "UN",
+            "weight": null,
+            "purchaseQuoteValue": 1,
+            "recipe": null
+        },
+        {
+            "id": "mCheese",
+            "name": "Minas Cheese",
+            "category": "m",
+            "unit": "KG",
+            "weight": null,
+            "purchaseQuoteValue": 25,
+            "recipe": null
+        },
+        {
+            "id": "pPaoDeQueijo",
+            "name": "Pão de Queijo",
+            "category": "p",
+            "unit": "UN",
+            "purchaseQuoteValue": null,
+            "recipe": [
+                {
+                    "id": "mTapiocaStarch",
+                    "quantity": 0.5
+                },
+                {
+                    "id": "mMilk",
+                    "quantity": 0.25
+                },
+                {
+                    "id": "mOil",
+                    "quantity": 0.1
+                },
+                {
+                    "id": "mEggs",
+                    "quantity": 2
+                },
+                {
+                    "id": "mCheese",
+                    "quantity": 0.2
+                }
+            ]
+        }
+    ]
+}

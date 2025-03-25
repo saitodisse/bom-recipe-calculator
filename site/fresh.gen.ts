@@ -6,7 +6,12 @@ import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $api_joke from "./routes/api/joke.ts";
 import * as $index from "./routes/index.tsx";
-import * as $Counter from "./islands/Counter.tsx";
+import * as $products_product_id_ from "./routes/products/[product_id].tsx";
+import * as $products_list_products from "./routes/products/list-products.tsx";
+import * as $products_load_example_json_name_ from "./routes/products/load-example/[json_name].tsx";
+import * as $AddEditProduct from "./islands/AddEditProduct.tsx";
+import * as $ExampleLoader from "./islands/ExampleLoader.tsx";
+import * as $ListProducts from "./islands/ListProducts.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -15,9 +20,15 @@ const manifest = {
     "./routes/_app.tsx": $_app,
     "./routes/api/joke.ts": $api_joke,
     "./routes/index.tsx": $index,
+    "./routes/products/[product_id].tsx": $products_product_id_,
+    "./routes/products/list-products.tsx": $products_list_products,
+    "./routes/products/load-example/[json_name].tsx":
+      $products_load_example_json_name_,
   },
   islands: {
-    "./islands/Counter.tsx": $Counter,
+    "./islands/AddEditProduct.tsx": $AddEditProduct,
+    "./islands/ExampleLoader.tsx": $ExampleLoader,
+    "./islands/ListProducts.tsx": $ListProducts,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;

@@ -1,0 +1,52 @@
+{
+    "products": [
+        {
+            "id": "mCondensedMilk",
+            "name": "Condensed Milk",
+            "category": "m",
+            "unit": "KG",
+            "weight": null,
+            "purchaseQuoteValue": 6,
+            "recipe": null
+        },
+        {
+            "id": "mChocolatePowder",
+            "name": "Chocolate Powder",
+            "category": "m",
+            "unit": "KG",
+            "weight": null,
+            "purchaseQuoteValue": 8,
+            "recipe": null
+        },
+        {
+            "id": "mButter",
+            "name": "Butter",
+            "category": "m",
+            "unit": "KG",
+            "weight": null,
+            "purchaseQuoteValue": 15,
+            "recipe": null
+        },
+        {
+            "id": "pBrigadeiro",
+            "name": "Brigadeiro",
+            "category": "p",
+            "unit": "UN",
+            "purchaseQuoteValue": null,
+            "recipe": [
+                {
+                    "id": "mCondensedMilk",
+                    "quantity": 0.395
+                },
+                {
+                    "id": "mChocolatePowder",
+                    "quantity": 0.032
+                },
+                {
+                    "id": "mButter",
+                    "quantity": 0.02
+                }
+            ]
+        }
+    ]
+}

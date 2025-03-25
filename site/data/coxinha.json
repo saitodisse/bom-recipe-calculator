@@ -1,0 +1,104 @@
+{
+    "products": [
+        {
+            "id": "mChicken",
+            "name": "Chicken Breast",
+            "category": "m",
+            "unit": "KG",
+            "weight": null,
+            "purchaseQuoteValue": 18,
+            "recipe": null
+        },
+        {
+            "id": "mOnion",
+            "name": "Onion",
+            "category": "m",
+            "unit": "KG",
+            "weight": null,
+            "purchaseQuoteValue": 3,
+            "recipe": null
+        },
+        {
+            "id": "mGarlic",
+            "name": "Garlic",
+            "category": "m",
+            "unit": "KG",
+            "weight": null,
+            "purchaseQuoteValue": 5,
+            "recipe": null
+        },
+        {
+            "id": "mTomatoPaste",
+            "name": "Tomato Paste",
+            "category": "m",
+            "unit": "KG",
+            "weight": null,
+            "purchaseQuoteValue": 6,
+            "recipe": null
+        },
+        {
+            "id": "mWheatFlour",
+            "name": "Wheat Flour",
+            "category": "m",
+            "unit": "KG",
+            "weight": null,
+            "purchaseQuoteValue": 4,
+            "recipe": null
+        },
+        {
+            "id": "mMilk",
+            "name": "Milk",
+            "category": "m",
+            "unit": "L",
+            "weight": null,
+            "purchaseQuoteValue": 3,
+            "recipe": null
+        },
+        {
+            "id": "mBreadCrumbs",
+            "name": "Bread Crumbs",
+            "category": "m",
+            "unit": "KG",
+            "weight": null,
+            "purchaseQuoteValue": 8,
+            "recipe": null
+        },
+        {
+            "id": "pCoxinha",
+            "name": "Coxinha",
+            "category": "p",
+            "unit": "UN",
+            "purchaseQuoteValue": null,
+            "recipe": [
+                {
+                    "id": "mChicken",
+                    "quantity": 0.5
+                },
+                {
+                    "id": "mOnion",
+                    "quantity": 0.1
+                },
+                {
+                    "id": "mGarlic",
+                    "quantity": 0.02
+                },
+                {
+                    "id": "mTomatoPaste",
+                    "quantity": 0.05
+                },
+                {
+                    "id": "mWheatFlour",
+                    "quantity": 0.3
+                },
+                {
+                    "id": "mMilk",
+                    "quantity": 0.2
+                },
+                {
+                    "id": "mBreadCrumbs",
+                    "quantity": 0.15
+                }
+            ]
+        }
+    ]
+}

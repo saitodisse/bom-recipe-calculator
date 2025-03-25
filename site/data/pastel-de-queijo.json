@@ -1,0 +1,143 @@
+{
+    "products": [
+        {
+            "id": "eemb35x45Svide5kg",
+            "name": "Embalagem 35x45 Svide (5kg)",
+            "category": "e",
+            "unit": "UN",
+            "weight": 0.02,
+            "purchaseQuoteValue": 1.14,
+            "recipe": null
+        },
+        {
+            "id": "mAgua",
+            "name": "Água",
+            "category": "m",
+            "unit": "KG",
+            "weight": null,
+            "purchaseQuoteValue": 0,
+            "recipe": null
+        },
+        {
+            "id": "mCachaca",
+            "name": "Cachaça",
+            "category": "m",
+            "unit": "KG",
+            "weight": null,
+            "purchaseQuoteValue": 13,
+            "recipe": null
+        },
+        {
+            "id": "mFarinhaDeTrigo",
+            "name": "Farinha de Trigo",
+            "category": "m",
+            "unit": "KG",
+            "weight": null,
+            "purchaseQuoteValue": 10,
+            "recipe": null
+        },
+        {
+            "id": "mOleoDeSoja",
+            "name": "OleoDeSoja",
+            "category": "m",
+            "unit": "KG",
+            "weight": null,
+            "purchaseQuoteValue": 18,
+            "recipe": null
+        },
+        {
+            "id": "mQueijoMussarela",
+            "name": "Queijo Mussarela",
+            "category": "m",
+            "unit": "KG",
+            "weight": null,
+            "purchaseQuoteValue": 35,
+            "recipe": null
+        },
+        {
+            "id": "mSal",
+            "name": "Sal Refinado",
+            "category": "m",
+            "unit": "KG",
+            "weight": null,
+            "purchaseQuoteValue": 3,
+            "recipe": null
+        },
+        {
+            "id": "mVinagreBranco",
+            "name": "Vinagre Branco",
+            "category": "m",
+            "unit": "KG",
+            "weight": null,
+            "purchaseQuoteValue": 7,
+            "recipe": null
+        },
+        {
+            "id": "pPastelDeQueijo10un",
+            "name": "Pastel de Queijo - 10 unidades",
+            "category": "p",
+            "unit": "UN",
+            "purchaseQuoteValue": null,
+            "recipe": [
+                {
+                    "id": "eemb35x45Svide5kg",
+                    "quantity": 1
+                },
+                {
+                    "id": "uPastelDeQueijo",
+                    "quantity": 10
+                }
+            ]
+        },
+        {
+            "id": "sMassaPastel",
+            "name": "Massa de Pastel (1kg)",
+            "category": "s",
+            "unit": "KG",
+            "purchaseQuoteValue": null,
+            "recipe": [
+                {
+                    "id": "mFarinhaDeTrigo",
+                    "quantity": 0.518
+                },
+                {
+                    "id": "mSal",
+                    "quantity": 0.022
+                },
+                {
+                    "id": "mVinagreBranco",
+                    "quantity": 0.03
+                },
+                {
+                    "id": "mOleoDeSoja",
+                    "quantity": 0.058
+                },
+                {
+                    "id": "mAgua",
+                    "quantity": 0.7
+                },
+                {
+                    "id": "mCachaca",
+                    "quantity": 0.022
+                }
+            ]
+        },
+        {
+            "id": "uPastelDeQueijo",
+            "name": "Pastel de Queijo - unitário",
+            "category": "u",
+            "unit": "UN",
+            "purchaseQuoteValue": null,
+            "recipe": [
+                {
+                    "id": "sMassaPastel",
+                    "quantity": 0.1
+                },
+                {
+                    "id": "mQueijoMussarela",
+                    "quantity": 0.05
+                }
+            ]
+        }
+    ]
+}

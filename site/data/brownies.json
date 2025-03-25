@@ -1,0 +1,78 @@
+{
+    "products": [
+        {
+            "id": "mChocolate",
+            "name": "Chocolate",
+            "category": "m",
+            "unit": "KG",
+            "weight": null,
+            "purchaseQuoteValue": 20,
+            "recipe": null
+        },
+        {
+            "id": "mButter",
+            "name": "Butter",
+            "category": "m",
+            "unit": "KG",
+            "weight": null,
+            "purchaseQuoteValue": 15,
+            "recipe": null
+        },
+        {
+            "id": "mSugar",
+            "name": "Sugar",
+            "category": "m",
+            "unit": "KG",
+            "weight": null,
+            "purchaseQuoteValue": 2,
+            "recipe": null
+        },
+        {
+            "id": "mEggs",
+            "name": "Eggs",
+            "category": "m",
+            "unit": "UN",
+            "weight": null,
+            "purchaseQuoteValue": 1,
+            "recipe": null
+        },
+        {
+            "id": "mFlour",
+            "name": "Flour",
+            "category": "m",
+            "unit": "KG",
+            "weight": null,
+            "purchaseQuoteValue": 4,
+            "recipe": null
+        },
+        {
+            "id": "pBrownies",
+            "name": "Brownies",
+            "category": "p",
+            "unit": "UN",
+            "purchaseQuoteValue": null,
+            "recipe": [
+                {
+                    "id": "mChocolate",
+                    "quantity": 0.2
+                },
+                {
+                    "id": "mButter",
+                    "quantity": 0.1
+                },
+                {
+                    "id": "mSugar",
+                    "quantity": 0.2
+                },
+                {
+                    "id": "mEggs",
+                    "quantity": 2
+                },
+                {
+                    "id": "mFlour",
+                    "quantity": 0.1
+                }
+            ]
+        }
+    ]
+}

@@ -1,25 +1,47 @@
 import { useSignal } from "@preact/signals";
-import Counter from "../islands/Counter.tsx";
 
 export default function Home() {
   const count = useSignal(3);
   return (
-    <div class="px-4 py-8 mx-auto bg-[#86efac]">
-      <div class="max-w-screen-md mx-auto flex flex-col items-center justify-center">
-        <img
-          class="my-6"
-          src="/logo.svg"
-          width="128"
-          height="128"
-          alt="the Fresh logo: a sliced lemon dripping with juice"
-        />
-        <h1 class="text-4xl font-bold">Welcome to Fresh</h1>
-        <p class="my-4">
-          Try updating this message in the
-          <code class="mx-2">./routes/index.tsx</code> file, and refresh.
-        </p>
-        <Counter count={count} />
-      </div>
+    <div class="max-w-screen-md m-auto p-4">
+      <h1 className="text-4xl font-bold">BOM Recipe Calculator</h1>
+
+      <p className="my-4">
+        A Bill of Materials (BOM) recipe calculator for nested product recipes.
+        Calculate costs and weights for complex product recipes with multiple
+        levels of ingredients.
+      </p>
+
+      <p className="my-4 text-lg font-bold">
+        Installation
+      </p>
+      <pre className="bg-gray-300 p-4 rounded">
+        <code className="">
+          {`// deno
+deno add jsr:@saitodisse/bom-recipe-calculator
+// npm
+npx jsr add @saitodisse/bom-recipe-calculator
+`}
+        </code>
+      </pre>
+
+      <p className="my-4 text-lg font-bold">
+        Usage
+      </p>
+
+      <a className="underline" href="/products/add-products">Add products</a>
+      <br />
+      <a className="underline" href="/products/list-products">List products</a>
+      {
+        /* <br />
+      <a className="underline" href="/products/add-production-plan">
+        Add production plan
+      </a>
+      <br />
+      <a className="underline" href="/products/check-production-plan">
+        Check production plan
+      </a> */
+      }
     </div>
   );
 }

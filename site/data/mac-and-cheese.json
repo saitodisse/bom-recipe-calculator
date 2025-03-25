@@ -1,0 +1,78 @@
+{
+    "products": [
+        {
+            "id": "mMacaroni",
+            "name": "Macaroni",
+            "category": "m",
+            "unit": "KG",
+            "weight": null,
+            "purchaseQuoteValue": 5,
+            "recipe": null
+        },
+        {
+            "id": "mCheddarCheese",
+            "name": "Cheddar Cheese",
+            "category": "m",
+            "unit": "KG",
+            "weight": null,
+            "purchaseQuoteValue": 30,
+            "recipe": null
+        },
+        {
+            "id": "mMilk",
+            "name": "Milk",
+            "category": "m",
+            "unit": "L",
+            "weight": null,
+            "purchaseQuoteValue": 3,
+            "recipe": null
+        },
+        {
+            "id": "mButter",
+            "name": "Butter",
+            "category": "m",
+            "unit": "KG",
+            "weight": null,
+            "purchaseQuoteValue": 15,
+            "recipe": null
+        },
+        {
+            "id": "mFlour",
+            "name": "Flour",
+            "category": "m",
+            "unit": "KG",
+            "weight": null,
+            "purchaseQuoteValue": 4,
+            "recipe": null
+        },
+        {
+            "id": "pMacAndCheese",
+            "name": "Mac and Cheese",
+            "category": "p",
+            "unit": "UN",
+            "purchaseQuoteValue": null,
+            "recipe": [
+                {
+                    "id": "mMacaroni",
+                    "quantity": 0.3
+                },
+                {
+                    "id": "mCheddarCheese",
+                    "quantity": 0.2
+                },
+                {
+                    "id": "mMilk",
+                    "quantity": 0.5
+                },
+                {
+                    "id": "mButter",
+                    "quantity": 0.05
+                },
+                {
+                    "id": "mFlour",
+                    "quantity": 0.03
+                }
+            ]
+        }
+    ]
+}
