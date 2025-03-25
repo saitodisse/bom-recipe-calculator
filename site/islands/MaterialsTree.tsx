@@ -6,17 +6,18 @@ import {
   TreeNode,
 } from "@bom-recipe-calculator";
 import { PageProps } from "$fresh/server.ts";
+import { JSX } from "preact/jsx-runtime";
 
 export default function MaterialsTree(props: PageProps) {
   const product_id = props.params.product_id;
-  const [productsMap, setProductsMap] = useState<Record<string, IProduct>>({});
   const [tree, setTree] = useState<TreeNode | null>(null);
   const [loading, setLoading] = useState(true);
   const [view, setView] = useState("tree");
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     // load all products from localStorage
-    const loadProducts = () => {
+    const createMaterialsTree = () => {
       try {
         const storedProducts = localStorage.getItem("products");
         if (storedProducts) {
@@ -26,22 +27,17 @@ export default function MaterialsTree(props: PageProps) {
             return acc;
           }, {} as Record<string, IProduct>);
 
-          setProductsMap(productsMap);
-
-          //load tree
+          // load tree
           const treeBuilder = new MaterialsTreeBuilder({
             productsList: productsMap,
             productCode: product_id,
-            initialQuantity: 1,
+            initialQuantity: quantity,
           });
 
           const tree = treeBuilder.build();
 
           setTree(tree[product_id]);
         }
-
-        //debug
-        console.log(product_id);
       } catch (error) {
         console.error("Error loading products:", error);
       } finally {
@@ -49,14 +45,18 @@ export default function MaterialsTree(props: PageProps) {
       }
     };
 
-    loadProducts();
-  }, [product_id]);
+    createMaterialsTree();
+  }, [product_id, quantity]);
 
   const renderView = () => {
     switch (view) {
       case "tree":
         return (
-          <pre class="whitespace-pre-line text-sm text-gray-700">{tree?.toHumanReadable()}</pre>
+          <pre class="whitespace-pre text-sm text-gray-700">{tree?.toHumanReadable({
+            showCost: true,
+            showQuantity: true,
+            showWeight: true,
+          })}</pre>
         );
       case "json":
         return (
@@ -75,31 +75,64 @@ export default function MaterialsTree(props: PageProps) {
         )
         : (
           <div class="flex flex-col gap-4 py-2 px-4">
-            {
-              /*
-              TODO: add a simples menu: show as json, show as tree, show as table
-             */
-            }
-            <nav class="flex flex-row gap-6">
-              <a
-                class={"underline" + (view === "tree" ? " font-bold" : "")}
-                href="#"
-                onClick={() => {
-                  setView("tree");
-                }}
-              >
-                tree
-              </a>
-              <a
-                class={"underline" + (view === "json" ? " font-bold" : "")}
-                href="#"
-                onClick={() => {
-                  setView("json");
-                }}
-              >
-                json
-              </a>
-            </nav>
+            <div class="flex flex-row gap-6">
+              <nav class="flex flex-row gap-6">
+                <a
+                  class={"underline" + (view === "tree" ? " font-bold" : "")}
+                  href="#"
+                  onClick={() => {
+                    setView("tree");
+                  }}
+                >
+                  tree
+                </a>
+                <a
+                  class={"underline" + (view === "json" ? " font-bold" : "")}
+                  href="#"
+                  onClick={() => {
+                    setView("json");
+                  }}
+                >
+                  json
+                </a>
+              </nav>
+              <div class="flex flex-row gap-2">
+                <button
+                  class="bg-blue-300 p-1 rounded w-8"
+                  onClick={() => {
+                    if (quantity > 1) {
+                      setQuantity(quantity - 1);
+                    }
+                  }}
+                >
+                  -
+                </button>
+                <input
+                  type="number"
+                  class="p-1 w-20 border border-gray-200 rounded"
+                  min={0}
+                  max={1000000}
+                  step={0.1}
+                  onInput={(e: any) => {
+                    const value = parseFloat(e.target.value);
+                    if (value >= 0) {
+                      setQuantity(value);
+                    }
+                  }}
+                  value={quantity}
+                />
+                <button
+                  class="bg-blue-300 p-1 rounded w-8"
+                  onClick={() => {
+                    if (quantity < 1000000) {
+                      setQuantity(quantity + 1);
+                    }
+                  }}
+                >
+                  +
+                </button>
+              </div>
+            </div>
             <div class="bg-slate-100 p-4 rounded-lg">
               {renderView()}
             </div>
