@@ -12,6 +12,7 @@ import * as $products_load_example_json_name_ from "./routes/products/load-examp
 import * as $AddEditProduct from "./islands/AddEditProduct.tsx";
 import * as $ExampleLoader from "./islands/ExampleLoader.tsx";
 import * as $ListProducts from "./islands/ListProducts.tsx";
+import * as $RecipeSelect from "./islands/RecipeSelect.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -29,6 +30,7 @@ const manifest = {
     "./islands/AddEditProduct.tsx": $AddEditProduct,
     "./islands/ExampleLoader.tsx": $ExampleLoader,
     "./islands/ListProducts.tsx": $ListProducts,
+    "./islands/RecipeSelect.tsx": $RecipeSelect,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;
