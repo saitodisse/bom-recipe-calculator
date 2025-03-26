@@ -3,7 +3,7 @@ import { type IProduct } from "@bom-recipe-calculator";
 import ExampleLoader from "../../../islands/ExampleLoader.tsx";
 
 type LocalProps = {
-  products: IProduct[];
+  products: (IProduct & { namePt: string })[];
 };
 
 export const handler: Handlers<LocalProps> = {
@@ -15,7 +15,9 @@ export const handler: Handlers<LocalProps> = {
     const json = Deno.readTextFileSync(jsonPath);
     const products = JSON.parse(json);
 
-    return _ctx.render({ products: products["products"] });
+    return _ctx.render({
+      products: products["products"] as (IProduct & { namePt: string })[],
+    });
   },
 };
 

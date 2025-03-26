@@ -16,7 +16,14 @@ export default function ListProducts({}: ListProductsProps) {
         const storedProducts = localStorage.getItem("products");
         if (storedProducts) {
           const parsedProducts = JSON.parse(storedProducts);
-          setProducts(parsedProducts.map((p: IProduct) => new Product(p)));
+          const productsMaped = parsedProducts.map((p: IProduct) =>
+            new Product(p)
+          ).sort((a: Product, b: Product) => {
+            // sort in this category order : "p", "u", "m", "d"
+            return "pusmecl".indexOf(a.category) -
+              "pusmecl".indexOf(b.category);
+          });
+          setProducts(productsMaped);
         }
       } catch (error) {
         console.error("Error loading products:", error);

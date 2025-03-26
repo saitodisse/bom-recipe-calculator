@@ -3,6 +3,7 @@
         {
             "id": "mChicken",
             "name": "Chicken Breast",
+            "namePt": "Peito de Frango",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -12,6 +13,7 @@
         {
             "id": "mOnion",
             "name": "Onion",
+            "namePt": "Cebola",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -21,6 +23,7 @@
         {
             "id": "mGarlic",
             "name": "Garlic",
+            "namePt": "Alho",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -30,6 +33,7 @@
         {
             "id": "mTomatoPaste",
             "name": "Tomato Paste",
+            "namePt": "Extrato de Tomate",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -39,6 +43,7 @@
         {
             "id": "mWheatFlour",
             "name": "Wheat Flour",
+            "namePt": "Farinha de Trigo",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -48,15 +53,17 @@
         {
             "id": "mMilk",
             "name": "Milk",
+            "namePt": "Leite",
             "category": "m",
             "unit": "L",
-            "weight": null,
+            "weight": 1.03,
             "purchaseQuoteValue": 3,
             "recipe": null
         },
         {
             "id": "mBreadCrumbs",
             "name": "Bread Crumbs",
+            "namePt": "Farinha de Rosca",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -64,9 +71,20 @@
             "recipe": null
         },
         {
-            "id": "pCoxinha",
-            "name": "Coxinha",
-            "category": "p",
+            "id": "mPackaging",
+            "name": "Packaging",
+            "namePt": "Embalagem",
+            "category": "m",
+            "unit": "UN",
+            "weight": 0.030,
+            "purchaseQuoteValue": 0.5,
+            "recipe": null
+        },
+        {
+            "id": "uCoxinha",
+            "name": "Coxinha Unitary",
+            "namePt": "Coxinha Unitária",
+            "category": "u",
             "unit": "UN",
             "purchaseQuoteValue": null,
             "recipe": [
@@ -97,6 +115,42 @@
                 {
                     "id": "mBreadCrumbs",
                     "quantity": 0.15
+                }
+            ]
+        },
+        {
+            "id": "pCoxinha5Pack",
+            "name": "Coxinha 5 Pack",
+            "namePt": "Pacote com 5 Coxinhas",
+            "category": "p",
+            "unit": "UN",
+            "purchaseQuoteValue": null,
+            "recipe": [
+                {
+                    "id": "uCoxinha",
+                    "quantity": 5
+                },
+                {
+                    "id": "mPackaging",
+                    "quantity": 1
+                }
+            ]
+        },
+        {
+            "id": "pCoxinha10Pack",
+            "name": "Coxinha 10 Pack",
+            "namePt": "Pacote com 10 Coxinhas",
+            "category": "p",
+            "unit": "UN",
+            "purchaseQuoteValue": null,
+            "recipe": [
+                {
+                    "id": "uCoxinha",
+                    "quantity": 10
+                },
+                {
+                    "id": "mPackaging",
+                    "quantity": 1
                 }
             ]
         }

@@ -13,6 +13,7 @@ import * as $products_load_example_json_name_ from "./routes/products/load-examp
 import * as $products_materials_tree_product_id_ from "./routes/products/materials-tree/[product_id].tsx";
 import * as $AddEditProduct from "./islands/AddEditProduct.tsx";
 import * as $ExampleLoader from "./islands/ExampleLoader.tsx";
+import * as $LanguageSelect from "./islands/LanguageSelect.tsx";
 import * as $ListProducts from "./islands/ListProducts.tsx";
 import * as $MaterialsTree from "./islands/MaterialsTree.tsx";
 import * as $RecipeSelect from "./islands/RecipeSelect.tsx";
@@ -35,6 +36,7 @@ const manifest = {
   islands: {
     "./islands/AddEditProduct.tsx": $AddEditProduct,
     "./islands/ExampleLoader.tsx": $ExampleLoader,
+    "./islands/LanguageSelect.tsx": $LanguageSelect,
     "./islands/ListProducts.tsx": $ListProducts,
     "./islands/MaterialsTree.tsx": $MaterialsTree,
     "./islands/RecipeSelect.tsx": $RecipeSelect,

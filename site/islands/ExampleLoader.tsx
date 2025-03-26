@@ -7,17 +7,26 @@ import { type IProduct } from "@bom-recipe-calculator";
 - save products to localStorage
 - redirect to /products/list-products
 */
-export default function ExampleLoader(props: { products: IProduct[] }) {
+export default function ExampleLoader(props: {
+  products: (IProduct & { namePt: string })[];
+}) {
   useEffect(() => {
     // Only run in browser environment
     if (typeof window === "undefined") {
       return;
     }
 
-    console.log("props.products", props.products);
+    // get current language
+    const language = localStorage.getItem("language") || "en";
 
     // Save products to localStorage
-    localStorage.setItem("products", JSON.stringify(props.products));
+    localStorage.setItem(
+      "products",
+      JSON.stringify(props.products.map((p) => ({
+        ...p,
+        name: language === "pt" ? p.namePt : p.name,
+      }))),
+    );
 
     // Redirect to /products/list-products
     window.location.href = "/products/list-products";

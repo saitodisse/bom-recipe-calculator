@@ -3,6 +3,7 @@
         {
             "id": "mTapiocaStarch",
             "name": "Tapioca Starch",
+            "namePt": "Polvilho",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -12,33 +13,37 @@
         {
             "id": "mMilk",
             "name": "Milk",
+            "namePt": "Leite",
             "category": "m",
             "unit": "L",
-            "weight": null,
+            "weight": 1.03,
             "purchaseQuoteValue": 3,
             "recipe": null
         },
         {
             "id": "mOil",
             "name": "Oil",
+            "namePt": "Óleo",
             "category": "m",
             "unit": "L",
-            "weight": null,
+            "weight": 0.92,
             "purchaseQuoteValue": 5,
             "recipe": null
         },
         {
             "id": "mEggs",
             "name": "Eggs",
+            "namePt": "Ovos",
             "category": "m",
             "unit": "UN",
-            "weight": null,
+            "weight": 0.050,
             "purchaseQuoteValue": 1,
             "recipe": null
         },
         {
             "id": "mCheese",
             "name": "Minas Cheese",
+            "namePt": "Queijo Minas",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -46,9 +51,20 @@
             "recipe": null
         },
         {
-            "id": "pPaoDeQueijo",
-            "name": "Pão de Queijo",
-            "category": "p",
+            "id": "mPackaging",
+            "name": "Packaging",
+            "namePt": "Embalagem",
+            "category": "m",
+            "unit": "UN",
+            "weight": 0.030,
+            "purchaseQuoteValue": 0.5,
+            "recipe": null
+        },
+        {
+            "id": "uPaoDeQueijo",
+            "name": "Pão de Queijo Unitary",
+            "namePt": "Pão de Queijo Unitário",
+            "category": "u",
             "unit": "UN",
             "purchaseQuoteValue": null,
             "recipe": [
@@ -71,6 +87,42 @@
                 {
                     "id": "mCheese",
                     "quantity": 0.2
+                }
+            ]
+        },
+        {
+            "id": "pPaoDeQueijo5Pack",
+            "name": "Pão de Queijo 5 Pack",
+            "namePt": "Pacote com 5 Pães de Queijo",
+            "category": "p",
+            "unit": "UN",
+            "purchaseQuoteValue": null,
+            "recipe": [
+                {
+                    "id": "uPaoDeQueijo",
+                    "quantity": 5
+                },
+                {
+                    "id": "mPackaging",
+                    "quantity": 1
+                }
+            ]
+        },
+        {
+            "id": "pPaoDeQueijo10Pack",
+            "name": "Pão de Queijo 10 Pack",
+            "namePt": "Pacote com 10 Pães de Queijo",
+            "category": "p",
+            "unit": "UN",
+            "purchaseQuoteValue": null,
+            "recipe": [
+                {
+                    "id": "uPaoDeQueijo",
+                    "quantity": 10
+                },
+                {
+                    "id": "mPackaging",
+                    "quantity": 1
                 }
             ]
         }

@@ -1,4 +1,6 @@
 import { PageProps } from "$fresh/server.ts";
+import LanguageSelect from "../islands/LanguageSelect.tsx";
+import RecipeSelect from "../islands/RecipeSelect.tsx";
 
 export default function Layout({ Component, state }: PageProps) {
   return (
@@ -12,10 +14,12 @@ export default function Layout({ Component, state }: PageProps) {
               </a>
               <a
                 href="/products/list-products"
-                className="text-gray-600 hover:text-gray-800 grow"
+                className="text-gray-600 hover:text-gray-800 grow pl-4 underline"
               >
                 Products
               </a>
+              <RecipeSelect />
+              <LanguageSelect />
             </div>
             <div className="flex items-center space-x-4">
               <a

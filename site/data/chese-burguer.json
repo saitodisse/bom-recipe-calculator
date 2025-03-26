@@ -3,6 +3,7 @@
         {
             "id": "mGroundBeef",
             "name": "Ground Beef",
+            "namePt": "Carne Moída",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -12,6 +13,7 @@
         {
             "id": "mCheddarCheese",
             "name": "Cheddar Cheese",
+            "namePt": "Queijo Cheddar",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -19,9 +21,20 @@
             "recipe": null
         },
         {
-            "id": "pCheeseBurger",
-            "name": "Cheese Burger",
-            "category": "p",
+            "id": "mPackaging",
+            "name": "Packaging",
+            "namePt": "Embalagem",
+            "category": "m",
+            "unit": "UN",
+            "weight": 0.030,
+            "purchaseQuoteValue": 0.5,
+            "recipe": null
+        },
+        {
+            "id": "uCheeseBurger",
+            "name": "Cheese Burger Unitary",
+            "namePt": "Hambúrguer com Queijo Unitário",
+            "category": "u",
             "unit": "UN",
             "purchaseQuoteValue": null,
             "recipe": [
@@ -32,6 +45,42 @@
                 {
                     "id": "mCheddarCheese",
                     "quantity": 0.05
+                }
+            ]
+        },
+        {
+            "id": "pCheeseBurger5Pack",
+            "name": "Cheese Burger 5 Pack",
+            "namePt": "Pacote com 5 Hambúrgueres com Queijo",
+            "category": "p",
+            "unit": "UN",
+            "purchaseQuoteValue": null,
+            "recipe": [
+                {
+                    "id": "uCheeseBurger",
+                    "quantity": 5
+                },
+                {
+                    "id": "mPackaging",
+                    "quantity": 1
+                }
+            ]
+        },
+        {
+            "id": "pCheeseBurger10Pack",
+            "name": "Cheese Burger 10 Pack",
+            "namePt": "Pacote com 10 Hambúrgueres com Queijo",
+            "category": "p",
+            "unit": "UN",
+            "purchaseQuoteValue": null,
+            "recipe": [
+                {
+                    "id": "uCheeseBurger",
+                    "quantity": 10
+                },
+                {
+                    "id": "mPackaging",
+                    "quantity": 1
                 }
             ]
         }

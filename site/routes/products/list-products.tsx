@@ -1,5 +1,4 @@
 import ListProducts from "../../islands/ListProducts.tsx";
-import RecipeSelect from "../../islands/RecipeSelect.tsx";
 
 export default function ProductsList() {
   return (
@@ -7,7 +6,6 @@ export default function ProductsList() {
       <div class="">
         <div class="flex justify-between items-center mb-6">
           <p class="text-gray-600">listing all products</p>
-          <RecipeSelect />
         </div>
 
         <ListProducts />

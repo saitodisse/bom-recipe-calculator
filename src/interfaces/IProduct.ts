@@ -30,4 +30,7 @@ export interface IProduct {
 
   /** Recipe composition if this is a compound product */
   recipe?: IRecipeItem[] | null;
+
+  /** Image URL of the product */
+  imageUrl?: string | null;
 }

@@ -3,6 +3,7 @@
         {
             "id": "mFlour",
             "name": "Flour",
+            "namePt": "Farinha",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -12,24 +13,27 @@
         {
             "id": "mMilk",
             "name": "Milk",
+            "namePt": "Leite",
             "category": "m",
             "unit": "L",
-            "weight": null,
+            "weight": 1.03,
             "purchaseQuoteValue": 3,
             "recipe": null
         },
         {
             "id": "mEggs",
             "name": "Eggs",
+            "namePt": "Ovos",
             "category": "m",
             "unit": "UN",
-            "weight": null,
+            "weight": 0.050,
             "purchaseQuoteValue": 1,
             "recipe": null
         },
         {
             "id": "mButter",
             "name": "Butter",
+            "namePt": "Manteiga",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -39,6 +43,7 @@
         {
             "id": "mSugar",
             "name": "Sugar",
+            "namePt": "Açúcar",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -46,9 +51,20 @@
             "recipe": null
         },
         {
-            "id": "pAmericanPancakes",
-            "name": "American Pancakes",
-            "category": "p",
+            "id": "mPackaging",
+            "name": "Packaging",
+            "namePt": "Embalagem",
+            "category": "m",
+            "unit": "UN",
+            "weight": 0.030,
+            "purchaseQuoteValue": 0.5,
+            "recipe": null
+        },
+        {
+            "id": "uAmericanPancakes",
+            "name": "American Pancakes Unitary",
+            "namePt": "Panquecas Americanas Unitária",
+            "category": "u",
             "unit": "UN",
             "purchaseQuoteValue": null,
             "recipe": [
@@ -71,6 +87,42 @@
                 {
                     "id": "mSugar",
                     "quantity": 0.05
+                }
+            ]
+        },
+        {
+            "id": "pAmericanPancakes5Pack",
+            "name": "American Pancakes 5 Pack",
+            "namePt": "Pacote com 5 Panquecas Americanas",
+            "category": "p",
+            "unit": "UN",
+            "purchaseQuoteValue": null,
+            "recipe": [
+                {
+                    "id": "uAmericanPancakes",
+                    "quantity": 5
+                },
+                {
+                    "id": "mPackaging",
+                    "quantity": 1
+                }
+            ]
+        },
+        {
+            "id": "pAmericanPancakes10Pack",
+            "name": "American Pancakes 10 Pack",
+            "namePt": "Pacote com 10 Panquecas Americanas",
+            "category": "p",
+            "unit": "UN",
+            "purchaseQuoteValue": null,
+            "recipe": [
+                {
+                    "id": "uAmericanPancakes",
+                    "quantity": 10
+                },
+                {
+                    "id": "mPackaging",
+                    "quantity": 1
                 }
             ]
         }

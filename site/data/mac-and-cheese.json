@@ -3,6 +3,7 @@
         {
             "id": "mMacaroni",
             "name": "Macaroni",
+            "namePt": "Macarrão",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -12,6 +13,7 @@
         {
             "id": "mCheddarCheese",
             "name": "Cheddar Cheese",
+            "namePt": "Queijo Cheddar",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -21,15 +23,17 @@
         {
             "id": "mMilk",
             "name": "Milk",
+            "namePt": "Leite",
             "category": "m",
             "unit": "L",
-            "weight": null,
+            "weight": 1.03,
             "purchaseQuoteValue": 3,
             "recipe": null
         },
         {
             "id": "mButter",
             "name": "Butter",
+            "namePt": "Manteiga",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -39,6 +43,7 @@
         {
             "id": "mFlour",
             "name": "Flour",
+            "namePt": "Farinha",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -46,9 +51,20 @@
             "recipe": null
         },
         {
-            "id": "pMacAndCheese",
-            "name": "Mac and Cheese",
-            "category": "p",
+            "id": "mPackaging",
+            "name": "Packaging",
+            "namePt": "Embalagem",
+            "category": "m",
+            "unit": "UN",
+            "weight": 0.030,
+            "purchaseQuoteValue": 0.5,
+            "recipe": null
+        },
+        {
+            "id": "uMacAndCheese",
+            "name": "Mac and Cheese Unitary",
+            "namePt": "Macarrão com Queijo Unitário",
+            "category": "u",
             "unit": "UN",
             "purchaseQuoteValue": null,
             "recipe": [
@@ -71,6 +87,42 @@
                 {
                     "id": "mFlour",
                     "quantity": 0.03
+                }
+            ]
+        },
+        {
+            "id": "pMacAndCheese5Pack",
+            "name": "Mac and Cheese 5 Pack",
+            "namePt": "Pacote com 5 Macarrões com Queijo",
+            "category": "p",
+            "unit": "UN",
+            "purchaseQuoteValue": null,
+            "recipe": [
+                {
+                    "id": "uMacAndCheese",
+                    "quantity": 5
+                },
+                {
+                    "id": "mPackaging",
+                    "quantity": 1
+                }
+            ]
+        },
+        {
+            "id": "pMacAndCheese10Pack",
+            "name": "Mac and Cheese 10 Pack",
+            "namePt": "Pacote com 10 Macarrões com Queijo",
+            "category": "p",
+            "unit": "UN",
+            "purchaseQuoteValue": null,
+            "recipe": [
+                {
+                    "id": "uMacAndCheese",
+                    "quantity": 10
+                },
+                {
+                    "id": "mPackaging",
+                    "quantity": 1
                 }
             ]
         }

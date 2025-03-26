@@ -3,6 +3,7 @@
         {
             "id": "mChocolate",
             "name": "Chocolate",
+            "namePt": "Chocolate",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -12,6 +13,7 @@
         {
             "id": "mButter",
             "name": "Butter",
+            "namePt": "Manteiga",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -21,6 +23,7 @@
         {
             "id": "mSugar",
             "name": "Sugar",
+            "namePt": "Açúcar",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -30,15 +33,17 @@
         {
             "id": "mEggs",
             "name": "Eggs",
+            "namePt": "Ovos",
             "category": "m",
             "unit": "UN",
-            "weight": null,
+            "weight": 0.050,
             "purchaseQuoteValue": 1,
             "recipe": null
         },
         {
             "id": "mFlour",
             "name": "Flour",
+            "namePt": "Farinha",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -46,9 +51,20 @@
             "recipe": null
         },
         {
-            "id": "pBrownies",
-            "name": "Brownies",
-            "category": "p",
+            "id": "mPackaging",
+            "name": "Packaging",
+            "namePt": "Embalagem",
+            "category": "m",
+            "unit": "UN",
+            "weight": 0.030,
+            "purchaseQuoteValue": 0.5,
+            "recipe": null
+        },
+        {
+            "id": "uBrownies",
+            "name": "Brownies Unitary",
+            "namePt": "Brownies Unitário",
+            "category": "u",
             "unit": "UN",
             "purchaseQuoteValue": null,
             "recipe": [
@@ -71,6 +87,42 @@
                 {
                     "id": "mFlour",
                     "quantity": 0.1
+                }
+            ]
+        },
+        {
+            "id": "pBrownies5Pack",
+            "name": "Brownies 5 Pack",
+            "namePt": "Pacote com 5 Brownies",
+            "category": "p",
+            "unit": "UN",
+            "purchaseQuoteValue": null,
+            "recipe": [
+                {
+                    "id": "uBrownies",
+                    "quantity": 5
+                },
+                {
+                    "id": "mPackaging",
+                    "quantity": 1
+                }
+            ]
+        },
+        {
+            "id": "pBrownies10Pack",
+            "name": "Brownies 10 Pack",
+            "namePt": "Pacote com 10 Brownies",
+            "category": "p",
+            "unit": "UN",
+            "purchaseQuoteValue": null,
+            "recipe": [
+                {
+                    "id": "uBrownies",
+                    "quantity": 10
+                },
+                {
+                    "id": "mPackaging",
+                    "quantity": 1
                 }
             ]
         }

@@ -2,7 +2,8 @@
     "products": [
         {
             "id": "eemb35x45Svide5kg",
-            "name": "Embalagem 35x45 Svide (5kg)",
+            "name": "Package",
+            "namePt": "Embalagem",
             "category": "e",
             "unit": "UN",
             "weight": 0.02,
@@ -11,7 +12,8 @@
         },
         {
             "id": "mAgua",
-            "name": "Água",
+            "name": "Water",
+            "namePt": "Água",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -20,7 +22,8 @@
         },
         {
             "id": "mCachaca",
-            "name": "Cachaça",
+            "name": "White Lightning",
+            "namePt": "Cachaça",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -29,7 +32,8 @@
         },
         {
             "id": "mFarinhaDeTrigo",
-            "name": "Farinha de Trigo",
+            "name": "Flour",
+            "namePt": "Farinha de Trigo",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -38,7 +42,8 @@
         },
         {
             "id": "mOleoDeSoja",
-            "name": "OleoDeSoja",
+            "name": "Soybean Oil",
+            "namePt": "Óleo de Soja",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -47,7 +52,8 @@
         },
         {
             "id": "mQueijoMussarela",
-            "name": "Queijo Mussarela",
+            "name": "Mussarela Cheese",
+            "namePt": "Queijo Mussarela",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -56,7 +62,8 @@
         },
         {
             "id": "mSal",
-            "name": "Sal Refinado",
+            "name": "Refined Salt",
+            "namePt": "Sal Refinado",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -65,7 +72,8 @@
         },
         {
             "id": "mVinagreBranco",
-            "name": "Vinagre Branco",
+            "name": "White Vinegar",
+            "namePt": "Vinagre Branco",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -73,8 +81,27 @@
             "recipe": null
         },
         {
+            "id": "pPastelDeQueijo5un",
+            "name": "Pastel de Queijo - 5 units",
+            "namePt": "Pastel de Queijo - 5 unidades",
+            "category": "p",
+            "unit": "UN",
+            "purchaseQuoteValue": null,
+            "recipe": [
+                {
+                    "id": "eemb35x45Svide5kg",
+                    "quantity": 1
+                },
+                {
+                    "id": "uPastelDeQueijo",
+                    "quantity": 5
+                }
+            ]
+        },
+        {
             "id": "pPastelDeQueijo10un",
-            "name": "Pastel de Queijo - 10 unidades",
+            "name": "Pastel de Queijo - 10 units",
+            "namePt": "Pastel de Queijo - 10 unidades",
             "category": "p",
             "unit": "UN",
             "purchaseQuoteValue": null,
@@ -91,7 +118,8 @@
         },
         {
             "id": "sMassaPastel",
-            "name": "Massa de Pastel (1kg)",
+            "name": "Pastel Mass (1kg)",
+            "namePt": "Massa de Pastel (1kg)",
             "category": "s",
             "unit": "KG",
             "purchaseQuoteValue": null,
@@ -124,7 +152,8 @@
         },
         {
             "id": "uPastelDeQueijo",
-            "name": "Pastel de Queijo - unitário",
+            "name": "Pastel de Queijo - unitary",
+            "namePt": "Pastel de Queijo - unitário",
             "category": "u",
             "unit": "UN",
             "purchaseQuoteValue": null,
@@ -136,6 +165,42 @@
                 {
                     "id": "mQueijoMussarela",
                     "quantity": 0.05
+                }
+            ]
+        },
+        {
+            "id": "pPastelDeQueijo5Pack",
+            "name": "Pastel de Queijo 5 Pack",
+            "namePt": "Pacote com 5 Pastéis de Queijo",
+            "category": "p",
+            "unit": "UN",
+            "purchaseQuoteValue": null,
+            "recipe": [
+                {
+                    "id": "uPastelDeQueijo",
+                    "quantity": 5
+                },
+                {
+                    "id": "mPackaging",
+                    "quantity": 1
+                }
+            ]
+        },
+        {
+            "id": "pPastelDeQueijo10Pack",
+            "name": "Pastel de Queijo 10 Pack",
+            "namePt": "Pacote com 10 Pastéis de Queijo",
+            "category": "p",
+            "unit": "UN",
+            "purchaseQuoteValue": null,
+            "recipe": [
+                {
+                    "id": "uPastelDeQueijo",
+                    "quantity": 10
+                },
+                {
+                    "id": "mPackaging",
+                    "quantity": 1
                 }
             ]
         }

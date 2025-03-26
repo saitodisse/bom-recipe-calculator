@@ -3,6 +3,7 @@
         {
             "id": "mCondensedMilk",
             "name": "Condensed Milk",
+            "namePt": "Leite Condensado",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -12,6 +13,7 @@
         {
             "id": "mChocolatePowder",
             "name": "Chocolate Powder",
+            "namePt": "Chocolate em Pó",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -21,6 +23,7 @@
         {
             "id": "mButter",
             "name": "Butter",
+            "namePt": "Manteiga",
             "category": "m",
             "unit": "KG",
             "weight": null,
@@ -28,9 +31,20 @@
             "recipe": null
         },
         {
-            "id": "pBrigadeiro",
-            "name": "Brigadeiro",
-            "category": "p",
+            "id": "mPackaging",
+            "name": "Packaging",
+            "namePt": "Embalagem",
+            "category": "m",
+            "unit": "UN",
+            "weight": 0.030,
+            "purchaseQuoteValue": 0.5,
+            "recipe": null
+        },
+        {
+            "id": "uBrigadeiro",
+            "name": "Brigadeiro Unitary",
+            "namePt": "Brigadeiro Unitário",
+            "category": "u",
             "unit": "UN",
             "purchaseQuoteValue": null,
             "recipe": [
@@ -45,6 +59,42 @@
                 {
                     "id": "mButter",
                     "quantity": 0.02
+                }
+            ]
+        },
+        {
+            "id": "pBrigadeiro5Pack",
+            "name": "Brigadeiro 5 Pack",
+            "namePt": "Pacote com 5 Brigadeiros",
+            "category": "p",
+            "unit": "UN",
+            "purchaseQuoteValue": null,
+            "recipe": [
+                {
+                    "id": "uBrigadeiro",
+                    "quantity": 5
+                },
+                {
+                    "id": "mPackaging",
+                    "quantity": 1
+                }
+            ]
+        },
+        {
+            "id": "pBrigadeiro10Pack",
+            "name": "Brigadeiro 10 Pack",
+            "namePt": "Pacote com 10 Brigadeiros",
+            "category": "p",
+            "unit": "UN",
+            "purchaseQuoteValue": null,
+            "recipe": [
+                {
+                    "id": "uBrigadeiro",
+                    "quantity": 10
+                },
+                {
+                    "id": "mPackaging",
+                    "quantity": 1
                 }
             ]
         }
