@@ -1,5 +1,6 @@
 import { useEffect } from "preact/hooks";
 import { type IProduct } from "@saitodisse/bom-recipe-calculator";
+import { getStorageItem, setStorageItem } from "../utils/storage.ts";
 
 /*
 - get name from querystring (props.params.json_name)
@@ -17,10 +18,10 @@ export default function ExampleLoader(props: {
     }
 
     // get current language
-    const language = localStorage.getItem("language") || "en";
+    const language = getStorageItem("language", "en");
 
     // Save products to localStorage
-    localStorage.setItem(
+    setStorageItem(
       "products",
       JSON.stringify(props.products.map((p) => ({
         ...p,

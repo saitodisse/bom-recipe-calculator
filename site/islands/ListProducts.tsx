@@ -4,6 +4,7 @@ import type {
   IProduct,
   ProductCategoryId,
 } from "@saitodisse/bom-recipe-calculator";
+import { getStorageItem, setStorageItem } from "../utils/storage.ts";
 
 interface ListProductsProps {
 }
@@ -11,12 +12,14 @@ interface ListProductsProps {
 export default function ListProducts({}: ListProductsProps) {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [productsViewMode, setProductsViewMode] = useState("grid");
+  const [language, setLanguage] = useState("");
 
   useEffect(() => {
     // Load products from localStorage
     const loadProducts = () => {
       try {
-        const storedProducts = localStorage.getItem("products");
+        const storedProducts = getStorageItem("products", "");
         if (storedProducts) {
           const parsedProducts = JSON.parse(storedProducts);
           const productsMaped = parsedProducts.map((p: IProduct) =>
@@ -35,6 +38,12 @@ export default function ListProducts({}: ListProductsProps) {
       }
     };
 
+    // Load view mode and language preferences
+    const viewMode = getStorageItem("productsViewMode", "grid");
+    const lang = getStorageItem("language", "");
+    setProductsViewMode(viewMode);
+    setLanguage(lang);
+
     loadProducts();
 
     // Listen for storage events to update the list when products change
@@ -47,19 +56,16 @@ export default function ListProducts({}: ListProductsProps) {
     };
   }, []);
 
-  const productsViewMode = localStorage.getItem("productsViewMode");
-  const language = localStorage.getItem("language");
-
   const handleDelete = (id: string) => {
     if (confirm("Are you sure you want to delete this product?")) {
       try {
-        const storedProducts = localStorage.getItem("products");
+        const storedProducts = getStorageItem("products", "");
         if (storedProducts) {
           const parsedProducts = JSON.parse(storedProducts);
           const updatedProducts = parsedProducts.filter((p: IProduct) =>
             p.id !== id
           );
-          localStorage.setItem("products", JSON.stringify(updatedProducts));
+          setStorageItem("products", JSON.stringify(updatedProducts));
 
           // Update state
           setProducts(updatedProducts.map((p: IProduct) => new Product(p)));

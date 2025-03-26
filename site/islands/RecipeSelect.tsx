@@ -1,13 +1,12 @@
 import { JSX } from "preact";
 import { useCallback, useEffect, useState } from "preact/hooks";
+import { getStorageItem, setStorageItem } from "../utils/storage.ts";
 
 export default function RecipeSelect() {
-  const [language, setLanguage] = useState(
-    localStorage.getItem("language") || "en",
-  );
-  const [recipeSelected, setRecipeSelected] = useState(
-    localStorage.getItem("recipeSelected") || "",
-  );
+  // Initialize with default values
+  const [language, setLanguage] = useState("en");
+  const [recipeSelected, setRecipeSelected] = useState("");
+
   useEffect(() => {
     // Only run in browser environment
     if (typeof window === "undefined") {
@@ -15,15 +14,17 @@ export default function RecipeSelect() {
     }
 
     // get current language
-    const language = localStorage.getItem("language") || "en";
-    setLanguage(language);
+    const storedLanguage = getStorageItem("language", "en");
+    const storedRecipe = getStorageItem("recipeSelected", "");
+    setLanguage(storedLanguage);
+    setRecipeSelected(storedRecipe);
   }, []);
 
   const handleChange = (e: JSX.TargetedEvent<HTMLSelectElement>) => {
     const value = (e.target as HTMLSelectElement).value;
 
-    // save on localStorage
-    localStorage.setItem("recipeSelected", value);
+    // save on localStorage - only in browser environment
+    setStorageItem("recipeSelected", value);
     setRecipeSelected(value);
 
     if (value) {

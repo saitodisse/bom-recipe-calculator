@@ -7,6 +7,7 @@ import {
 } from "@saitodisse/bom-recipe-calculator";
 import { PageProps } from "$fresh/server.ts";
 import { JSX } from "preact/jsx-runtime";
+import { getStorageItem } from "../utils/storage.ts";
 
 export default function MaterialsTree(props: PageProps) {
   const product_id = props.params.product_id;
@@ -19,7 +20,7 @@ export default function MaterialsTree(props: PageProps) {
     // load all products from localStorage
     const createMaterialsTree = () => {
       try {
-        const storedProducts = localStorage.getItem("products");
+        const storedProducts = getStorageItem("products", "");
         if (storedProducts) {
           const parsedProducts: IProduct[] = JSON.parse(storedProducts);
           const productsMap = parsedProducts.reduce((acc, product) => {

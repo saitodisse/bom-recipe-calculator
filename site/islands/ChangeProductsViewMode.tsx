@@ -1,22 +1,23 @@
 import { useEffect, useState } from "preact/hooks";
+import { getStorageItem, setStorageItem } from "../utils/storage.ts";
 
 export default function ChangeProductsViewMode() {
   const [viewMode, setViewMode] = useState<string>("grid");
 
   useEffect(() => {
     // Load the view mode from localStorage on component mount
-    const savedViewMode = localStorage.getItem("productsViewMode");
+    const savedViewMode = getStorageItem("productsViewMode", "grid");
     if (savedViewMode) {
       setViewMode(savedViewMode);
     } else {
       // Set default view mode to grid if not found in localStorage
-      localStorage.setItem("productsViewMode", "grid");
+      setStorageItem("productsViewMode", "grid");
     }
   }, []);
 
   const handleViewModeChange = (mode: string) => {
     setViewMode(mode);
-    localStorage.setItem("productsViewMode", mode);
+    setStorageItem("productsViewMode", mode);
     // Force a page reload to apply the changes
     window.location.reload();
   };
