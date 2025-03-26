@@ -32,7 +32,7 @@
     "tailwindcss/": "npm:/tailwindcss@3.4.1/",
     "tailwindcss/plugin": "npm:/tailwindcss@3.4.1/plugin.js",
     "$std/": "https://deno.land/std@0.216.0/",
-    "@bom-recipe-calculator": "../src/mod.ts"
+    "@saitodisse/bom-recipe-calculator": "jsr:@saitodisse/bom-recipe-calculator@^0.4.8"
   },
   "compilerOptions": {
     "jsx": "react-jsx",

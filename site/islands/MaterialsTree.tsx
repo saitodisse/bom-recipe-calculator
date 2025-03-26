@@ -4,7 +4,7 @@ import {
   MaterialsTreeBuilder,
   Product,
   TreeNode,
-} from "@bom-recipe-calculator";
+} from "@saitodisse/bom-recipe-calculator";
 import { PageProps } from "$fresh/server.ts";
 import { JSX } from "preact/jsx-runtime";
 

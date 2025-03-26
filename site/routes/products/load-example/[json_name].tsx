@@ -1,5 +1,5 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { type IProduct } from "@bom-recipe-calculator";
+import { type IProduct } from "@saitodisse/bom-recipe-calculator";
 import ExampleLoader from "../../../islands/ExampleLoader.tsx";
 
 type LocalProps = {

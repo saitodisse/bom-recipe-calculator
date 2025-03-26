@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useState } from "preact/hooks";
-import { Product, ProductCategory } from "@bom-recipe-calculator";
-import type { IProduct, ProductCategoryId } from "@bom-recipe-calculator";
+import { Product, ProductCategory } from "@saitodisse/bom-recipe-calculator";
+import type {
+  IProduct,
+  ProductCategoryId,
+} from "@saitodisse/bom-recipe-calculator";
 
 interface ListProductsProps {
 }

@@ -1,5 +1,5 @@
 import { useEffect } from "preact/hooks";
-import { type IProduct } from "@bom-recipe-calculator";
+import { type IProduct } from "@saitodisse/bom-recipe-calculator";
 
 /*
 - get name from querystring (props.params.json_name)
