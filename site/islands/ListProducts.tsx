@@ -44,6 +44,8 @@ export default function ListProducts({}: ListProductsProps) {
     };
   }, []);
 
+  const productsViewMode = localStorage.getItem("productsViewMode");
+
   const handleDelete = (id: string) => {
     if (confirm("Are you sure you want to delete this product?")) {
       try {
@@ -85,73 +87,132 @@ export default function ListProducts({}: ListProductsProps) {
   return (
     <div class="my-6">
       <div class="overflow-x-auto">
-        <table class="min-w-full bg-white border border-gray-200">
-          <thead class="bg-gray-100">
-            <tr>
-              <th class="py-2 px-4 border-b text-left">Image</th>
-              <th class="py-2 px-4 border-b text-left">Product</th>
-              <th class="py-2 px-4 border-b text-left">Category</th>
-              <th class="py-2 px-4 border-b text-left">Unit</th>
-              <th class="py-2 px-4 border-b text-left">Price</th>
-              <th class="py-2 px-4 border-b text-center">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((product) => (
-              <tr key={product.id} class="hover:bg-gray-50">
-                <td class="py-2 px-4 border-b">
-                  {product.imageUrl ? (
-                    <img 
-                      src={product.imageUrl} 
-                      alt={product.name} 
-                      class="w-12 h-12 object-cover rounded"
-                    />
-                  ) : (
-                    <div class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center">
-                      <span class="text-gray-500 text-xs">No image</span>
-                    </div>
-                  )}
-                </td>
-                <td class="py-2 px-4 border-b">
-                  {product.recipe
-                    ? (
+        {productsViewMode === "list"
+          ? (
+            <table class="min-w-full bg-white border border-gray-200">
+              <thead class="bg-gray-100">
+                <tr>
+                  <th class="py-2 px-4 border-b text-left">Image</th>
+                  <th class="py-2 px-4 border-b text-left">Product</th>
+                  <th class="py-2 px-4 border-b text-left">Category</th>
+                  <th class="py-2 px-4 border-b text-left">Unit</th>
+                  <th class="py-2 px-4 border-b text-left">Price</th>
+                  <th class="py-2 px-4 border-b text-center">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {products.map((product) => (
+                  <tr key={product.id} class="hover:bg-gray-50">
+                    <td class="py-2 px-4 border-b">
+                      {product.imageUrl
+                        ? (
+                          <img
+                            src={product.imageUrl}
+                            alt={product.name}
+                            class="w-12 h-12 object-cover rounded"
+                          />
+                        )
+                        : (
+                          <div class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center">
+                            <span class="text-gray-500 text-xs">No image</span>
+                          </div>
+                        )}
+                    </td>
+                    <td class="py-2 px-4 border-b">
+                      {product.recipe
+                        ? (
+                          <a
+                            href={`/products/materials-tree/${product.id}`}
+                            class="underline text-blue-800"
+                          >
+                            {product.name}
+                          </a>
+                        )
+                        : (
+                          product.name
+                        )}
+                    </td>
+                    <td class="py-2 px-4 border-b">{product.category}</td>
+                    <td class="py-2 px-4 border-b">{product.unit}</td>
+                    <td class="py-2 px-4 border-b">
+                      {product.purchaseQuoteValue
+                        ? `$${product.purchaseQuoteValue.toFixed(2)}`
+                        : "-"}
+                    </td>
+                    <td class="py-2 px-4 border-b text-center">
                       <a
-                        href={`/products/materials-tree/${product.id}`}
-                        class="underline text-blue-800"
+                        href={`/products/${product.id}`}
+                        class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded mr-2"
                       >
-                        {product.name}
+                        Edit
                       </a>
-                    )
-                    : (
-                      product.name
-                    )}
-                </td>
-                <td class="py-2 px-4 border-b">{product.category}</td>
-                <td class="py-2 px-4 border-b">{product.unit}</td>
-                <td class="py-2 px-4 border-b">
-                  {product.purchaseQuoteValue
-                    ? `$${product.purchaseQuoteValue.toFixed(2)}`
-                    : "-"}
-                </td>
-                <td class="py-2 px-4 border-b text-center">
-                  <a
-                    href={`/products/${product.id}`}
-                    class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded mr-2"
-                  >
-                    Edit
-                  </a>
-                  <button
-                    onClick={() =>
-                      handleDelete(product.id)}
-                    class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                      <button
+                        onClick={() =>
+                          handleDelete(product.id)}
+                        class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )
+          : (
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+              {products.map((product) => (
+                <div key={product.id} class="flex flex-col items-center">
+                  <div class="w-36 h-36 bg-gray-200 rounded flex items-center justify-center">
+                    <img
+                      src={product.imageUrl || ""}
+                      alt={product.name}
+                      class="w-36 h-36 object-cover rounded"
+                    />
+                  </div>
+                  <div class="flex flex-col">
+                    {(product.recipe?.length || 0) > 0
+                      ? (
+                        <a
+                          href={`/products/materials-tree/${product.id}`}
+                          class="underline text-blue-800"
+                        >
+                          [{product.category}] {product.name}
+                        </a>
+                      )
+                      : (
+                        <span class="text-gray-600 text-base">
+                          [{product.category}] {product.name}
+                        </span>
+                      )}
+                    <div class="flex flex-row justify-between">
+                      <div class="text-gray-600 text-sm">{product.unit}</div>
+                      <div class="text-gray-600 text-sm">
+                        {product.purchaseQuoteValue
+                          ? `$${product.purchaseQuoteValue.toFixed(2)}`
+                          : "-"}
+                      </div>
+                    </div>
+                    <div class="flex justify-between text-xs">
+                      <a
+                        href={`/products/${product.id}`}
+                        class="text-blue-500 hover:text-blue-600 underline"
+                      >
+                        Edit
+                      </a>
+                      <button
+                        onClick={() =>
+                          handleDelete(product.id)}
+                        class="text-red-500 hover:text-red-600 underline"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
       </div>
     </div>
   );

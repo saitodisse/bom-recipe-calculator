@@ -4,7 +4,7 @@ import RecipeSelect from "../islands/RecipeSelect.tsx";
 
 export default function Layout({ Component, state }: PageProps) {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
       <nav className="bg-white shadow-md fixed top-0 w-full z-10">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center space-x-4 space-between w-full">

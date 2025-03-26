@@ -1,3 +1,4 @@
+import ChangeProductsViewMode from "../../islands/ChangeProductsViewMode.tsx";
 import ListProducts from "../../islands/ListProducts.tsx";
 
 export default function ProductsList() {
@@ -6,6 +7,9 @@ export default function ProductsList() {
       <div class="">
         <div class="flex justify-between items-center mb-6">
           <p class="text-gray-600">listing all products</p>
+          <div class="flex items-center">
+            <ChangeProductsViewMode />
+          </div>
         </div>
 
         <ListProducts />

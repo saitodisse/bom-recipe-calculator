@@ -12,6 +12,7 @@ import * as $products_list_products from "./routes/products/list-products.tsx";
 import * as $products_load_example_json_name_ from "./routes/products/load-example/[json_name].tsx";
 import * as $products_materials_tree_product_id_ from "./routes/products/materials-tree/[product_id].tsx";
 import * as $AddEditProduct from "./islands/AddEditProduct.tsx";
+import * as $ChangeProductsViewMode from "./islands/ChangeProductsViewMode.tsx";
 import * as $ExampleLoader from "./islands/ExampleLoader.tsx";
 import * as $LanguageSelect from "./islands/LanguageSelect.tsx";
 import * as $ListProducts from "./islands/ListProducts.tsx";
@@ -35,6 +36,7 @@ const manifest = {
   },
   islands: {
     "./islands/AddEditProduct.tsx": $AddEditProduct,
+    "./islands/ChangeProductsViewMode.tsx": $ChangeProductsViewMode,
     "./islands/ExampleLoader.tsx": $ExampleLoader,
     "./islands/LanguageSelect.tsx": $LanguageSelect,
     "./islands/ListProducts.tsx": $ListProducts,
