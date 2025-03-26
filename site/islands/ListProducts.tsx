@@ -96,6 +96,7 @@ export default function ListProducts({}: ListProductsProps) {
                   <th class="py-2 px-4 border-b text-left">Product</th>
                   <th class="py-2 px-4 border-b text-left">Category</th>
                   <th class="py-2 px-4 border-b text-left">Unit</th>
+                  <th class="py-2 px-4 border-b text-left">Weight</th>
                   <th class="py-2 px-4 border-b text-left">Price</th>
                   <th class="py-2 px-4 border-b text-center">Actions</th>
                 </tr>
@@ -134,6 +135,7 @@ export default function ListProducts({}: ListProductsProps) {
                     </td>
                     <td class="py-2 px-4 border-b">{product.category}</td>
                     <td class="py-2 px-4 border-b">{product.unit}</td>
+                    <td class="py-2 px-4 border-b">{product.weight}</td>
                     <td class="py-2 px-4 border-b">
                       {product.purchaseQuoteValue
                         ? `$${product.purchaseQuoteValue.toFixed(2)}`
