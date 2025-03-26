@@ -1,8 +1,10 @@
 # BOM Recipe Calculator
 
-- site: https://jsr.io/@saitodisse/bom-recipe-calculator
+https://bom-recipe-calculator.deno.dev/
 
 ## Installation
+
+- jsr/npm: https://jsr.io/@saitodisse/bom-recipe-calculator
 
 ```sh
 // deno
