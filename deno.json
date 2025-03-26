@@ -5,6 +5,7 @@
   "exports": {
     ".": "./src/mod.ts"
   },
+  "exclude": ["site"],
   "tasks": {
     "test": "deno test --watch"
   }
