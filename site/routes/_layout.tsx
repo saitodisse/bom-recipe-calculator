@@ -25,8 +25,6 @@ export default function Layout({ Component, state }: PageProps) {
               <a
                 href="https://github.com/saitodisse/bom-recipe-calculator"
                 className="text-gray-600 hover:text-gray-800"
-                target="_blank"
-                rel="noopener noreferrer"
               >
                 Github
               </a>
