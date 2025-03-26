@@ -1,13 +1,26 @@
 # BOM Recipe Calculator
 
+- site: https://jsr.io/@saitodisse/bom-recipe-calculator
+
+## Installation
+
+```sh
+// deno
+deno add jsr:@saitodisse/bom-recipe-calculator
+// npm
+npx jsr add @saitodisse/bom-recipe-calculator
+```
+
+## Description
+
 A Bill of Materials (BOM) recipe calculator for nested product recipes.
 Calculate costs and weights for complex product recipes with multiple levels of
 ingredients.
 
 ## Usage examples
 
-- site: https://jsr.io/@saitodisse/bom-recipe-calculator
-- code example: https://github.com/saitodisse/bom-recipe-calculator/blob/main/site/islands/MaterialsTree.tsx
+- code example:
+  https://github.com/saitodisse/bom-recipe-calculator/blob/main/site/islands/MaterialsTree.tsx
 
 ### Cloudflare
 
@@ -23,15 +36,6 @@ ingredients.
 - TypeScript support with full type definitions
 - Deno/JSR compatible
 - Object-oriented refactored implementation with Builder pattern
-
-## Installation
-
-```sh
-// deno
-deno add jsr:@saitodisse/bom-recipe-calculator
-// npm
-npx jsr add @saitodisse/bom-recipe-calculator
-```
 
 ## Usage
 
@@ -60,7 +64,7 @@ const products: Record<string, IProduct> = {
     notes: "Basic wheat flour",
     recipe: null,
   },
-  ...
+  // ... ADD ALL PRODUCTS HERE ...
 };
 
 // Create a builder for the materials tree
@@ -84,143 +88,6 @@ console.log(tree.toHumanReadable());
       yeast [m] 0.003 KG ( 0.003 kg, 0 kg )
     box [e] 1 UN ( 0.1 kg, 0 kg )
   */
-
-console.log("\n\n");
-
-console.log(JSON.stringify(tree.toJSON(), null, 2));
-/*
-{
-  "id": "bread4pack",
-  "name": "White Bread 4un Packaged", ...
-  "category": "p",
-  "unit": "UN",
-  "level": 0,
-  "motherFactor": 1,
-  "quantity": null,
-  "originalQuantity": 1,
-  "calculatedQuantity": 1,
-  "weight": 0,
-  "childrenWeight": 0.9,
-  "originalCost": null,
-  "calculatedCost": 1.323,
-  "children": {
-    "breadUnitary": {
-      "id": "breadUnitary",
-      "name": "White Bread Unitary 200g",
-      "category": "u",
-      "unit": "UN",
-      "level": 1,
-      "motherFactor": 1,
-      "quantity": 4,
-      "originalQuantity": 4,
-      "calculatedQuantity": 4,
-      "weight": 0.8,
-      "childrenWeight": 0.88,
-      "originalCost": null,
-      "calculatedCost": 1.123,
-      "children": {
-        "dough": {
-          "id": "dough",
-          "name": "Basic Dough",
-          "category": "s",
-          "unit": "KG",
-          "level": 2,
-          "motherFactor": 4,
-          "quantity": 0.22,
-          "originalQuantity": 0.22,
-          "calculatedQuantity": 0.88,
-          "weight": 0.88,
-          "childrenWeight": 1.061,
-          "originalCost": null,
-          "calculatedCost": 1.123,
-          "children": {
-            "flour": {
-              "id": "flour",
-              "name": "Wheat Flour",
-              "category": "m",
-              "unit": "KG",
-              "level": 3,
-              "motherFactor": 0.88,
-              "quantity": 0.5,
-              "originalQuantity": 0.5,
-              "calculatedQuantity": 0.44,
-              "weight": 0.44,
-              "childrenWeight": 0,
-              "originalCost": 2.5,
-              "calculatedCost": 1.1,
-              "children": null
-            },
-            "water": {
-              "id": "water",
-              "name": "Water",
-              "category": "m",
-              "unit": "L",
-              "level": 3,
-              "motherFactor": 0.88,
-              "quantity": 0.7,
-              "originalQuantity": 0.7,
-              "calculatedQuantity": 0.616,
-              "weight": 0.616,
-              "childrenWeight": 0,
-              "originalCost": 0,
-              "calculatedCost": 0,
-              "children": null
-            },
-            "salt": {
-              "id": "salt",
-              "name": "Salt",
-              "category": "m",
-              "unit": "KG",
-              "level": 3,
-              "motherFactor": 0.88,
-              "quantity": 0.002,
-              "originalQuantity": 0.002,
-              "calculatedQuantity": 0.002,
-              "weight": 0.002,
-              "childrenWeight": 0,
-              "originalCost": 1.2,
-              "calculatedCost": 0.002,
-              "children": null
-            },
-            "yeast": {
-              "id": "yeast",
-              "name": "Yeast",
-              "category": "m",
-              "unit": "KG",
-              "level": 3,
-              "motherFactor": 0.88,
-              "quantity": 0.003,
-              "originalQuantity": 0.003,
-              "calculatedQuantity": 0.003,
-              "weight": 0.003,
-              "childrenWeight": 0,
-              "originalCost": 8,
-              "calculatedCost": 0.021,
-              "children": null
-            }
-          }
-        }
-      }
-    },
-    "box": {
-      "id": "box",
-      "name": "Box",
-      "category": "e",
-      "unit": "UN",
-      "level": 1,
-      "motherFactor": 1,
-      "quantity": 1,
-      "originalQuantity": 1,
-      "calculatedQuantity": 1,
-      "weight": 0.1,
-      "childrenWeight": 0,
-      "originalCost": 0.2,
-      "calculatedCost": 0.2,
-      "children": null
-    }
-  }
-}
-*/
 ```
 
 ```ts
@@ -232,12 +99,12 @@ const tree = builder.build();
 #### Using ProductionPlan
 
 ```ts
-import { 
+import {
   IProduct,
   MaterialsTreeBuilder,
   ProductCategory,
-  ProductUnit,
   ProductionPlan,
+  ProductUnit,
 } from "jsr:@saitodisse/bom-recipe-calculator";
 
 // First, create a production plan
