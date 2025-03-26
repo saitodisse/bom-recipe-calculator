@@ -8,7 +8,8 @@
             "unit": "KG",
             "weight": null,
             "purchaseQuoteValue": 7,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/tapioca-starch.png"
         },
         {
             "id": "mMilk",
@@ -18,7 +19,8 @@
             "unit": "L",
             "weight": 1.03,
             "purchaseQuoteValue": 3,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/milk.png"
         },
         {
             "id": "mOil",
@@ -28,7 +30,8 @@
             "unit": "L",
             "weight": 0.92,
             "purchaseQuoteValue": 5,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/oil.png"
         },
         {
             "id": "mEggs",
@@ -38,7 +41,8 @@
             "unit": "UN",
             "weight": 0.050,
             "purchaseQuoteValue": 1,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/eggs.png"
         },
         {
             "id": "mCheese",
@@ -48,7 +52,8 @@
             "unit": "KG",
             "weight": null,
             "purchaseQuoteValue": 25,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/minas-cheese.png"
         },
         {
             "id": "mPackaging",
@@ -58,7 +63,8 @@
             "unit": "UN",
             "weight": 0.030,
             "purchaseQuoteValue": 0.5,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/packaging.png"
         },
         {
             "id": "uPaoDeQueijo",
@@ -88,7 +94,8 @@
                     "id": "mCheese",
                     "quantity": 0.2
                 }
-            ]
+            ],
+            "imageUrl": "/product-images/pao-de-queijo.png"
         },
         {
             "id": "pPaoDeQueijo5Pack",
@@ -106,7 +113,8 @@
                     "id": "mPackaging",
                     "quantity": 1
                 }
-            ]
+            ],
+            "imageUrl": "/product-images/pao-de-queijo-5-pack.png"
         },
         {
             "id": "pPaoDeQueijo10Pack",
@@ -124,7 +132,8 @@
                     "id": "mPackaging",
                     "quantity": 1
                 }
-            ]
+            ],
+            "imageUrl": "/product-images/pao-de-queijo-10-pack.png"
         }
     ]
 }

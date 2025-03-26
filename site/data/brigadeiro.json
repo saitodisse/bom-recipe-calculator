@@ -8,7 +8,8 @@
             "unit": "KG",
             "weight": null,
             "purchaseQuoteValue": 6,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/condensed-milk.png"
         },
         {
             "id": "mChocolatePowder",
@@ -18,7 +19,8 @@
             "unit": "KG",
             "weight": null,
             "purchaseQuoteValue": 8,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/chocolate-powder.png"
         },
         {
             "id": "mButter",
@@ -28,7 +30,8 @@
             "unit": "KG",
             "weight": null,
             "purchaseQuoteValue": 15,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/butter.png"
         },
         {
             "id": "mPackaging",
@@ -38,7 +41,8 @@
             "unit": "UN",
             "weight": 0.030,
             "purchaseQuoteValue": 0.5,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/packaging.png"
         },
         {
             "id": "uBrigadeiro",
@@ -60,7 +64,8 @@
                     "id": "mButter",
                     "quantity": 0.02
                 }
-            ]
+            ],
+            "imageUrl": "/product-images/brigadeiro.png"
         },
         {
             "id": "pBrigadeiro5Pack",
@@ -78,7 +83,8 @@
                     "id": "mPackaging",
                     "quantity": 1
                 }
-            ]
+            ],
+            "imageUrl": "/product-images/brigadeiro-5-pack.png"
         },
         {
             "id": "pBrigadeiro10Pack",
@@ -96,7 +102,8 @@
                     "id": "mPackaging",
                     "quantity": 1
                 }
-            ]
+            ],
+            "imageUrl": "/product-images/brigadeiro-10-pack.png"
         }
     ]
 }

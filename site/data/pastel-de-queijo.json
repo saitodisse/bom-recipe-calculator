@@ -8,7 +8,8 @@
             "unit": "UN",
             "weight": 0.02,
             "purchaseQuoteValue": 1.14,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/package.png"
         },
         {
             "id": "mAgua",
@@ -18,7 +19,8 @@
             "unit": "KG",
             "weight": null,
             "purchaseQuoteValue": 0,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/water.png"
         },
         {
             "id": "mCachaca",
@@ -28,7 +30,8 @@
             "unit": "KG",
             "weight": null,
             "purchaseQuoteValue": 13,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/white-lightning.png"
         },
         {
             "id": "mFarinhaDeTrigo",
@@ -38,7 +41,8 @@
             "unit": "KG",
             "weight": null,
             "purchaseQuoteValue": 10,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/flour.png"
         },
         {
             "id": "mOleoDeSoja",
@@ -48,7 +52,8 @@
             "unit": "KG",
             "weight": null,
             "purchaseQuoteValue": 18,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/soybean-oil.png"
         },
         {
             "id": "mQueijoMussarela",
@@ -58,7 +63,8 @@
             "unit": "KG",
             "weight": null,
             "purchaseQuoteValue": 35,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/mussarela-cheese.png"
         },
         {
             "id": "mSal",
@@ -68,7 +74,8 @@
             "unit": "KG",
             "weight": null,
             "purchaseQuoteValue": 3,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/salt.png"
         },
         {
             "id": "mVinagreBranco",
@@ -78,7 +85,8 @@
             "unit": "KG",
             "weight": null,
             "purchaseQuoteValue": 7,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/white-vinegar.png"
         },
         {
             "id": "pPastelDeQueijo5un",
@@ -96,7 +104,8 @@
                     "id": "uPastelDeQueijo",
                     "quantity": 5
                 }
-            ]
+            ],
+            "imageUrl": "/product-images/pastel-de-queijo-5-pack.png"   
         },
         {
             "id": "pPastelDeQueijo10un",
@@ -114,7 +123,8 @@
                     "id": "uPastelDeQueijo",
                     "quantity": 10
                 }
-            ]
+            ],
+            "imageUrl": "/product-images/pastel-de-queijo-10-pack.png"
         },
         {
             "id": "sMassaPastel",
@@ -148,7 +158,8 @@
                     "id": "mCachaca",
                     "quantity": 0.022
                 }
-            ]
+            ],
+            "imageUrl": "/product-images/massa-para-pastel.png"
         },
         {
             "id": "uPastelDeQueijo",
@@ -166,43 +177,8 @@
                     "id": "mQueijoMussarela",
                     "quantity": 0.05
                 }
-            ]
-        },
-        {
-            "id": "pPastelDeQueijo5Pack",
-            "name": "Pastel de Queijo 5 Pack",
-            "namePt": "Pacote com 5 Pastéis de Queijo",
-            "category": "p",
-            "unit": "UN",
-            "purchaseQuoteValue": null,
-            "recipe": [
-                {
-                    "id": "uPastelDeQueijo",
-                    "quantity": 5
-                },
-                {
-                    "id": "mPackaging",
-                    "quantity": 1
-                }
-            ]
-        },
-        {
-            "id": "pPastelDeQueijo10Pack",
-            "name": "Pastel de Queijo 10 Pack",
-            "namePt": "Pacote com 10 Pastéis de Queijo",
-            "category": "p",
-            "unit": "UN",
-            "purchaseQuoteValue": null,
-            "recipe": [
-                {
-                    "id": "uPastelDeQueijo",
-                    "quantity": 10
-                },
-                {
-                    "id": "mPackaging",
-                    "quantity": 1
-                }
-            ]
+            ],
+            "imageUrl": "/product-images/pastel-de-queijo.png"
         }
     ]
 }

@@ -16,6 +16,7 @@ export class Product implements IProduct {
   private _purchaseQuoteValue: number | null;
   private _notes: string | null;
   private _recipe: RecipeItem[] | null;
+  private _imageUrl: string | null;
 
   /**
    * Creates a new Product instance.
@@ -65,6 +66,7 @@ export class Product implements IProduct {
     this._purchaseQuoteValue = data.purchaseQuoteValue ?? null;
     this._notes = data.notes ?? null;
     this._weight = data.weight ?? null;
+    this._imageUrl = data.imageUrl ?? null;
 
     // Convert recipe items to RecipeItem instances if present
     this._recipe = data.recipe
@@ -136,6 +138,15 @@ export class Product implements IProduct {
   }
 
   /**
+   * Gets the product image URL.
+   *
+   * @returns The product image URL or null if not set
+   */
+  public get imageUrl(): string | null {
+    return this._imageUrl;
+  }
+
+  /**
    * Gets the product recipe.
    *
    * @returns The product recipe or null if not set
@@ -177,6 +188,7 @@ export class Product implements IProduct {
       purchaseQuoteValue: this._purchaseQuoteValue,
       notes: this._notes,
       recipe: this._recipe ? this._recipe.map((item) => item.toJSON()) : null,
+      imageUrl: this._imageUrl,
     };
   }
 }

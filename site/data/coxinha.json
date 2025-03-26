@@ -8,7 +8,8 @@
             "unit": "KG",
             "weight": null,
             "purchaseQuoteValue": 18,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/chicken-breast.png"
         },
         {
             "id": "mOnion",
@@ -18,7 +19,8 @@
             "unit": "KG",
             "weight": null,
             "purchaseQuoteValue": 3,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/onion.png"
         },
         {
             "id": "mGarlic",
@@ -28,7 +30,8 @@
             "unit": "KG",
             "weight": null,
             "purchaseQuoteValue": 5,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/garlic.png"
         },
         {
             "id": "mTomatoPaste",
@@ -38,7 +41,8 @@
             "unit": "KG",
             "weight": null,
             "purchaseQuoteValue": 6,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/tomato-paste.png"
         },
         {
             "id": "mWheatFlour",
@@ -48,7 +52,8 @@
             "unit": "KG",
             "weight": null,
             "purchaseQuoteValue": 4,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/wheat-flour.png"
         },
         {
             "id": "mMilk",
@@ -58,7 +63,8 @@
             "unit": "L",
             "weight": 1.03,
             "purchaseQuoteValue": 3,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/milk.png"
         },
         {
             "id": "mBreadCrumbs",
@@ -68,7 +74,8 @@
             "unit": "KG",
             "weight": null,
             "purchaseQuoteValue": 8,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/bread-crumbs.png"
         },
         {
             "id": "mPackaging",
@@ -78,7 +85,8 @@
             "unit": "UN",
             "weight": 0.030,
             "purchaseQuoteValue": 0.5,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/packaging.png"
         },
         {
             "id": "uCoxinha",
@@ -116,7 +124,8 @@
                     "id": "mBreadCrumbs",
                     "quantity": 0.15
                 }
-            ]
+            ],
+            "imageUrl": "/product-images/coxinha.png"
         },
         {
             "id": "pCoxinha5Pack",
@@ -134,7 +143,8 @@
                     "id": "mPackaging",
                     "quantity": 1
                 }
-            ]
+            ],
+            "imageUrl": "/product-images/coxinha-5-pack.png"
         },
         {
             "id": "pCoxinha10Pack",
@@ -152,7 +162,8 @@
                     "id": "mPackaging",
                     "quantity": 1
                 }
-            ]
+            ],
+            "imageUrl": "/product-images/coxinha-10-pack.png"
         }
     ]
 }

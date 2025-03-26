@@ -8,7 +8,8 @@
             "unit": "KG",
             "weight": null,
             "purchaseQuoteValue": 20,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/chocolate.png"
         },
         {
             "id": "mButter",
@@ -18,7 +19,8 @@
             "unit": "KG",
             "weight": null,
             "purchaseQuoteValue": 15,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/butter.png"
         },
         {
             "id": "mSugar",
@@ -28,7 +30,8 @@
             "unit": "KG",
             "weight": null,
             "purchaseQuoteValue": 2,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/sugar.png"
         },
         {
             "id": "mEggs",
@@ -38,7 +41,8 @@
             "unit": "UN",
             "weight": 0.050,
             "purchaseQuoteValue": 1,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/eggs.png"
         },
         {
             "id": "mFlour",
@@ -48,7 +52,8 @@
             "unit": "KG",
             "weight": null,
             "purchaseQuoteValue": 4,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/flour.png"
         },
         {
             "id": "mPackaging",
@@ -58,7 +63,8 @@
             "unit": "UN",
             "weight": 0.030,
             "purchaseQuoteValue": 0.5,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/packaging.png"
         },
         {
             "id": "uBrownies",
@@ -88,7 +94,8 @@
                     "id": "mFlour",
                     "quantity": 0.1
                 }
-            ]
+            ],
+            "imageUrl": "/product-images/brownies.png"
         },
         {
             "id": "pBrownies5Pack",
@@ -106,7 +113,8 @@
                     "id": "mPackaging",
                     "quantity": 1
                 }
-            ]
+            ],
+            "imageUrl": "/product-images/brownies-5-pack.png"
         },
         {
             "id": "pBrownies10Pack",
@@ -124,7 +132,8 @@
                     "id": "mPackaging",
                     "quantity": 1
                 }
-            ]
+            ],
+            "imageUrl": "/product-images/brownies-10-pack.png"
         }
     ]
 }

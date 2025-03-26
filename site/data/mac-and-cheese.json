@@ -8,7 +8,8 @@
             "unit": "KG",
             "weight": null,
             "purchaseQuoteValue": 5,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/macaroni.png"
         },
         {
             "id": "mCheddarCheese",
@@ -18,7 +19,8 @@
             "unit": "KG",
             "weight": null,
             "purchaseQuoteValue": 30,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/cheddar-cheese.png"
         },
         {
             "id": "mMilk",
@@ -28,7 +30,8 @@
             "unit": "L",
             "weight": 1.03,
             "purchaseQuoteValue": 3,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/milk.png"
         },
         {
             "id": "mButter",
@@ -38,7 +41,8 @@
             "unit": "KG",
             "weight": null,
             "purchaseQuoteValue": 15,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/butter.png"
         },
         {
             "id": "mFlour",
@@ -48,7 +52,8 @@
             "unit": "KG",
             "weight": null,
             "purchaseQuoteValue": 4,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/flour.png"
         },
         {
             "id": "mPackaging",
@@ -58,7 +63,8 @@
             "unit": "UN",
             "weight": 0.030,
             "purchaseQuoteValue": 0.5,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/packaging.png"
         },
         {
             "id": "uMacAndCheese",
@@ -88,7 +94,8 @@
                     "id": "mFlour",
                     "quantity": 0.03
                 }
-            ]
+            ],
+            "imageUrl": "/product-images/mac-and-cheese.png"
         },
         {
             "id": "pMacAndCheese5Pack",
@@ -106,7 +113,8 @@
                     "id": "mPackaging",
                     "quantity": 1
                 }
-            ]
+            ],
+            "imageUrl": "/product-images/mac-and-cheese-5-pack.png"
         },
         {
             "id": "pMacAndCheese10Pack",
@@ -124,7 +132,8 @@
                     "id": "mPackaging",
                     "quantity": 1
                 }
-            ]
+            ],
+            "imageUrl": "/product-images/mac-and-cheese-10-pack.png"
         }
     ]
 }

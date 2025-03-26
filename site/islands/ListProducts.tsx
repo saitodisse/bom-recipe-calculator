@@ -88,6 +88,7 @@ export default function ListProducts({}: ListProductsProps) {
         <table class="min-w-full bg-white border border-gray-200">
           <thead class="bg-gray-100">
             <tr>
+              <th class="py-2 px-4 border-b text-left">Image</th>
               <th class="py-2 px-4 border-b text-left">Product</th>
               <th class="py-2 px-4 border-b text-left">Category</th>
               <th class="py-2 px-4 border-b text-left">Unit</th>
@@ -98,6 +99,19 @@ export default function ListProducts({}: ListProductsProps) {
           <tbody>
             {products.map((product) => (
               <tr key={product.id} class="hover:bg-gray-50">
+                <td class="py-2 px-4 border-b">
+                  {product.imageUrl ? (
+                    <img 
+                      src={product.imageUrl} 
+                      alt={product.name} 
+                      class="w-12 h-12 object-cover rounded"
+                    />
+                  ) : (
+                    <div class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center">
+                      <span class="text-gray-500 text-xs">No image</span>
+                    </div>
+                  )}
+                </td>
                 <td class="py-2 px-4 border-b">
                   {product.recipe
                     ? (

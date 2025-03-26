@@ -19,6 +19,7 @@ export default function AddEditProduct(props: PageProps) {
     purchaseQuoteValue: null,
     notes: null,
     recipe: null,
+    imageUrl: null,
   };
 
   const [formData, setFormData] = useState<IProduct>(defaultProduct);
@@ -366,6 +367,25 @@ export default function AddEditProduct(props: PageProps) {
             onChange={handleChange}
             rows={3}
             class="w-full px-3 py-2 border border-gray-300 rounded-md"
+          />
+        </div>
+
+        {/* Image URL */}
+        <div>
+          <label
+            class="block text-sm font-medium text-gray-700 mb-1"
+            htmlFor="imageUrl"
+          >
+            Image URL (optional)
+          </label>
+          <input
+            type="text"
+            id="imageUrl"
+            name="imageUrl"
+            value={formData.imageUrl ?? ""}
+            onChange={handleChange}
+            class="w-full px-3 py-2 border border-gray-300 rounded-md"
+            placeholder="https://example.com/image.jpg"
           />
         </div>
 

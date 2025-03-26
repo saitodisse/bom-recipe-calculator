@@ -8,7 +8,8 @@
             "unit": "KG",
             "weight": null,
             "purchaseQuoteValue": 25,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/ground-beef.png"
         },
         {
             "id": "mCheddarCheese",
@@ -18,7 +19,8 @@
             "unit": "KG",
             "weight": null,
             "purchaseQuoteValue": 30,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/cheddar-cheese.png"
         },
         {
             "id": "mPackaging",
@@ -28,7 +30,8 @@
             "unit": "UN",
             "weight": 0.030,
             "purchaseQuoteValue": 0.5,
-            "recipe": null
+            "recipe": null,
+            "imageUrl": "/product-images/packaging.png"
         },
         {
             "id": "uCheeseBurger",
@@ -46,7 +49,8 @@
                     "id": "mCheddarCheese",
                     "quantity": 0.05
                 }
-            ]
+            ],
+            "imageUrl": "/product-images/cheese-burger.png"
         },
         {
             "id": "pCheeseBurger5Pack",
@@ -64,7 +68,8 @@
                     "id": "mPackaging",
                     "quantity": 1
                 }
-            ]
+            ],
+            "imageUrl": "/product-images/cheese-burger-5-pack.png"
         },
         {
             "id": "pCheeseBurger10Pack",
@@ -82,7 +87,8 @@
                     "id": "mPackaging",
                     "quantity": 1
                 }
-            ]
+            ],
+            "imageUrl": "/product-images/cheese-burger-10-pack.png"
         }
     ]
 }
