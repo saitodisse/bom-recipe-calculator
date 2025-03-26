@@ -5,6 +5,7 @@ import type {
   ProductCategoryId,
 } from "@saitodisse/bom-recipe-calculator";
 import { getStorageItem, setStorageItem } from "../utils/storage.ts";
+import Lng from "./Lng.tsx";
 
 interface ListProductsProps {
 }
@@ -80,15 +81,28 @@ export default function ListProducts({}: ListProductsProps) {
   };
 
   if (loading) {
-    return <div class="my-4">Loading products...</div>;
+    return (
+      <div class="my-4">
+        <Lng
+          en="Loading products..."
+          pt="Carregando produtos..."
+        />
+      </div>
+    );
   }
 
   if (products.length === 0) {
     return (
       <div class="my-4 p-4 bg-gray-100 rounded">
-        No products found.{" "}
+        <Lng
+          en="No products found."
+          pt="Nenhum produto encontrado."
+        />{" "}
         <a href="/products/NEW_PRODUCT_ID" class="underline">
-          Add new product.
+          <Lng
+            en="Add new product."
+            pt="Adicionar novo produto."
+          />
         </a>
       </div>
     );
@@ -118,13 +132,48 @@ export default function ListProducts({}: ListProductsProps) {
             <table class="min-w-full bg-white border border-gray-200">
               <thead class="bg-gray-100">
                 <tr>
-                  <th class="py-2 px-4 border-b text-left">Image</th>
-                  <th class="py-2 px-4 border-b text-left">Product</th>
-                  <th class="py-2 px-4 border-b text-left">Category</th>
-                  <th class="py-2 px-4 border-b text-left">Unit</th>
-                  <th class="py-2 px-4 border-b text-left">Weight</th>
-                  <th class="py-2 px-4 border-b text-left">Price</th>
-                  <th class="py-2 px-4 border-b text-center">Actions</th>
+                  <th class="py-2 px-4 border-b text-left">
+                    <Lng
+                      en="Image"
+                      pt="Imagem"
+                    />
+                  </th>
+                  <th class="py-2 px-4 border-b text-left">
+                    <Lng
+                      en="Product"
+                      pt="Produto"
+                    />
+                  </th>
+                  <th class="py-2 px-4 border-b text-left">
+                    <Lng
+                      en="Category"
+                      pt="Categoria"
+                    />
+                  </th>
+                  <th class="py-2 px-4 border-b text-left">
+                    <Lng
+                      en="Unit"
+                      pt="Unidade"
+                    />
+                  </th>
+                  <th class="py-2 px-4 border-b text-left">
+                    <Lng
+                      en="Weight"
+                      pt="Peso"
+                    />
+                  </th>
+                  <th class="py-2 px-4 border-b text-left">
+                    <Lng
+                      en="Price"
+                      pt="Preço"
+                    />
+                  </th>
+                  <th class="py-2 px-4 border-b text-center">
+                    <Lng
+                      en="Actions"
+                      pt="Ações"
+                    />
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -152,11 +201,17 @@ export default function ListProducts({}: ListProductsProps) {
                             href={`/products/materials-tree/${product.id}`}
                             class="underline text-blue-800"
                           >
-                            {product.name}
+                            <Lng
+                              en={product.name}
+                              pt={product.name}
+                            />
                           </a>
                         )
                         : (
-                          product.name
+                          <Lng
+                            en={product.name}
+                            pt={product.name}
+                          />
                         )}
                     </td>
                     <td class="py-2 px-4 border-b">
@@ -175,21 +230,30 @@ export default function ListProducts({}: ListProductsProps) {
                           href={`/products/materials-tree/${product.id}`}
                           class="text-blue-800 rounded mr-2 underline hover:text-blue-600"
                         >
-                          View
+                          <Lng
+                            en="View"
+                            pt="Ver"
+                          />
                         </a>
                       )}
                       <a
                         href={`/products/${product.id}`}
                         class="text-blue-800 rounded mr-2 underline hover:text-blue-600"
                       >
-                        Edit
+                        <Lng
+                          en="Edit"
+                          pt="Editar"
+                        />
                       </a>
                       <button
                         onClick={() =>
                           handleDelete(product.id)}
                         class="text-red-800 rounded underline hover:text-red-600 text-xs"
                       >
-                        Delete
+                        <Lng
+                          en="Delete"
+                          pt="Deletar"
+                        />
                       </button>
                     </td>
                   </tr>
@@ -239,13 +303,19 @@ export default function ListProducts({}: ListProductsProps) {
                         href={`/products/${product.id}`}
                         class="text-blue-500 hover:text-blue-600 underline"
                       >
-                        Edit
+                        <Lng
+                          en="Edit"
+                          pt="Editar"
+                        />
                       </a>
                       <button
                         onClick={() => handleDelete(product.id)}
                         class="text-red-500 hover:text-red-600 underline"
                       >
-                        Delete
+                        <Lng
+                          en="Delete"
+                          pt="Deletar"
+                        />
                       </button>
                     </div>
                   </div>

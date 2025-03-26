@@ -1,6 +1,7 @@
 import { PageProps } from "$fresh/server.ts";
 import LanguageSelect from "../islands/LanguageSelect.tsx";
 import RecipeSelect from "../islands/RecipeSelect.tsx";
+import Lng from "../islands/Lng.tsx";
 
 export default function Layout({ Component, state }: PageProps) {
   return (
@@ -10,13 +11,16 @@ export default function Layout({ Component, state }: PageProps) {
           <div className="flex items-center space-x-4 space-between w-full">
             <div className="flex items-center space-x-4 w-full">
               <a href="/" className="text-xl font-medium text-gray-800">
-                BOM recipe calculator
+                bom-recipe-calculator
               </a>
               <a
                 href="/products/list-products"
                 className="text-gray-600 hover:text-gray-800 grow pl-4 underline"
               >
-                Products
+                <Lng
+                  en="Example Products"
+                  pt="Produtos de Exemplo"
+                />
               </a>
               <RecipeSelect />
               <LanguageSelect />

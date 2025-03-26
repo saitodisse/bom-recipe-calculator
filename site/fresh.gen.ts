@@ -17,6 +17,7 @@ import * as $CodeHighlighted from "./islands/CodeHighlighted.tsx";
 import * as $ExampleLoader from "./islands/ExampleLoader.tsx";
 import * as $LanguageSelect from "./islands/LanguageSelect.tsx";
 import * as $ListProducts from "./islands/ListProducts.tsx";
+import * as $Lng from "./islands/Lng.tsx";
 import * as $MaterialsTree from "./islands/MaterialsTree.tsx";
 import * as $RecipeSelect from "./islands/RecipeSelect.tsx";
 import type { Manifest } from "$fresh/server.ts";
@@ -42,6 +43,7 @@ const manifest = {
     "./islands/ExampleLoader.tsx": $ExampleLoader,
     "./islands/LanguageSelect.tsx": $LanguageSelect,
     "./islands/ListProducts.tsx": $ListProducts,
+    "./islands/Lng.tsx": $Lng,
     "./islands/MaterialsTree.tsx": $MaterialsTree,
     "./islands/RecipeSelect.tsx": $RecipeSelect,
   },

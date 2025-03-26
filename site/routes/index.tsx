@@ -1,20 +1,25 @@
 import { useSignal } from "@preact/signals";
 import CodeHighlighted from "../islands/CodeHighlighted.tsx";
+import Lng from "../islands/Lng.tsx";
 
 export default function Home() {
   const count = useSignal(3);
   return (
     <div class="max-w-screen-md m-auto p-4">
-      <h1 className="text-4xl font-bold">BOM Recipe Calculator</h1>
+      <h1 className="text-4xl font-bold">bom-recipe-calculator</h1>
 
       <p className="my-4">
-        A Bill of Materials (BOM) recipe calculator for nested product recipes.
-        Calculate costs and weights for complex product recipes with multiple
-        levels of ingredients.
+        <Lng
+          en="A Bill of Materials (BOM) recipe calculator for nested product recipes. Calculate costs and weights for complex product recipes with multiple levels of ingredients."
+          pt="A Estrutura de produto (BOM) para cálculo de custos e pesos para receitas complexas com múltiplos níveis de ingredientes."
+        />
       </p>
 
       <p className="my-4 text-lg font-bold">
-        Installation
+        <Lng
+          en="Installation"
+          pt="Instalação"
+        />
       </p>
       <CodeHighlighted
         code={`# deno
@@ -26,8 +31,30 @@ npx jsr add @saitodisse/bom-recipe-calculator
         language="shell"
       />
 
+      <p>
+        <Lng
+          en="see "
+          pt="veja "
+        />
+        <a
+          href="https://jsr.io/@saitodisse/bom-recipe-calculator"
+          className="underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          bom-recipe-calculator
+        </a>{" "}
+        <Lng
+          en="on jsr"
+          pt="no jsr"
+        />
+      </p>
+
       <p className="my-4 text-lg font-bold">
-        Usage
+        <Lng
+          en="Usage"
+          pt="Uso"
+        />
       </p>
       <CodeHighlighted
         code={`import {
@@ -170,10 +197,18 @@ bread4pack [p] 1 UN ( 0 kg, 0.9 kg )
       />
 
       <p className="my-4 text-lg font-bold">
-        Check examples
+        <Lng
+          en="Check examples"
+          pt="Ver exemplos"
+        />
       </p>
 
-      <a className="underline" href="/products/list-products">List products</a>
+      <a className="underline" href="/products/list-products">
+        <Lng
+          en="List products"
+          pt="Listar produtos"
+        />
+      </a>
     </div>
   );
 }

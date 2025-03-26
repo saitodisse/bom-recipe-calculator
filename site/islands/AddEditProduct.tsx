@@ -9,6 +9,7 @@ import {
   type ProductCategoryId,
 } from "@saitodisse/bom-recipe-calculator";
 import { PageProps } from "$fresh/server.ts";
+import Lng from "./Lng.tsx";
 
 export default function AddEditProduct(props: PageProps) {
   const defaultProduct: IProduct = {
@@ -192,8 +193,18 @@ export default function AddEditProduct(props: PageProps) {
   if (typeof window === "undefined") {
     return (
       <div class="my-6 p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
-        <h2 class="text-2xl font-semibold mb-4">Add New Product</h2>
-        <p>Loading product form...</p>
+        <h2 class="text-2xl font-semibold mb-4">
+          <Lng
+            en="Add New Product"
+            pt="Adicionar Novo Produto"
+          />
+        </h2>
+        <p>
+          <Lng
+            en="Loading product form..."
+            pt="Carregando formulário de produto..."
+          />
+        </p>
       </div>
     );
   }
@@ -201,7 +212,10 @@ export default function AddEditProduct(props: PageProps) {
   return (
     <div class="my-6 p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
       <h2 class="text-2xl font-semibold mb-4">
-        {isEditing ? "Edit Product" : "Add New Product"}
+        <Lng
+          en={isEditing ? "Edit Product" : "Add New Product"}
+          pt={isEditing ? "Editar Produto" : "Adicionar Novo Produto"}
+        />
       </h2>
 
       <form onSubmit={handleSubmit} class="space-y-4">
@@ -234,7 +248,10 @@ export default function AddEditProduct(props: PageProps) {
               class="block text-sm font-medium text-gray-700 mb-1"
               htmlFor="name"
             >
-              Name *
+              <Lng
+                en="Name (*)"
+                pt="Nome (*)"
+              />
             </label>
             <input
               type="text"
@@ -257,7 +274,10 @@ export default function AddEditProduct(props: PageProps) {
               class="block text-sm font-medium text-gray-700 mb-1"
               htmlFor="category"
             >
-              Category *
+              <Lng
+                en="Category (*)"
+                pt="Categoria (*)"
+              />
             </label>
             <select
               id="category"
@@ -291,7 +311,10 @@ export default function AddEditProduct(props: PageProps) {
               class="block text-sm font-medium text-gray-700 mb-1"
               htmlFor="unit"
             >
-              Unit *
+              <Lng
+                en="Unit (*)"
+                pt="Unidade (*)"
+              />
             </label>
             <select
               id="unit"
@@ -320,7 +343,10 @@ export default function AddEditProduct(props: PageProps) {
               class="block text-sm font-medium text-gray-700 mb-1"
               htmlFor="weight"
             >
-              Weight (optional)
+              <Lng
+                en="Weight (optional)"
+                pt="Peso (opcional)"
+              />
             </label>
             <input
               type="number"
@@ -340,7 +366,10 @@ export default function AddEditProduct(props: PageProps) {
               class="block text-sm font-medium text-gray-700 mb-1"
               htmlFor="purchaseQuoteValue"
             >
-              Price (optional)
+              <Lng
+                en="Price (optional)"
+                pt="Preço (opcional)"
+              />
             </label>
             <input
               type="number"
@@ -361,7 +390,10 @@ export default function AddEditProduct(props: PageProps) {
             class="block text-sm font-medium text-gray-700 mb-1"
             htmlFor="notes"
           >
-            Notes (optional)
+            <Lng
+              en="Notes (optional)"
+              pt="Notas (opcional)"
+            />
           </label>
           <textarea
             id="notes"
@@ -379,7 +411,10 @@ export default function AddEditProduct(props: PageProps) {
             class="block text-sm font-medium text-gray-700 mb-1"
             htmlFor="imageUrl"
           >
-            Image URL (optional)
+            <Lng
+              en="Image URL (optional)"
+              pt="URL da imagem (opcional)"
+            />
           </label>
           <input
             type="text"
@@ -398,13 +433,19 @@ export default function AddEditProduct(props: PageProps) {
             onClick={handleCancel}
             class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
           >
-            Cancel
+            <Lng
+              en="Cancel"
+              pt="Cancelar"
+            />
           </button>
           <button
             type="submit"
             class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
           >
-            {isEditing ? "Update Product" : "Add Product"}
+            <Lng
+              en={isEditing ? "Update Product" : "Add Product"}
+              pt={isEditing ? "Atualizar Produto" : "Adicionar Produto"}
+            />
           </button>
         </div>
       </form>

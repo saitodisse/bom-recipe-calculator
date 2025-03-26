@@ -1,6 +1,7 @@
 import { JSX } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import { getStorageItem, setStorageItem } from "../utils/storage.ts";
+import Lng from "./Lng.tsx";
 
 export default function LanguageSelect() {
   const [language, setLanguage] = useState("");
@@ -10,7 +11,7 @@ export default function LanguageSelect() {
     if (typeof window === "undefined") {
       return;
     }
-    
+
     const storedLanguage = getStorageItem("language", "");
     setLanguage(storedLanguage);
   }, []);
@@ -28,7 +29,10 @@ export default function LanguageSelect() {
   return (
     <div class="flex items-center">
       <label htmlFor="language-select" class="mr-2 text-gray-600 text-sm">
-        Language:
+        <Lng
+          en="Language"
+          pt="Lingua"
+        />
       </label>
       <select
         id="language-select"

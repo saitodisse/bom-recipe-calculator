@@ -1,6 +1,7 @@
 import { JSX } from "preact";
 import { useCallback, useEffect, useState } from "preact/hooks";
 import { getStorageItem, setStorageItem } from "../utils/storage.ts";
+import Lng from "./Lng.tsx";
 
 export default function RecipeSelect() {
   // Initialize with default values
@@ -63,7 +64,10 @@ export default function RecipeSelect() {
   return (
     <div class="flex items-center">
       <label htmlFor="recipe-select" class="mr-2 text-gray-600 text-sm">
-        Load example:
+        <Lng
+          en="Load example"
+          pt="Carregar exemplo"
+        />
       </label>
       <select
         id="recipe-select"
@@ -71,7 +75,12 @@ export default function RecipeSelect() {
         onChange={handleChange}
         value={recipeSelected}
       >
-        <option value="">Select a recipe</option>
+        <option value="">
+          <Lng
+            en="Select a recipe"
+            pt="Selecione uma receita"
+          />
+        </option>
         <option value="american-pancakes">
           {getRecipeName("american-pancakes")}
         </option>
