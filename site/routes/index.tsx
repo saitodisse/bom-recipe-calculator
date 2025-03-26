@@ -1,4 +1,5 @@
 import { useSignal } from "@preact/signals";
+import CodeHighlighted from "../islands/CodeHighlighted.tsx";
 
 export default function Home() {
   const count = useSignal(3);
@@ -15,22 +16,21 @@ export default function Home() {
       <p className="my-4 text-lg font-bold">
         Installation
       </p>
-      <pre className="bg-gray-300 p-4 rounded">
-        <code className="">
-          {`// deno
+      <CodeHighlighted
+        code={`# deno
 deno add jsr:@saitodisse/bom-recipe-calculator
-// npm
+
+# npm
 npx jsr add @saitodisse/bom-recipe-calculator
 `}
-        </code>
-      </pre>
+        language="shell"
+      />
 
       <p className="my-4 text-lg font-bold">
         Usage
       </p>
-      <pre className="bg-gray-300 p-4 rounded">
-        <code className="">
-          {`import {
+      <CodeHighlighted
+        code={`import {
   IProduct,
   MaterialsTreeBuilder,
   ProductCategory,
@@ -155,6 +155,7 @@ const tree = builder.build();
 
 console.log(tree.toHumanReadable());
 
+/* 
 bread4pack [p] 1 UN ( 0 kg, 0.9 kg )
   breadUnitary [u] 4 UN ( 0.8 kg, 0.88 kg )
     dough [s] 0.88 KG ( 0.88 kg, 1.061 kg )
@@ -163,9 +164,10 @@ bread4pack [p] 1 UN ( 0 kg, 0.9 kg )
       salt [m] 0.002 KG ( 0.002 kg, 0 kg )
       yeast [m] 0.003 KG ( 0.003 kg, 0 kg )
     box [e] 1 UN ( 0.1 kg, 0 kg )
+*/
 `}
-        </code>
-      </pre>
+        language="typescript"
+      />
 
       <p className="my-4 text-lg font-bold">
         Check examples
