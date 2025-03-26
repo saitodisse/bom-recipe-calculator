@@ -24,7 +24,8 @@ jobs:
           deno-version: v2.x
 
       - name: Build step
-        run: "deno task --cwd site build"
+        run: "deno task build"
+        working-directory: "site"
 
       - name: Upload to Deno Deploy from site folder
         uses: denoland/deployctl@v1
