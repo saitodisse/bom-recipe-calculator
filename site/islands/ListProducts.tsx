@@ -1,6 +1,6 @@
-import { useEffect, useState } from "preact/hooks";
-import { Product } from "@bom-recipe-calculator";
-import type { IProduct } from "@bom-recipe-calculator";
+import { useCallback, useEffect, useState } from "preact/hooks";
+import { Product, ProductCategory } from "@bom-recipe-calculator";
+import type { IProduct, ProductCategoryId } from "@bom-recipe-calculator";
 
 interface ListProductsProps {
 }
@@ -45,6 +45,7 @@ export default function ListProducts({}: ListProductsProps) {
   }, []);
 
   const productsViewMode = localStorage.getItem("productsViewMode");
+  const language = localStorage.getItem("language");
 
   const handleDelete = (id: string) => {
     if (confirm("Are you sure you want to delete this product?")) {
@@ -84,6 +85,22 @@ export default function ListProducts({}: ListProductsProps) {
     );
   }
 
+  const getCategoryName = useCallback(
+    (categoryId: ProductCategoryId): string => {
+      // get category from ProductCategory
+      const category = Object.values(ProductCategory).find(
+        (c) => c.id === categoryId,
+      );
+
+      if (language === "pt") {
+        return category?.descriptionPtBr ?? categoryId;
+      } else {
+        return category?.description ?? categoryId;
+      }
+    },
+    [language],
+  );
+
   return (
     <div class="my-6">
       <div class="overflow-x-auto">
@@ -104,17 +121,17 @@ export default function ListProducts({}: ListProductsProps) {
               <tbody>
                 {products.map((product) => (
                   <tr key={product.id} class="hover:bg-gray-50">
-                    <td class="py-2 px-4 border-b">
+                    <td class="py-2 px-4 border-b w-16">
                       {product.imageUrl
                         ? (
                           <img
                             src={product.imageUrl}
                             alt={product.name}
-                            class="w-12 h-12 object-cover rounded"
+                            class="w-16 h-16 object-cover rounded"
                           />
                         )
                         : (
-                          <div class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center">
+                          <div class="w-16 h-16 bg-gray-200 rounded flex items-center justify-center">
                             <span class="text-gray-500 text-xs">No image</span>
                           </div>
                         )}
@@ -133,7 +150,9 @@ export default function ListProducts({}: ListProductsProps) {
                           product.name
                         )}
                     </td>
-                    <td class="py-2 px-4 border-b">{product.category}</td>
+                    <td class="py-2 px-4 border-b">
+                      {getCategoryName(product.category)}
+                    </td>
                     <td class="py-2 px-4 border-b">{product.unit}</td>
                     <td class="py-2 px-4 border-b">{product.weight}</td>
                     <td class="py-2 px-4 border-b">
@@ -141,17 +160,25 @@ export default function ListProducts({}: ListProductsProps) {
                         ? `$${product.purchaseQuoteValue.toFixed(2)}`
                         : "-"}
                     </td>
-                    <td class="py-2 px-4 border-b text-center">
+                    <td class="py-2 px-4 border-b text-right text-sm">
+                      {product.recipe && (
+                        <a
+                          href={`/products/materials-tree/${product.id}`}
+                          class="text-blue-800 rounded mr-2 underline hover:text-blue-600"
+                        >
+                          View
+                        </a>
+                      )}
                       <a
                         href={`/products/${product.id}`}
-                        class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded mr-2"
+                        class="text-blue-800 rounded mr-2 underline hover:text-blue-600"
                       >
                         Edit
                       </a>
                       <button
                         onClick={() =>
                           handleDelete(product.id)}
-                        class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded"
+                        class="text-red-800 rounded underline hover:text-red-600 text-xs"
                       >
                         Delete
                       </button>
@@ -164,12 +191,15 @@ export default function ListProducts({}: ListProductsProps) {
           : (
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
               {products.map((product) => (
-                <div key={product.id} class="flex flex-col items-center">
-                  <div class="w-36 h-36 bg-gray-200 rounded flex items-center justify-center">
+                <div
+                  key={product.id}
+                  class="flex flex-col items-center max-w-48"
+                >
+                  <div class="w-48 h-4w-48 bg-gray-200 rounded flex items-center justify-center">
                     <img
                       src={product.imageUrl || ""}
                       alt={product.name}
-                      class="w-36 h-36 object-cover rounded"
+                      class="w-48 h-4w-48 object-cover rounded"
                     />
                   </div>
                   <div class="flex flex-col">
@@ -203,8 +233,7 @@ export default function ListProducts({}: ListProductsProps) {
                         Edit
                       </a>
                       <button
-                        onClick={() =>
-                          handleDelete(product.id)}
+                        onClick={() => handleDelete(product.id)}
                         class="text-red-500 hover:text-red-600 underline"
                       >
                         Delete

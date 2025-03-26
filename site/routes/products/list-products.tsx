@@ -4,7 +4,7 @@ import ListProducts from "../../islands/ListProducts.tsx";
 export default function ProductsList() {
   return (
     <>
-      <div class="">
+      <div class="container mx-auto max-w-5xl px-4 pb-8">
         <div class="flex justify-between items-center mb-6">
           <p class="text-gray-600">listing all products</p>
           <div class="flex items-center">
