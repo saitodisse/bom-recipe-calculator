@@ -1,10 +1,23 @@
-import { PageProps } from "$fresh/server.ts";
 import LanguageSelect from "../islands/LanguageSelect.tsx";
 import RecipeSelect from "../islands/RecipeSelect.tsx";
 import Lng from "../islands/Lng.tsx";
 import ToggleLightDark from "../islands/ToggleLightDark.tsx";
+import { getCookies } from "jsr:@std/http/cookie";
+import { defineLayout } from "$fresh/server.ts";
 
-export default function Layout({ Component, state }: PageProps) {
+export default defineLayout(async (req, ctx) => {
+  // get cookie
+  const cookies = getCookies(req.headers);
+  let modeFromCookie = cookies["mode"] || "light";
+  let modeFromQuery = null;
+
+  // check for mode query param
+  const url = new URL(req.url);
+  const modeParam = url.searchParams.get("mode");
+  if (modeParam) {
+    modeFromQuery = modeParam;
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <nav className="shadow-md w-full">
@@ -19,15 +32,18 @@ export default function Layout({ Component, state }: PageProps) {
                 className="text-foreground hover:text-foreground grow pl-4 underline"
               >
                 <Lng
-                  en="Example Products"
-                  pt="Produtos de Exemplo"
+                  en="Products"
+                  pt="Produtos"
                 />
               </a>
               <RecipeSelect />
               <LanguageSelect />
             </div>
 
-            <ToggleLightDark />
+            <ToggleLightDark
+              modeFromQuery={modeFromQuery}
+              modeFromCookie={modeFromCookie}
+            />
 
             <div className="flex items-center space-x-4">
               <a
@@ -41,8 +57,8 @@ export default function Layout({ Component, state }: PageProps) {
         </div>
       </nav>
       <main className="container mx-auto max-w-5xl px-4 pt-4">
-        <Component />
+        <ctx.Component />
       </main>
     </div>
   );
-}
+});

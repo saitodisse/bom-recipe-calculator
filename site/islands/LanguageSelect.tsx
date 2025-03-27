@@ -30,19 +30,18 @@ export default function LanguageSelect() {
     <div class="flex items-center">
       <label htmlFor="language-select" class="mr-2 text-foreground text-sm">
         <Lng
-          en="Language"
-          pt="Lingua"
+          en="Lang:"
+          pt="Idioma:"
         />
       </label>
       <select
         id="language-select"
-        class="border border-border rounded py-1 px-2 text-sm bg-background text-foreground"
+        class="border border-border rounded py-1 px-2 text-sm bg-background text-foreground w-16"
         onChange={handleChange}
         value={language}
       >
-        <option value="">Select a language</option>
-        <option value="en">English</option>
-        <option value="pt">Portuguese</option>
+        <option value="en">en</option>
+        <option value="pt">pt</option>
       </select>
     </div>
   );

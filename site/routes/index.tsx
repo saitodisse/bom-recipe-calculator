@@ -1,11 +1,34 @@
-import { useSignal } from "@preact/signals";
+import { Handlers } from "$fresh/server.ts";
+import { setCookie } from "jsr:@std/http/cookie";
 import CodeHighlighted from "../islands/CodeHighlighted.tsx";
 import Lng from "../islands/Lng.tsx";
 
+export const handler: Handlers = {
+  async GET(req, _ctx) {
+    // check querystring for mode
+    const url = new URL(req.url);
+    const mode = url.searchParams.get("mode");
+
+    if (!mode) {
+      return _ctx.render({});
+    }
+
+    const headers = new Headers();
+    setCookie(headers, {
+      name: "mode",
+      value: mode,
+      path: "/",
+    });
+
+    return _ctx.render({}, {
+      headers,
+    });
+  },
+};
+
 export default function Home() {
-  const count = useSignal(3);
   return (
-    <div class="max-w-screen-md m-auto p-4">
+    <div class="max-w-screen-md m-auto p-4 text-foreground bg-background">
       <h1 className="text-4xl font-bold">bom-recipe-calculator</h1>
 
       <p className="my-4">

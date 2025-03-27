@@ -265,7 +265,7 @@ export default function ListProducts({}: ListProductsProps) {
               {products.map((product) => (
                 <div
                   key={product.id}
-                  class="flex flex-col items-center max-w-48"
+                  class="flex flex-col items-start max-w-48"
                 >
                   <div class="w-48 h-4w-48 bg-primary text-foreground rounded flex items-center justify-center">
                     <img

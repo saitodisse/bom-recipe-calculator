@@ -7,7 +7,7 @@ export default function ProductsList() {
     <>
       <div class="container mx-auto max-w-5xl px-4 pb-8">
         <div class="flex justify-between items-center mb-6">
-          <p class="text-gray-600">
+          <p class="text-foreground">
             <Lng
               en="Listing All Products"
               pt="Listagem de Produtos"
