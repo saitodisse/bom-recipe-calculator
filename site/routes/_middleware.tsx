@@ -1,25 +1,25 @@
 // _middleware.ts
 import { FreshContext } from "$fresh/server.ts";
+import { getCookies } from "jsr:@std/http/cookie";
 
 export async function handler(
   req: Request,
   ctx: FreshContext,
 ) {
-  const mode =
-    req.headers.get("cookie")?.split("; ").find((row) =>
-      row.startsWith("mode=")
-    )?.split("=")[1] || "light";
+  // Get mode from cookie in a safer way
+  const cookies = getCookies(req.headers);
+  const mode = cookies["mode"] || "light";
 
+  // Continue with normal processing
   const resp = await ctx.next();
 
-  if (mode === "dark") {
-    const body = await resp.text();
-    const newBody = body.replace("<html", '<html class="dark"');
-    return new Response(newBody, {
-      status: resp.status,
-      headers: resp.headers,
-    });
-  }
+  // Add a custom header to indicate the mode
+  const newHeaders = new Headers(resp.headers);
+  newHeaders.set("X-Color-Mode", mode);
 
-  return resp;
+  // Return the response with the additional header
+  return new Response(resp.body, {
+    status: resp.status,
+    headers: newHeaders,
+  });
 }
