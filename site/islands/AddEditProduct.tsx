@@ -192,7 +192,7 @@ export default function AddEditProduct(props: PageProps) {
   // Handle server-side rendering
   if (typeof window === "undefined") {
     return (
-      <div class="my-6 p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
+      <div class="my-6 p-6 bg-background text-foreground border border-border rounded-lg shadow-sm">
         <h2 class="text-2xl font-semibold mb-4">
           <Lng
             en="Add New Product"
@@ -210,7 +210,7 @@ export default function AddEditProduct(props: PageProps) {
   }
 
   return (
-    <div class="my-6 p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
+    <div class="my-6 p-6 bg-background text-foreground border border-border rounded-lg shadow-sm">
       <h2 class="text-2xl font-semibold mb-4">
         <Lng
           en={isEditing ? "Edit Product" : "Add New Product"}
@@ -223,7 +223,7 @@ export default function AddEditProduct(props: PageProps) {
           {/* ID */}
           <div>
             <label
-              class="block text-sm font-medium text-gray-700 mb-1"
+              class="block text-sm font-medium text-foreground mb-1"
               htmlFor="id"
             >
               ID *
@@ -236,16 +236,16 @@ export default function AddEditProduct(props: PageProps) {
               onChange={handleChange}
               disabled={isEditing}
               class={`w-full px-3 py-2 border rounded-md ${
-                errors.id ? "border-red-500" : "border-gray-300"
+                errors.id ? "border-destructive" : "border-border"
               }`}
             />
-            {errors.id && <p class="mt-1 text-sm text-red-500">{errors.id}</p>}
+            {errors.id && <p class="mt-1 text-sm text-destructive">{errors.id}</p>}
           </div>
 
           {/* Name */}
           <div>
             <label
-              class="block text-sm font-medium text-gray-700 mb-1"
+              class="block text-sm font-medium text-foreground mb-1"
               htmlFor="name"
             >
               <Lng
@@ -260,18 +260,18 @@ export default function AddEditProduct(props: PageProps) {
               value={formData.name}
               onChange={handleChange}
               class={`w-full px-3 py-2 border rounded-md ${
-                errors.name ? "border-red-500" : "border-gray-300"
+                errors.name ? "border-destructive" : "border-border"
               }`}
             />
             {errors.name && (
-              <p class="mt-1 text-sm text-red-500">{errors.name}</p>
+              <p class="mt-1 text-sm text-destructive">{errors.name}</p>
             )}
           </div>
 
           {/* Category */}
           <div>
             <label
-              class="block text-sm font-medium text-gray-700 mb-1"
+              class="block text-sm font-medium text-foreground mb-1"
               htmlFor="category"
             >
               <Lng
@@ -285,7 +285,7 @@ export default function AddEditProduct(props: PageProps) {
               value={formData.category}
               onChange={handleChange}
               class={`w-full px-3 py-2 border rounded-md ${
-                errors.category ? "border-red-500" : "border-gray-300"
+                errors.category ? "border-destructive" : "border-border"
               }`}
             >
               <option value="">Select a category</option>
@@ -301,14 +301,14 @@ export default function AddEditProduct(props: PageProps) {
               })}
             </select>
             {errors.category && (
-              <p class="mt-1 text-sm text-red-500">{errors.category}</p>
+              <p class="mt-1 text-sm text-destructive">{errors.category}</p>
             )}
           </div>
 
           {/* Unit */}
           <div>
             <label
-              class="block text-sm font-medium text-gray-700 mb-1"
+              class="block text-sm font-medium text-foreground mb-1"
               htmlFor="unit"
             >
               <Lng
@@ -322,7 +322,7 @@ export default function AddEditProduct(props: PageProps) {
               value={formData.unit}
               onChange={handleChange}
               class={`w-full px-3 py-2 border rounded-md ${
-                errors.unit ? "border-red-500" : "border-gray-300"
+                errors.unit ? "border-destructive" : "border-border"
               }`}
             >
               <option value="">Select a unit</option>
@@ -333,14 +333,14 @@ export default function AddEditProduct(props: PageProps) {
               ))}
             </select>
             {errors.unit && (
-              <p class="mt-1 text-sm text-red-500">{errors.unit}</p>
+              <p class="mt-1 text-sm text-destructive">{errors.unit}</p>
             )}
           </div>
 
           {/* Weight */}
           <div>
             <label
-              class="block text-sm font-medium text-gray-700 mb-1"
+              class="block text-sm font-medium text-foreground mb-1"
               htmlFor="weight"
             >
               <Lng
@@ -356,14 +356,14 @@ export default function AddEditProduct(props: PageProps) {
               onChange={handleChange}
               step="0.01"
               min="0"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md"
+              class="w-full px-3 py-2 border border-border rounded-md"
             />
           </div>
 
           {/* Purchase Quote Value */}
           <div>
             <label
-              class="block text-sm font-medium text-gray-700 mb-1"
+              class="block text-sm font-medium text-foreground mb-1"
               htmlFor="purchaseQuoteValue"
             >
               <Lng
@@ -379,7 +379,7 @@ export default function AddEditProduct(props: PageProps) {
               onChange={handleChange}
               step="0.01"
               min="0"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md"
+              class="w-full px-3 py-2 border border-border rounded-md"
             />
           </div>
         </div>
@@ -387,7 +387,7 @@ export default function AddEditProduct(props: PageProps) {
         {/* Notes */}
         <div>
           <label
-            class="block text-sm font-medium text-gray-700 mb-1"
+            class="block text-sm font-medium text-foreground mb-1"
             htmlFor="notes"
           >
             <Lng
@@ -401,14 +401,14 @@ export default function AddEditProduct(props: PageProps) {
             value={formData.notes ?? ""}
             onChange={handleChange}
             rows={3}
-            class="w-full px-3 py-2 border border-gray-300 rounded-md"
+            class="w-full px-3 py-2 border border-border rounded-md"
           />
         </div>
 
         {/* Image URL */}
         <div>
           <label
-            class="block text-sm font-medium text-gray-700 mb-1"
+            class="block text-sm font-medium text-foreground mb-1"
             htmlFor="imageUrl"
           >
             <Lng
@@ -422,7 +422,7 @@ export default function AddEditProduct(props: PageProps) {
             name="imageUrl"
             value={formData.imageUrl ?? ""}
             onChange={handleChange}
-            class="w-full px-3 py-2 border border-gray-300 rounded-md"
+            class="w-full px-3 py-2 border border-border rounded-md"
             placeholder="https://example.com/image.jpg"
           />
         </div>
@@ -431,7 +431,7 @@ export default function AddEditProduct(props: PageProps) {
           <button
             type="button"
             onClick={handleCancel}
-            class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+            class="px-4 py-2 border border-border rounded-md text-foreground hover:bg-foreground/5"
           >
             <Lng
               en="Cancel"
@@ -440,7 +440,7 @@ export default function AddEditProduct(props: PageProps) {
           </button>
           <button
             type="submit"
-            class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            class="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
           >
             <Lng
               en={isEditing ? "Update Product" : "Add Product"}

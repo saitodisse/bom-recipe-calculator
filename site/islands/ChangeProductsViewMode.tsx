@@ -24,13 +24,13 @@ export default function ChangeProductsViewMode() {
 
   return (
     <div className="flex items-center space-x-2">
-      <span className="text-sm text-gray-600">View:</span>
+      <span className="text-sm text-foreground">View:</span>
       <button
         onClick={() => handleViewModeChange("grid")}
         className={`p-1 rounded ${
           viewMode === "grid"
-            ? "bg-blue-500 text-white"
-            : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+            ? "bg-primary text-primary-foreground"
+            : "bg-background/10 text-foreground hover:bg-foreground/10"
         }`}
         title="Grid View"
       >
@@ -53,8 +53,8 @@ export default function ChangeProductsViewMode() {
         onClick={() => handleViewModeChange("list")}
         className={`p-1 rounded ${
           viewMode === "list"
-            ? "bg-blue-500 text-white"
-            : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+            ? "bg-primary text-primary-foreground"
+            : "bg-background/10 text-foreground hover:bg-foreground/10"
         }`}
         title="List View"
       >

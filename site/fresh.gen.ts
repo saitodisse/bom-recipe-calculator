@@ -20,6 +20,7 @@ import * as $ListProducts from "./islands/ListProducts.tsx";
 import * as $Lng from "./islands/Lng.tsx";
 import * as $MaterialsTree from "./islands/MaterialsTree.tsx";
 import * as $RecipeSelect from "./islands/RecipeSelect.tsx";
+import * as $ToggleLightDark from "./islands/ToggleLightDark.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -46,6 +47,7 @@ const manifest = {
     "./islands/Lng.tsx": $Lng,
     "./islands/MaterialsTree.tsx": $MaterialsTree,
     "./islands/RecipeSelect.tsx": $RecipeSelect,
+    "./islands/ToggleLightDark.tsx": $ToggleLightDark,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;

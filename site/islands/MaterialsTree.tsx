@@ -53,7 +53,7 @@ export default function MaterialsTree(props: PageProps) {
     switch (view) {
       case "tree":
         return (
-          <pre class="whitespace-pre text-sm text-gray-700">{tree?.toHumanReadable({
+          <pre class="whitespace-pre text-sm text-foreground">{tree?.toHumanReadable({
             showCost: true,
             showQuantity: true,
             showWeight: true,
@@ -61,17 +61,17 @@ export default function MaterialsTree(props: PageProps) {
         );
       case "json":
         return (
-          <pre class="whitespace-pre text-sm text-gray-700">{JSON.stringify(tree, null, 2)}</pre>
+          <pre class="whitespace-pre text-sm text-foreground">{JSON.stringify(tree, null, 2)}</pre>
         );
     }
   };
 
   return (
-    <div class="my-6 p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
+    <div class="my-6 p-6 bg-background text-foreground border border-border rounded-lg shadow-sm">
       {loading
         ? (
           <div class="flex items-center justify-center">
-            <span class="text-gray-200">Loading...</span>
+            <span class="text-foreground/50">Loading...</span>
           </div>
         )
         : (
@@ -99,7 +99,7 @@ export default function MaterialsTree(props: PageProps) {
               </nav>
               <div class="flex flex-row gap-2">
                 <button
-                  class="bg-blue-300 p-1 rounded w-8"
+                  class="bg-primary text-primary-foreground p-1 rounded w-8"
                   onClick={() => {
                     if (quantity > 1) {
                       setQuantity(quantity - 1);
@@ -110,7 +110,7 @@ export default function MaterialsTree(props: PageProps) {
                 </button>
                 <input
                   type="number"
-                  class="p-1 w-20 border border-gray-200 rounded"
+                  class="p-1 w-20 border border-border rounded bg-background text-foreground"
                   min={0}
                   max={1000000}
                   step={0.1}
@@ -123,7 +123,7 @@ export default function MaterialsTree(props: PageProps) {
                   value={quantity}
                 />
                 <button
-                  class="bg-blue-300 p-1 rounded w-8"
+                  class="bg-primary text-primary-foreground p-1 rounded w-8"
                   onClick={() => {
                     if (quantity < 1000000) {
                       setQuantity(quantity + 1);
@@ -134,7 +134,7 @@ export default function MaterialsTree(props: PageProps) {
                 </button>
               </div>
             </div>
-            <div class="bg-slate-100 p-4 rounded-lg">
+            <div class="bg-background/5 p-4 rounded-lg">
               {renderView()}
             </div>
           </div>

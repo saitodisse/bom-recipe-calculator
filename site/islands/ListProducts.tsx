@@ -93,7 +93,7 @@ export default function ListProducts({}: ListProductsProps) {
 
   if (products.length === 0) {
     return (
-      <div class="my-4 p-4 bg-gray-100 rounded">
+      <div class="my-4 p-4 bg-background text-foreground rounded">
         <Lng
           en="No products found."
           pt="Nenhum produto encontrado."
@@ -129,8 +129,8 @@ export default function ListProducts({}: ListProductsProps) {
       <div class="overflow-x-auto">
         {productsViewMode === "list"
           ? (
-            <table class="min-w-full bg-white border border-gray-200">
-              <thead class="bg-gray-100">
+            <table class="min-w-full bg-background text-foreground">
+              <thead class="bg-background text-foreground">
                 <tr>
                   <th class="py-2 px-4 border-b text-left">
                     <Lng
@@ -176,9 +176,9 @@ export default function ListProducts({}: ListProductsProps) {
                   </th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody class="bg-background text-foreground">
                 {products.map((product) => (
-                  <tr key={product.id} class="hover:bg-gray-50">
+                  <tr key={product.id} class="hover:bg-foreground/5">
                     <td class="py-2 px-4 border-b w-16">
                       {product.imageUrl
                         ? (
@@ -189,8 +189,8 @@ export default function ListProducts({}: ListProductsProps) {
                           />
                         )
                         : (
-                          <div class="w-16 h-16 bg-gray-200 rounded flex items-center justify-center">
-                            <span class="text-gray-500 text-xs">No image</span>
+                          <div class="w-16 h-16 bg-primary text-foreground rounded flex items-center justify-center">
+                            <span class="text-xs">No image</span>
                           </div>
                         )}
                     </td>
@@ -199,7 +199,7 @@ export default function ListProducts({}: ListProductsProps) {
                         ? (
                           <a
                             href={`/products/materials-tree/${product.id}`}
-                            class="underline text-blue-800"
+                            class="underline text-foreground"
                           >
                             <Lng
                               en={product.name}
@@ -208,10 +208,9 @@ export default function ListProducts({}: ListProductsProps) {
                           </a>
                         )
                         : (
-                          <Lng
-                            en={product.name}
-                            pt={product.name}
-                          />
+                          <span class="text-foreground/80 text-base">
+                            [{product.category}] {product.name}
+                          </span>
                         )}
                     </td>
                     <td class="py-2 px-4 border-b">
@@ -224,11 +223,11 @@ export default function ListProducts({}: ListProductsProps) {
                         ? `$${product.purchaseQuoteValue.toFixed(2)}`
                         : "-"}
                     </td>
-                    <td class="py-2 px-4 border-b text-right text-sm">
+                    <td class="py-2 px-4 border-b text-right text-sm space-x-2">
                       {product.recipe && (
                         <a
                           href={`/products/materials-tree/${product.id}`}
-                          class="text-blue-800 rounded mr-2 underline hover:text-blue-600"
+                          class="text-primary hover:text-primary/80 underline"
                         >
                           <Lng
                             en="View"
@@ -238,7 +237,7 @@ export default function ListProducts({}: ListProductsProps) {
                       )}
                       <a
                         href={`/products/${product.id}`}
-                        class="text-blue-800 rounded mr-2 underline hover:text-blue-600"
+                        class="text-primary hover:text-primary/80 underline"
                       >
                         <Lng
                           en="Edit"
@@ -248,7 +247,7 @@ export default function ListProducts({}: ListProductsProps) {
                       <button
                         onClick={() =>
                           handleDelete(product.id)}
-                        class="text-red-800 rounded underline hover:text-red-600 text-xs"
+                        class="text-destructive hover:text-destructive/80 underline text-xs"
                       >
                         <Lng
                           en="Delete"
@@ -268,7 +267,7 @@ export default function ListProducts({}: ListProductsProps) {
                   key={product.id}
                   class="flex flex-col items-center max-w-48"
                 >
-                  <div class="w-48 h-4w-48 bg-gray-200 rounded flex items-center justify-center">
+                  <div class="w-48 h-4w-48 bg-primary text-foreground rounded flex items-center justify-center">
                     <img
                       src={product.imageUrl || ""}
                       alt={product.name}
@@ -280,19 +279,21 @@ export default function ListProducts({}: ListProductsProps) {
                       ? (
                         <a
                           href={`/products/materials-tree/${product.id}`}
-                          class="underline text-blue-800"
+                          class="underline text-foreground"
                         >
                           [{product.category}] {product.name}
                         </a>
                       )
                       : (
-                        <span class="text-gray-600 text-base">
+                        <span class="text-foreground/80 text-base">
                           [{product.category}] {product.name}
                         </span>
                       )}
                     <div class="flex flex-row justify-between">
-                      <div class="text-gray-600 text-sm">{product.unit}</div>
-                      <div class="text-gray-600 text-sm">
+                      <div class="text-foreground/70 text-sm">
+                        {product.unit}
+                      </div>
+                      <div class="text-foreground/70 text-sm">
                         {product.purchaseQuoteValue
                           ? `$${product.purchaseQuoteValue.toFixed(2)}`
                           : "-"}
@@ -301,7 +302,7 @@ export default function ListProducts({}: ListProductsProps) {
                     <div class="flex justify-between text-xs">
                       <a
                         href={`/products/${product.id}`}
-                        class="text-blue-500 hover:text-blue-600 underline"
+                        class="text-primary hover:text-primary/80 underline"
                       >
                         <Lng
                           en="Edit"
@@ -310,7 +311,7 @@ export default function ListProducts({}: ListProductsProps) {
                       </a>
                       <button
                         onClick={() => handleDelete(product.id)}
-                        class="text-red-500 hover:text-red-600 underline"
+                        class="text-destructive hover:text-destructive/80 underline"
                       >
                         <Lng
                           en="Delete"
