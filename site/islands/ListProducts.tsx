@@ -179,7 +179,7 @@ export default function ListProducts({}: ListProductsProps) {
               <tbody class="bg-background text-foreground">
                 {products.map((product) => (
                   <tr key={product.id} class="hover:bg-foreground/5">
-                    <td class="py-2 px-4 border-b w-16">
+                    <td class="p-1 border-b w-16">
                       {product.imageUrl
                         ? (
                           <img
