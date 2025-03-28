@@ -19,6 +19,8 @@ export default defineLayout(async (req, ctx) => {
     modeFromQuery = modeParam;
   }
 
+  const path = url.pathname;
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <PageTransitionLoader />
@@ -45,6 +47,19 @@ export default defineLayout(async (req, ctx) => {
                 <Lng
                   en="Production Plans"
                   pt="Planos de Produção"
+                />
+              </a>
+              <a
+                href="/production-reports"
+                className={`px-3 py-2 rounded-md ${
+                  path.startsWith("/production-reports")
+                    ? "bg-primary text-primary-foreground"
+                    : "hover:bg-foreground/5"
+                }`}
+              >
+                <Lng
+                  en="Production Reports"
+                  pt="Relatórios de Produção"
                 />
               </a>
               <RecipeSelect />

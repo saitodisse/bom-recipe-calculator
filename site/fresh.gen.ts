@@ -10,6 +10,7 @@ import * as $api_joke from "./routes/api/joke.ts";
 import * as $index from "./routes/index.tsx";
 import * as $production_plans_plan_id_ from "./routes/production-plans/[plan_id].tsx";
 import * as $production_plans_list_plans from "./routes/production-plans/list-plans.tsx";
+import * as $production_reports_index from "./routes/production-reports/index.tsx";
 import * as $products_product_id_ from "./routes/products/[product_id].tsx";
 import * as $products_list_products from "./routes/products/list-products.tsx";
 import * as $products_load_example_json_name_ from "./routes/products/load-example/[json_name].tsx";
@@ -26,6 +27,7 @@ import * as $Lng from "./islands/Lng.tsx";
 import * as $MaterialsTree from "./islands/MaterialsTree.tsx";
 import * as $PageTransitionLoader from "./islands/PageTransitionLoader.tsx";
 import * as $ProductionPlansList from "./islands/ProductionPlansList.tsx";
+import * as $ProductionReports from "./islands/ProductionReports.tsx";
 import * as $RecipeSelect from "./islands/RecipeSelect.tsx";
 import * as $ToggleLightDark from "./islands/ToggleLightDark.tsx";
 import type { Manifest } from "$fresh/server.ts";
@@ -40,6 +42,7 @@ const manifest = {
     "./routes/index.tsx": $index,
     "./routes/production-plans/[plan_id].tsx": $production_plans_plan_id_,
     "./routes/production-plans/list-plans.tsx": $production_plans_list_plans,
+    "./routes/production-reports/index.tsx": $production_reports_index,
     "./routes/products/[product_id].tsx": $products_product_id_,
     "./routes/products/list-products.tsx": $products_list_products,
     "./routes/products/load-example/[json_name].tsx":
@@ -61,6 +64,7 @@ const manifest = {
     "./islands/MaterialsTree.tsx": $MaterialsTree,
     "./islands/PageTransitionLoader.tsx": $PageTransitionLoader,
     "./islands/ProductionPlansList.tsx": $ProductionPlansList,
+    "./islands/ProductionReports.tsx": $ProductionReports,
     "./islands/RecipeSelect.tsx": $RecipeSelect,
     "./islands/ToggleLightDark.tsx": $ToggleLightDark,
   },

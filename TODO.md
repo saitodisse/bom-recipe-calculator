@@ -38,7 +38,7 @@ functionality:
 - [x] 1.1 Create production planning feature (recipes to be produced)
 - [x] 1.1.1 add "id" and optional "name" to each IProductionPlanEntry
 - [ ] 1.2 Implement maximum and minimum recipe quantities (production limits)
-- [ ] 1.3 List production plans and history of what has been produced
+- [x] 1.3 List production plans and history of what has been produced
 - [ ] 1.4 Implement printing support for production assistance
 - [ ] 1.5 Enable editing and deleting production plans
 - [ ] 1.6 Allow input of total average monthly sales
@@ -64,8 +64,13 @@ functionality:
 
 #### 4. Ingredient Usage Optimization
 
-- [ ] 4.1 Display what was manufactured in the month and calculate ingredients
-      consumed
+- [ ] 4.1 Display what was manufactured a time period
+  - [ ] 4.1.1 Show total of products manufactured
+  - [ ] 4.1.2 Show products used, exploded in their trees and accumulated. For
+        example, if I made 33 hamburgers then how much cheese was consumed. Show
+        the total of ingredients consumed for the time period, allow filtering
+        by category.
+
 - [ ] 4.2 Generate alerts for purchase needs or production adjustments
 - [ ] 4.3 Create reports on production efficiency and ingredient consumption
 - [ ] 4.4 Implement charts and visualizations for data analysis
