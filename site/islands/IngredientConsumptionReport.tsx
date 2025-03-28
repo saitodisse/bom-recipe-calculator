@@ -187,11 +187,11 @@ export default function IngredientConsumptionReport() {
             continue;
           }
 
-          // Skip if filtering by category and product doesn't match
-          if (
-            selectedCategory !== "all" && product.category !== selectedCategory
-          ) {
-            continue;
+          // Skip based on the selected filter
+          if (selectedCategory === "p" && product.category !== "p") {
+            continue; // Skip if not a final product when "Final Products" is selected
+          } else if (selectedCategory === "not_p" && product.category === "p") {
+            continue; // Skip if it's a final product when "All except final products" is selected
           }
 
           // Get the parent product name (what this ingredient was used in)
@@ -322,15 +322,22 @@ export default function IngredientConsumptionReport() {
           >
             <option value="all">
               <Lng
-                en="All Categories"
-                pt="Todas as Categorias"
+                en="All"
+                pt="Tudo"
               />
             </option>
-            {categories.map((category) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
+            <option value="p">
+              <Lng
+                en="Final Products"
+                pt="Produtos Finais"
+              />
+            </option>
+            <option value="not_p">
+              <Lng
+                en="All except final products"
+                pt="Tudo menos produtos finais"
+              />
+            </option>
           </select>
         </div>
       </div>
@@ -350,36 +357,6 @@ export default function IngredientConsumptionReport() {
         </div>
       )}
 
-      {/* Summary */}
-      <div className="bg-card rounded-lg shadow p-6">
-        <h2 className="text-xl font-semibold mb-3">
-          <Lng
-            en="Production Summary"
-            pt="Resumo de Produção"
-          />
-        </h2>
-
-        {filteredPlans.length === 0
-          ? (
-            <p className="text-foreground/70 italic">
-              <Lng
-                en="No production plans found for the selected period."
-                pt="Nenhum plano de produção encontrado para o período selecionado."
-              />
-            </p>
-          )
-          : (
-            <div>
-              <p className="mb-2">
-                <Lng
-                  en={`Total plans: ${filteredPlans.length}`}
-                  pt={`Total de planos: ${filteredPlans.length}`}
-                />
-              </p>
-            </div>
-          )}
-      </div>
-
       {/* Ingredient consumption */}
       <div className="bg-card rounded-lg shadow p-6">
         <h2 className="text-xl font-semibold mb-3">
@@ -393,8 +370,8 @@ export default function IngredientConsumptionReport() {
           ? (
             <p className="text-foreground/70 italic">
               <Lng
-                en="No ingredient consumption data available for the selected period and category."
-                pt="Nenhum dado de consumo de ingredientes disponível para o período e categoria selecionados."
+                en="No ingredient consumption data available for the selected period and filter."
+                pt="Nenhum dado de consumo de ingredientes disponível para o período e filtro selecionados."
               />
             </p>
           )

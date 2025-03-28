@@ -36,8 +36,6 @@ export default function ProductionReports(_props: PageProps) {
       )[0], // 30 days ago
     endDate: new Date().toISOString().split("T")[0], // today
   });
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [categories, setCategories] = useState<string[]>([]);
   const [filteredPlans, setFilteredPlans] = useState<IProductionPlan[]>([]);
   const [productConsumption, setProductConsumption] = useState<
     ProductConsumption[]
@@ -72,7 +70,7 @@ export default function ProductionReports(_props: PageProps) {
   // Filter plans whenever date range changes
   useEffect(() => {
     filterPlans();
-  }, [plans, dateRange, selectedCategory]);
+  }, [plans, dateRange]);
 
   // Calculate product consumption whenever filtered plans change
   useEffect(() => {
@@ -92,12 +90,6 @@ export default function ProductionReports(_props: PageProps) {
       if (savedProducts) {
         const parsedProducts = JSON.parse(savedProducts);
         setProducts(parsedProducts);
-
-        // Extract unique categories
-        const uniqueCategories = Array.from(
-          new Set(parsedProducts.map((p: IProduct) => p.category)),
-        ) as string[];
-        setCategories(uniqueCategories);
       }
     } catch (error) {
       console.error("Error loading data:", error);
@@ -142,13 +134,6 @@ export default function ProductionReports(_props: PageProps) {
         const product = entry.product;
         if (!product) return;
 
-        // Skip if filtering by category and product doesn't match
-        if (
-          selectedCategory !== "all" && product.category !== selectedCategory
-        ) {
-          return;
-        }
-
         const productId = product.id;
 
         // If product is already in the map, update quantity
@@ -179,11 +164,6 @@ export default function ProductionReports(_props: PageProps) {
   const handleDateChange = (e: Event) => {
     const { name, value } = e.target as HTMLInputElement;
     setDateRange((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleCategoryChange = (e: Event) => {
-    const { value } = e.target as HTMLSelectElement;
-    setSelectedCategory(value);
   };
 
   // Handle server-side rendering
@@ -245,63 +225,6 @@ export default function ProductionReports(_props: PageProps) {
             />
           </div>
         </div>
-
-        {/* Category filter */}
-        <div className="mt-4">
-          <label className="block text-sm font-medium mb-1">
-            <Lng
-              en="Filter by Category"
-              pt="Filtrar por Categoria"
-            />
-          </label>
-          <select
-            value={selectedCategory}
-            onChange={handleCategoryChange}
-            className="w-full p-2 border border-border rounded-md bg-background text-foreground"
-          >
-            <option value="all">
-              <Lng
-                en="All Categories"
-                pt="Todas as Categorias"
-              />
-            </option>
-            {categories.map((category) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-
-      {/* Production summary */}
-      <div className="p-4 bg-background border border-border rounded-lg shadow-sm">
-        <h2 className="text-xl font-semibold mb-4">
-          <Lng
-            en="Production Summary"
-            pt="Resumo de Produção"
-          />
-        </h2>
-
-        {filteredPlans.length === 0
-          ? (
-            <p className="text-foreground/70 italic">
-              <Lng
-                en="No production plans found for the selected period."
-                pt="Nenhum plano de produção encontrado para o período selecionado."
-              />
-            </p>
-          )
-          : (
-            <div>
-              <p className="mb-2">
-                <Lng
-                  en={`Total plans: ${filteredPlans.length}`}
-                  pt={`Total de planos: ${filteredPlans.length}`}
-                />
-              </p>
-            </div>
-          )}
       </div>
 
       {/* Product consumption */}
@@ -317,14 +240,14 @@ export default function ProductionReports(_props: PageProps) {
           ? (
             <p className="text-foreground/70 italic">
               <Lng
-                en="No product consumption data available for the selected period and category."
-                pt="Nenhum dado de consumo de produtos disponível para o período e categoria selecionados."
+                en="No product consumption data available for the selected period."
+                pt="Nenhum dado de consumo de produtos disponível para o período selecionado."
               />
             </p>
           )
           : (
             <div className="overflow-x-auto">
-              <table className="w-full border-collapse">
+              <table className="w-full border-collapse table">
                 <thead>
                   <tr className="bg-background/5">
                     <th className="p-2 text-left border-b border-border">
@@ -372,6 +295,13 @@ export default function ProductionReports(_props: PageProps) {
                   ))}
                 </tbody>
               </table>
+
+              <div className="flex w-full justify-end mt-4 text-foreground/70 text-sm">
+                <Lng
+                  en={`Total plans: ${filteredPlans.length}`}
+                  pt={`Total de planos: ${filteredPlans.length}`}
+                />
+              </div>
             </div>
           )}
       </div>
