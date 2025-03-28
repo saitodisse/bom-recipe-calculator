@@ -2,9 +2,9 @@ import { useEffect, useState } from "preact/hooks";
 import type {
   IProduct,
   IProductionPlan,
+  ProductCategoryId,
 } from "@saitodisse/bom-recipe-calculator";
 import { ProductionPlan } from "@saitodisse/bom-recipe-calculator";
-import type { ProductTreeMap } from "@saitodisse/bom-recipe-calculator";
 import Lng from "./Lng.tsx";
 import { getStorageItem } from "../utils/storage.ts";
 import LoadingSpinner from "../components/LoadingSpinner.tsx";
@@ -41,6 +41,7 @@ export default function IngredientConsumptionReport() {
   const [ingredientConsumption, setIngredientConsumption] = useState<
     IngredientConsumption[]
   >([]);
+  const [errors, setErrors] = useState<string[]>([]);
 
   useEffect(() => {
     // Only run in browser environment
@@ -71,7 +72,7 @@ export default function IngredientConsumptionReport() {
       if (plansData) {
         const parsedPlans = JSON.parse(plansData);
         // Convert plain objects to ProductionPlan instances
-        const productionPlans = parsedPlans.map((plan: IProductionPlan) => 
+        const productionPlans = parsedPlans.map((plan: IProductionPlan) =>
           new ProductionPlan(plan)
         );
         setPlans(productionPlans);
@@ -115,6 +116,9 @@ export default function IngredientConsumptionReport() {
   };
 
   const calculateIngredientConsumption = async () => {
+    // Reset errors
+    setErrors([]);
+
     // Convert products array to a map for easier lookup
     const productsMap: Record<string, IProduct> = {};
     products.forEach((product) => {
@@ -138,26 +142,63 @@ export default function IngredientConsumptionReport() {
     // Process each production plan
     for (const plan of filteredPlans) {
       try {
+        // Verify that all products in the plan entries exist in the products map
+        const missingProducts: string[] = [];
+        for (const entry of plan.entries) {
+          if (!productsMap[entry.product.id]) {
+            missingProducts.push(entry.product.id);
+          }
+        }
+
+        if (missingProducts.length > 0) {
+          // Add missing products to productsMap to prevent errors
+          for (const entry of plan.entries) {
+            if (!productsMap[entry.product.id]) {
+              // Find an existing category to use
+              const defaultCategory = categories.length > 0
+                ? categories[0] as ProductCategoryId
+                : "raw" as ProductCategoryId;
+
+              productsMap[entry.product.id] = {
+                ...entry.product,
+                category: defaultCategory,
+                unit: entry.product.unit || "unit",
+              };
+            }
+          }
+
+          // Log the error for display
+          setErrors((prev) => [
+            ...prev,
+            `Plan ${plan.name}: Missing products: ${
+              missingProducts.join(", ")
+            }`,
+          ]);
+        }
+
         // Use the ProductionPlan.calculateMaterialsNeeded method directly
         const materialTrees = await plan.calculateMaterialsNeeded(productsMap);
-        
+
         // Process each material in the tree
         for (const [productId, node] of Object.entries(materialTrees)) {
           const product = productsMap[productId];
-          if (!product) continue;
-          
+          if (!product) {
+            // Skip if product is not found
+            continue;
+          }
+
           // Skip if filtering by category and product doesn't match
           if (
             selectedCategory !== "all" && product.category !== selectedCategory
           ) {
             continue;
           }
-          
+
           // Get the parent product name (what this ingredient was used in)
-          const parentProductName = plan.entries.length > 0 
-            ? plan.entries[0].product.name 
+          const parentProductName = plan.entries.length > 0
+            ? plan.entries[0].product.name
             : "Unknown";
-          
+
           // If ingredient is already in the map, update quantity
           if (consumptionMap.has(productId)) {
             const existing = consumptionMap.get(productId)!;
@@ -178,12 +219,18 @@ export default function IngredientConsumptionReport() {
         }
       } catch (error) {
         console.error("Error calculating materials for plan:", plan.id, error);
+        setErrors((prev) => [
+          ...prev,
+          `Error in plan ${plan.name || plan.id}: ${
+            error instanceof Error ? error.message : String(error)
+          }`,
+        ]);
       }
     }
-    
+
     // Convert map to array and sort by level (ingredients first) then by quantity
     const consumptionArray = Array.from(consumptionMap.values())
-      .map(item => ({
+      .map((item) => ({
         ...item,
         usedInProducts: Array.from(item.usedInProducts),
       }))
@@ -195,13 +242,13 @@ export default function IngredientConsumptionReport() {
         // Then sort by quantity
         return b.totalQuantity - a.totalQuantity;
       });
-    
+
     setIngredientConsumption(consumptionArray);
   };
 
   const handleDateChange = (e: Event) => {
     const { name, value } = e.target as HTMLInputElement;
-    setDateRange(prev => ({
+    setDateRange((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -225,7 +272,7 @@ export default function IngredientConsumptionReport() {
             pt="Relatório de Consumo de Ingredientes"
           />
         </h1>
-        
+
         {/* Date range filter */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
@@ -287,6 +334,21 @@ export default function IngredientConsumptionReport() {
           </select>
         </div>
       </div>
+
+      {/* Errors */}
+      {errors.length > 0 && (
+        <div className="bg-destructive/10 text-destructive rounded-lg shadow p-6">
+          <h2 className="text-xl font-semibold mb-3">
+            <Lng
+              en="Warnings"
+              pt="Avisos"
+            />
+          </h2>
+          <ul className="list-disc pl-5 space-y-1">
+            {errors.map((error, index) => <li key={index}>{error}</li>)}
+          </ul>
+        </div>
+      )}
 
       {/* Summary */}
       <div className="bg-card rounded-lg shadow p-6">
