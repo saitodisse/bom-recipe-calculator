@@ -62,6 +62,19 @@ export default defineLayout(async (req, ctx) => {
                   pt="Relatórios de Produção"
                 />
               </a>
+              <a
+                href="/ingredient-consumption"
+                className={`px-3 py-2 rounded-md ${
+                  path.startsWith("/ingredient-consumption")
+                    ? "bg-primary text-primary-foreground"
+                    : "hover:bg-foreground/5"
+                }`}
+              >
+                <Lng
+                  en="Ingredient Consumption"
+                  pt="Consumo de Ingredientes"
+                />
+              </a>
               <RecipeSelect />
               <LanguageSelect />
             </div>

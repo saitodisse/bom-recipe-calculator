@@ -8,6 +8,7 @@ import * as $_layout from "./routes/_layout.tsx";
 import * as $_middleware from "./routes/_middleware.tsx";
 import * as $api_joke from "./routes/api/joke.ts";
 import * as $index from "./routes/index.tsx";
+import * as $ingredient_consumption_index from "./routes/ingredient-consumption/index.tsx";
 import * as $production_plans_plan_id_ from "./routes/production-plans/[plan_id].tsx";
 import * as $production_plans_list_plans from "./routes/production-plans/list-plans.tsx";
 import * as $production_reports_index from "./routes/production-reports/index.tsx";
@@ -21,6 +22,7 @@ import * as $ChangeProductionPlansViewMode from "./islands/ChangeProductionPlans
 import * as $ChangeProductsViewMode from "./islands/ChangeProductsViewMode.tsx";
 import * as $CodeHighlighted from "./islands/CodeHighlighted.tsx";
 import * as $ExampleLoader from "./islands/ExampleLoader.tsx";
+import * as $IngredientConsumptionReport from "./islands/IngredientConsumptionReport.tsx";
 import * as $LanguageSelect from "./islands/LanguageSelect.tsx";
 import * as $ListProducts from "./islands/ListProducts.tsx";
 import * as $Lng from "./islands/Lng.tsx";
@@ -40,6 +42,7 @@ const manifest = {
     "./routes/_middleware.tsx": $_middleware,
     "./routes/api/joke.ts": $api_joke,
     "./routes/index.tsx": $index,
+    "./routes/ingredient-consumption/index.tsx": $ingredient_consumption_index,
     "./routes/production-plans/[plan_id].tsx": $production_plans_plan_id_,
     "./routes/production-plans/list-plans.tsx": $production_plans_list_plans,
     "./routes/production-reports/index.tsx": $production_reports_index,
@@ -58,6 +61,7 @@ const manifest = {
     "./islands/ChangeProductsViewMode.tsx": $ChangeProductsViewMode,
     "./islands/CodeHighlighted.tsx": $CodeHighlighted,
     "./islands/ExampleLoader.tsx": $ExampleLoader,
+    "./islands/IngredientConsumptionReport.tsx": $IngredientConsumptionReport,
     "./islands/LanguageSelect.tsx": $LanguageSelect,
     "./islands/ListProducts.tsx": $ListProducts,
     "./islands/Lng.tsx": $Lng,

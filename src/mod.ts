@@ -28,7 +28,10 @@ export type { IProduct } from "./interfaces/IProduct.ts";
 export type { IRecipeItem } from "./interfaces/IRecipeItem.ts";
 export type { ITreeNode } from "./interfaces/ITreeNode.ts";
 export type { ICreateMaterialsTreeParams } from "./interfaces/ICreateMaterialsTreeParams.ts";
-export type { IProductionPlan, IProductionPlanEntry } from "./interfaces/IProductionPlan.ts";
+export type {
+  IProductionPlan,
+  IProductionPlanEntry,
+} from "./interfaces/IProductionPlan.ts";
 
 // Export constants
 export { ProductCategory } from "./interfaces/ProductCategory.ts";
