@@ -2,6 +2,7 @@ import LanguageSelect from "../islands/LanguageSelect.tsx";
 import RecipeSelect from "../islands/RecipeSelect.tsx";
 import Lng from "../islands/Lng.tsx";
 import ToggleLightDark from "../islands/ToggleLightDark.tsx";
+import PageTransitionLoader from "../islands/PageTransitionLoader.tsx";
 import { getCookies } from "jsr:@std/http/cookie";
 import { defineLayout } from "$fresh/server.ts";
 
@@ -19,7 +20,8 @@ export default defineLayout(async (req, ctx) => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground">
+      <PageTransitionLoader />
       <nav className="shadow-md w-full">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center space-x-4 space-between w-full">
@@ -34,6 +36,15 @@ export default defineLayout(async (req, ctx) => {
                 <Lng
                   en="Products"
                   pt="Produtos"
+                />
+              </a>
+              <a
+                href="/production-plans/list-plans"
+                className="text-foreground hover:text-foreground grow pl-4 underline"
+              >
+                <Lng
+                  en="Production Plans"
+                  pt="Planos de Produção"
                 />
               </a>
               <RecipeSelect />

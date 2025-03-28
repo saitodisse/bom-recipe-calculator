@@ -10,6 +10,7 @@ import {
 } from "@saitodisse/bom-recipe-calculator";
 import { PageProps } from "$fresh/server.ts";
 import Lng from "./Lng.tsx";
+import { ContentLoading } from "../components/LoadingSpinner.tsx";
 
 export default function AddEditProduct(props: PageProps) {
   const defaultProduct: IProduct = {
@@ -192,38 +193,27 @@ export default function AddEditProduct(props: PageProps) {
   // Handle server-side rendering
   if (typeof window === "undefined") {
     return (
-      <div class="my-6 p-6 bg-background text-foreground border border-border rounded-lg shadow-sm">
-        <h2 class="text-2xl font-semibold mb-4">
-          <Lng
-            en="Add New Product"
-            pt="Adicionar Novo Produto"
-          />
-        </h2>
-        <p>
-          <Lng
-            en="Loading product form..."
-            pt="Carregando formulário de produto..."
-          />
-        </p>
+      <div className="my-6 p-6 bg-background text-foreground border border-border rounded-lg shadow-sm">
+        <ContentLoading />
       </div>
     );
   }
 
   return (
-    <div class="my-6 p-6 bg-background text-foreground border border-border rounded-lg shadow-sm">
-      <h2 class="text-2xl font-semibold mb-4">
+    <div className="my-6 p-6 bg-background text-foreground border border-border rounded-lg shadow-sm">
+      <h2 className="text-2xl font-semibold mb-4">
         <Lng
           en={isEditing ? "Edit Product" : "Add New Product"}
           pt={isEditing ? "Editar Produto" : "Adicionar Novo Produto"}
         />
       </h2>
 
-      <form onSubmit={handleSubmit} class="space-y-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* ID */}
           <div>
             <label
-              class="block text-sm font-medium text-foreground mb-1"
+              className="block text-sm font-medium text-foreground mb-1"
               htmlFor="id"
             >
               ID *
@@ -235,17 +225,17 @@ export default function AddEditProduct(props: PageProps) {
               value={formData.id}
               onChange={handleChange}
               disabled={isEditing}
-              class={`w-full px-3 py-2 border rounded-md ${
+              className={`w-full px-3 py-2 border rounded-md ${
                 errors.id ? "border-destructive" : "border-border"
               }`}
             />
-            {errors.id && <p class="mt-1 text-sm text-destructive">{errors.id}</p>}
+            {errors.id && <p className="mt-1 text-sm text-destructive">{errors.id}</p>}
           </div>
 
           {/* Name */}
           <div>
             <label
-              class="block text-sm font-medium text-foreground mb-1"
+              className="block text-sm font-medium text-foreground mb-1"
               htmlFor="name"
             >
               <Lng
@@ -259,19 +249,19 @@ export default function AddEditProduct(props: PageProps) {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              class={`w-full px-3 py-2 border rounded-md ${
+              className={`w-full px-3 py-2 border rounded-md ${
                 errors.name ? "border-destructive" : "border-border"
               }`}
             />
             {errors.name && (
-              <p class="mt-1 text-sm text-destructive">{errors.name}</p>
+              <p className="mt-1 text-sm text-destructive">{errors.name}</p>
             )}
           </div>
 
           {/* Category */}
           <div>
             <label
-              class="block text-sm font-medium text-foreground mb-1"
+              className="block text-sm font-medium text-foreground mb-1"
               htmlFor="category"
             >
               <Lng
@@ -284,7 +274,7 @@ export default function AddEditProduct(props: PageProps) {
               name="category"
               value={formData.category}
               onChange={handleChange}
-              class={`w-full px-3 py-2 border rounded-md ${
+              className={`w-full px-3 py-2 border rounded-md ${
                 errors.category ? "border-destructive" : "border-border"
               }`}
             >
@@ -301,14 +291,14 @@ export default function AddEditProduct(props: PageProps) {
               })}
             </select>
             {errors.category && (
-              <p class="mt-1 text-sm text-destructive">{errors.category}</p>
+              <p className="mt-1 text-sm text-destructive">{errors.category}</p>
             )}
           </div>
 
           {/* Unit */}
           <div>
             <label
-              class="block text-sm font-medium text-foreground mb-1"
+              className="block text-sm font-medium text-foreground mb-1"
               htmlFor="unit"
             >
               <Lng
@@ -321,7 +311,7 @@ export default function AddEditProduct(props: PageProps) {
               name="unit"
               value={formData.unit}
               onChange={handleChange}
-              class={`w-full px-3 py-2 border rounded-md ${
+              className={`w-full px-3 py-2 border rounded-md ${
                 errors.unit ? "border-destructive" : "border-border"
               }`}
             >
@@ -333,14 +323,14 @@ export default function AddEditProduct(props: PageProps) {
               ))}
             </select>
             {errors.unit && (
-              <p class="mt-1 text-sm text-destructive">{errors.unit}</p>
+              <p className="mt-1 text-sm text-destructive">{errors.unit}</p>
             )}
           </div>
 
           {/* Weight */}
           <div>
             <label
-              class="block text-sm font-medium text-foreground mb-1"
+              className="block text-sm font-medium text-foreground mb-1"
               htmlFor="weight"
             >
               <Lng
@@ -356,14 +346,14 @@ export default function AddEditProduct(props: PageProps) {
               onChange={handleChange}
               step="0.01"
               min="0"
-              class="w-full px-3 py-2 border border-border rounded-md"
+              className="w-full px-3 py-2 border border-border rounded-md"
             />
           </div>
 
           {/* Purchase Quote Value */}
           <div>
             <label
-              class="block text-sm font-medium text-foreground mb-1"
+              className="block text-sm font-medium text-foreground mb-1"
               htmlFor="purchaseQuoteValue"
             >
               <Lng
@@ -379,7 +369,7 @@ export default function AddEditProduct(props: PageProps) {
               onChange={handleChange}
               step="0.01"
               min="0"
-              class="w-full px-3 py-2 border border-border rounded-md"
+              className="w-full px-3 py-2 border border-border rounded-md"
             />
           </div>
         </div>
@@ -387,7 +377,7 @@ export default function AddEditProduct(props: PageProps) {
         {/* Notes */}
         <div>
           <label
-            class="block text-sm font-medium text-foreground mb-1"
+            className="block text-sm font-medium text-foreground mb-1"
             htmlFor="notes"
           >
             <Lng
@@ -401,14 +391,14 @@ export default function AddEditProduct(props: PageProps) {
             value={formData.notes ?? ""}
             onChange={handleChange}
             rows={3}
-            class="w-full px-3 py-2 border border-border rounded-md"
+            className="w-full px-3 py-2 border border-border rounded-md"
           />
         </div>
 
         {/* Image URL */}
         <div>
           <label
-            class="block text-sm font-medium text-foreground mb-1"
+            className="block text-sm font-medium text-foreground mb-1"
             htmlFor="imageUrl"
           >
             <Lng
@@ -422,16 +412,16 @@ export default function AddEditProduct(props: PageProps) {
             name="imageUrl"
             value={formData.imageUrl ?? ""}
             onChange={handleChange}
-            class="w-full px-3 py-2 border border-border rounded-md"
+            className="w-full px-3 py-2 border border-border rounded-md"
             placeholder="https://example.com/image.jpg"
           />
         </div>
 
-        <div class="flex justify-end space-x-3 pt-4">
+        <div className="flex justify-end space-x-3 pt-4">
           <button
             type="button"
             onClick={handleCancel}
-            class="px-4 py-2 border border-border rounded-md text-foreground hover:bg-foreground/5"
+            className="px-4 py-2 border border-border rounded-md text-foreground hover:bg-foreground/5"
           >
             <Lng
               en="Cancel"
@@ -440,7 +430,7 @@ export default function AddEditProduct(props: PageProps) {
           </button>
           <button
             type="submit"
-            class="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
+            className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
           >
             <Lng
               en={isEditing ? "Update Product" : "Add Product"}

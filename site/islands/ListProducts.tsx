@@ -6,6 +6,7 @@ import type {
 } from "@saitodisse/bom-recipe-calculator";
 import { getStorageItem, setStorageItem } from "../utils/storage.ts";
 import Lng from "./Lng.tsx";
+import { ContentLoading } from "../components/LoadingSpinner.tsx";
 
 interface ListProductsProps {
 }
@@ -82,11 +83,8 @@ export default function ListProducts({}: ListProductsProps) {
 
   if (loading) {
     return (
-      <div class="my-4">
-        <Lng
-          en="Loading products..."
-          pt="Carregando produtos..."
-        />
+      <div className="my-4">
+        <ContentLoading />
       </div>
     );
   }

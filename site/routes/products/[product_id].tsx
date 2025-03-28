@@ -12,7 +12,7 @@ export default function ProductDetail(props: PageProps) {
         <title>{isNewProduct ? "Add New Product" : "Edit Product"}</title>
       </Head>
       <div class="max-w-screen-md m-auto p-4">
-        <h1 class="text-4xl font-bold mb-6">
+        <h1 class="text-4xl font-bold mb-6 text-foreground bg-background">
           <Lng
             en={isNewProduct ? "Add New Product" : "Edit Product"}
             pt={isNewProduct ? "Adicionar Novo Produto" : "Editar Produto"}

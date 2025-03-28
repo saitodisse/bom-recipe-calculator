@@ -8,11 +8,15 @@ import * as $_layout from "./routes/_layout.tsx";
 import * as $_middleware from "./routes/_middleware.tsx";
 import * as $api_joke from "./routes/api/joke.ts";
 import * as $index from "./routes/index.tsx";
+import * as $production_plans_plan_id_ from "./routes/production-plans/[plan_id].tsx";
+import * as $production_plans_list_plans from "./routes/production-plans/list-plans.tsx";
 import * as $products_product_id_ from "./routes/products/[product_id].tsx";
 import * as $products_list_products from "./routes/products/list-products.tsx";
 import * as $products_load_example_json_name_ from "./routes/products/load-example/[json_name].tsx";
 import * as $products_materials_tree_product_id_ from "./routes/products/materials-tree/[product_id].tsx";
 import * as $AddEditProduct from "./islands/AddEditProduct.tsx";
+import * as $AddEditProductionPlan from "./islands/AddEditProductionPlan.tsx";
+import * as $ChangeProductionPlansViewMode from "./islands/ChangeProductionPlansViewMode.tsx";
 import * as $ChangeProductsViewMode from "./islands/ChangeProductsViewMode.tsx";
 import * as $CodeHighlighted from "./islands/CodeHighlighted.tsx";
 import * as $ExampleLoader from "./islands/ExampleLoader.tsx";
@@ -20,6 +24,8 @@ import * as $LanguageSelect from "./islands/LanguageSelect.tsx";
 import * as $ListProducts from "./islands/ListProducts.tsx";
 import * as $Lng from "./islands/Lng.tsx";
 import * as $MaterialsTree from "./islands/MaterialsTree.tsx";
+import * as $PageTransitionLoader from "./islands/PageTransitionLoader.tsx";
+import * as $ProductionPlansList from "./islands/ProductionPlansList.tsx";
 import * as $RecipeSelect from "./islands/RecipeSelect.tsx";
 import * as $ToggleLightDark from "./islands/ToggleLightDark.tsx";
 import type { Manifest } from "$fresh/server.ts";
@@ -32,6 +38,8 @@ const manifest = {
     "./routes/_middleware.tsx": $_middleware,
     "./routes/api/joke.ts": $api_joke,
     "./routes/index.tsx": $index,
+    "./routes/production-plans/[plan_id].tsx": $production_plans_plan_id_,
+    "./routes/production-plans/list-plans.tsx": $production_plans_list_plans,
     "./routes/products/[product_id].tsx": $products_product_id_,
     "./routes/products/list-products.tsx": $products_list_products,
     "./routes/products/load-example/[json_name].tsx":
@@ -41,6 +49,9 @@ const manifest = {
   },
   islands: {
     "./islands/AddEditProduct.tsx": $AddEditProduct,
+    "./islands/AddEditProductionPlan.tsx": $AddEditProductionPlan,
+    "./islands/ChangeProductionPlansViewMode.tsx":
+      $ChangeProductionPlansViewMode,
     "./islands/ChangeProductsViewMode.tsx": $ChangeProductsViewMode,
     "./islands/CodeHighlighted.tsx": $CodeHighlighted,
     "./islands/ExampleLoader.tsx": $ExampleLoader,
@@ -48,6 +59,8 @@ const manifest = {
     "./islands/ListProducts.tsx": $ListProducts,
     "./islands/Lng.tsx": $Lng,
     "./islands/MaterialsTree.tsx": $MaterialsTree,
+    "./islands/PageTransitionLoader.tsx": $PageTransitionLoader,
+    "./islands/ProductionPlansList.tsx": $ProductionPlansList,
     "./islands/RecipeSelect.tsx": $RecipeSelect,
     "./islands/ToggleLightDark.tsx": $ToggleLightDark,
   },
