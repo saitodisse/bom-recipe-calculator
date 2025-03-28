@@ -63,15 +63,9 @@ export default function RecipeSelect() {
 
   return (
     <div class="flex items-center">
-      <label htmlFor="recipe-select" class="mr-2 text-foreground text-sm">
-        <Lng
-          en="Example:"
-          pt="Exemplo:"
-        />
-      </label>
       <select
         id="recipe-select"
-        class="border border-border rounded py-1 px-2 text-sm bg-background text-foreground w-24"
+        class="border border-border rounded py-1 px-2 text-sm bg-background text-foreground w-36"
         onChange={handleChange}
         value={recipeSelected}
       >

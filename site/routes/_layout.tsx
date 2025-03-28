@@ -3,6 +3,7 @@ import RecipeSelect from "../islands/RecipeSelect.tsx";
 import Lng from "../islands/Lng.tsx";
 import ToggleLightDark from "../islands/ToggleLightDark.tsx";
 import PageTransitionLoader from "../islands/PageTransitionLoader.tsx";
+import FlyoutMenu from "../islands/FlyoutMenu.tsx";
 import { getCookies } from "jsr:@std/http/cookie";
 import { defineLayout } from "$fresh/server.ts";
 
@@ -31,53 +32,13 @@ export default defineLayout(async (req, ctx) => {
               <a href="/" className="text-xl font-medium text-foreground">
                 bom-recipe-calculator
               </a>
-              <a
-                href="/products/list-products"
-                className="text-foreground hover:text-foreground grow pl-4 underline"
-              >
-                <Lng
-                  en="Products"
-                  pt="Produtos"
-                />
-              </a>
-              <a
-                href="/production-plans/list-plans"
-                className="text-foreground hover:text-foreground grow pl-4 underline"
-              >
-                <Lng
-                  en="Production Plans"
-                  pt="Planos de Produção"
-                />
-              </a>
-              <a
-                href="/production-reports"
-                className={`px-3 py-2 rounded-md ${
-                  path.startsWith("/production-reports")
-                    ? "bg-primary text-primary-foreground"
-                    : "hover:bg-foreground/5"
-                }`}
-              >
-                <Lng
-                  en="Production Reports"
-                  pt="Relatórios de Produção"
-                />
-              </a>
-              <a
-                href="/ingredient-consumption"
-                className={`px-3 py-2 rounded-md ${
-                  path.startsWith("/ingredient-consumption")
-                    ? "bg-primary text-primary-foreground"
-                    : "hover:bg-foreground/5"
-                }`}
-              >
-                <Lng
-                  en="Ingredient Consumption"
-                  pt="Consumo de Ingredientes"
-                />
-              </a>
+
+              {/* Interactive Flyout Menu */}
+              <FlyoutMenu path={path} />
+
               <RecipeSelect />
-              <LanguageSelect />
             </div>
+            <LanguageSelect />
 
             <ToggleLightDark
               modeFromQuery={modeFromQuery}

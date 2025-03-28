@@ -28,12 +28,6 @@ export default function LanguageSelect() {
 
   return (
     <div class="flex items-center">
-      <label htmlFor="language-select" class="mr-2 text-foreground text-sm">
-        <Lng
-          en="Lang:"
-          pt="Idioma:"
-        />
-      </label>
       <select
         id="language-select"
         class="border border-border rounded py-1 px-2 text-sm bg-background text-foreground w-16"

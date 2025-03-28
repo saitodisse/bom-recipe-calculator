@@ -22,6 +22,7 @@ import * as $ChangeProductionPlansViewMode from "./islands/ChangeProductionPlans
 import * as $ChangeProductsViewMode from "./islands/ChangeProductsViewMode.tsx";
 import * as $CodeHighlighted from "./islands/CodeHighlighted.tsx";
 import * as $ExampleLoader from "./islands/ExampleLoader.tsx";
+import * as $FlyoutMenu from "./islands/FlyoutMenu.tsx";
 import * as $IngredientConsumptionReport from "./islands/IngredientConsumptionReport.tsx";
 import * as $LanguageSelect from "./islands/LanguageSelect.tsx";
 import * as $ListProducts from "./islands/ListProducts.tsx";
@@ -61,6 +62,7 @@ const manifest = {
     "./islands/ChangeProductsViewMode.tsx": $ChangeProductsViewMode,
     "./islands/CodeHighlighted.tsx": $CodeHighlighted,
     "./islands/ExampleLoader.tsx": $ExampleLoader,
+    "./islands/FlyoutMenu.tsx": $FlyoutMenu,
     "./islands/IngredientConsumptionReport.tsx": $IngredientConsumptionReport,
     "./islands/LanguageSelect.tsx": $LanguageSelect,
     "./islands/ListProducts.tsx": $ListProducts,
