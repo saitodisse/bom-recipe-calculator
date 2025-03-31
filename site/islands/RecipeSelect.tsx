@@ -62,7 +62,13 @@ export default function RecipeSelect() {
   }, [language]);
 
   return (
-    <div class="flex items-center">
+    <div class="flex items-baseline">
+      <div class="flex items-center mx-2 text-sm text-foreground/70">
+        <Lng
+          en="Select an example:"
+          pt="Selecione um exemplo:"
+        />
+      </div>
       <select
         id="recipe-select"
         class="border border-border rounded py-1 px-2 text-sm bg-background text-foreground w-36"
@@ -71,8 +77,8 @@ export default function RecipeSelect() {
       >
         <option value="">
           <Lng
-            en="Select a recipe"
-            pt="Selecione uma receita"
+            en="Select an example"
+            pt="Selecione um exemplo"
           />
         </option>
         <option value="american-pancakes">

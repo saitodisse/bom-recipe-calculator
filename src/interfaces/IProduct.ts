@@ -10,6 +10,9 @@ export interface IProduct {
   /** Unique identifier for the product */
   id: string;
 
+  /** Product code (optional) */
+  productCode?: string | null;
+
   /** Display name of the product */
   name: string;
 

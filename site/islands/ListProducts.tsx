@@ -226,10 +226,11 @@ export default function ListProducts({}: ListProductsProps) {
                         <a
                           href={`/products/materials-tree/${product.id}`}
                           class="text-primary hover:text-primary/80 underline"
+                          title="Ingredient's tree"
                         >
                           <Lng
-                            en="View"
-                            pt="Ver"
+                            en="Tree"
+                            pt="Árvore"
                           />
                         </a>
                       )}

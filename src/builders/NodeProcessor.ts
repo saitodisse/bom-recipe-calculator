@@ -39,7 +39,7 @@ export class NodeProcessor {
     initialQuantity: number = 1,
     extraProps: Record<string, unknown> = {},
   ): Record<string, TreeNode> {
-    const productCode = product.id;
+    const productCode = product.productCode;
     const motherFactor = Number(initialQuantity);
 
     // Process children recursively

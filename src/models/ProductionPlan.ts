@@ -1,6 +1,9 @@
 import { MaterialsTreeBuilder } from "../builders/MaterialsTreeBuilder.ts";
 import type { IProduct } from "../interfaces/IProduct.ts";
-import type { IProductionPlan, IProductionPlanEntry } from "../interfaces/IProductionPlan.ts";
+import type {
+  IProductionPlan,
+  IProductionPlanEntry,
+} from "../interfaces/IProductionPlan.ts";
 import type { ProductTreeMap } from "../types/ProductTreeMap.ts";
 import type { TreeNode } from "./TreeNode.ts";
 
@@ -54,7 +57,13 @@ export class ProductionPlan implements IProductionPlan {
   /**
    * Adds a new production entry to the plan
    */
-  public addEntry(product: IProduct, plannedQuantity: number, productionDate: Date, notes?: string, name?: string): void {
+  public addEntry(
+    product: IProduct,
+    plannedQuantity: number,
+    productionDate: Date,
+    notes?: string,
+    name?: string,
+  ): void {
     this._entries.push({
       id: crypto.randomUUID(),
       name,
@@ -62,7 +71,7 @@ export class ProductionPlan implements IProductionPlan {
       plannedQuantity,
       productionDate,
       status: "planned",
-      notes
+      notes,
     });
     this._updatedAt = new Date();
   }
@@ -70,9 +79,12 @@ export class ProductionPlan implements IProductionPlan {
   /**
    * Updates the status of a production entry
    */
-  public updateEntryStatus(entryId: string, newStatus: IProductionPlanEntry["status"]): void {
-    const entry = this._entries.find(e => e.id === entryId);
-    
+  public updateEntryStatus(
+    entryId: string,
+    newStatus: IProductionPlanEntry["status"],
+  ): void {
+    const entry = this._entries.find((e) => e.id === entryId);
+
     if (entry) {
       entry.status = newStatus;
       this._updatedAt = new Date();
@@ -83,25 +95,27 @@ export class ProductionPlan implements IProductionPlan {
    * Removes a production entry from the plan
    */
   public removeEntry(entryId: string): void {
-    this._entries = this._entries.filter(e => e.id !== entryId);
+    this._entries = this._entries.filter((e) => e.id !== entryId);
     this._updatedAt = new Date();
   }
 
   /**
    * Calculates the total materials needed for all planned productions
    */
-  public calculateMaterialsNeeded(productsList: Record<string, IProduct>): ProductTreeMap {
+  public calculateMaterialsNeeded(
+    productsList: Record<string, IProduct>,
+  ): ProductTreeMap {
     const materialTrees: ProductTreeMap = {};
 
     for (const entry of this._entries) {
       const builder = new MaterialsTreeBuilder({
         productsList,
-        productCode: entry.product.id,
+        productCode: entry.product.productCode ?? entry.product.id,
         initialQuantity: entry.plannedQuantity,
       });
 
       const productTree = builder.build();
-      
+
       // Helper function to recursively add nodes to the material trees
       const addNodeToMaterialTrees = (node: TreeNode) => {
         const id = node.id;
@@ -110,7 +124,7 @@ export class ProductionPlan implements IProductionPlan {
         } else {
           // Add quantities
           materialTrees[id].setCalculatedQuantity(
-            materialTrees[id].calculatedQuantity + node.calculatedQuantity
+            materialTrees[id].calculatedQuantity + node.calculatedQuantity,
           );
         }
 
@@ -123,7 +137,7 @@ export class ProductionPlan implements IProductionPlan {
       };
 
       // Process each root node and its children
-      Object.values(productTree).forEach(node => {
+      Object.values(productTree).forEach((node) => {
         addNodeToMaterialTrees(node);
       });
     }

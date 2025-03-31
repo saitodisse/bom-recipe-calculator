@@ -14,6 +14,7 @@ Deno.test("Product.constructor - should create a product with valid data", () =>
   const product = new Product(testData.products.flour);
 
   assertEquals(product.id, "flour");
+  assertEquals(product.productCode, "flour");
   assertEquals(product.name, "Wheat Flour");
   assertEquals(product.category, ProductCategory.RAW_MATERIAL.id);
   assertEquals(product.unit, ProductUnit.KG.id);
@@ -33,6 +34,7 @@ Deno.test("Product.constructor - should handle optional properties", () => {
   });
 
   assertEquals(minimalProduct.id, "test");
+  assertEquals(minimalProduct.productCode, "test");
   assertEquals(minimalProduct.name, "Test Product");
   assertEquals(minimalProduct.category, ProductCategory.RAW_MATERIAL.id);
   assertEquals(minimalProduct.unit, ProductUnit.UN.id);
@@ -95,6 +97,7 @@ Deno.test("Product.hasRecipe - should check if product has recipe", () => {
   // Product with empty recipe
   const productWithEmptyRecipe = new Product({
     id: "test",
+    productCode: "test",
     name: "Test Product",
     category: ProductCategory.RAW_MATERIAL.id,
     unit: ProductUnit.UN.id,
@@ -118,6 +121,7 @@ Deno.test("Product.toJSON - should convert product to plain object", () => {
   const json = product.toJSON();
 
   assertEquals(json.id, "flour");
+  assertEquals(json.productCode, "flour");
   assertEquals(json.name, "Wheat Flour");
   assertEquals(json.category, ProductCategory.RAW_MATERIAL.id);
   assertEquals(json.unit, ProductUnit.KG.id);

@@ -17,6 +17,7 @@ export const testData: {
     // Raw materials
     flour: {
       id: "flour",
+      productCode: "flour",
       name: "Wheat Flour",
       category: ProductCategory.RAW_MATERIAL.id,
       unit: ProductUnit.KG.id,
@@ -28,6 +29,7 @@ export const testData: {
 
     water: {
       id: "water",
+      productCode: "water",
       name: "Water",
       category: ProductCategory.RAW_MATERIAL.id,
       unit: ProductUnit.L.id,
@@ -39,6 +41,7 @@ export const testData: {
 
     salt: {
       id: "salt",
+      productCode: "salt",
       name: "Salt",
       category: ProductCategory.RAW_MATERIAL.id,
       unit: ProductUnit.KG.id,
@@ -160,6 +163,7 @@ export const testData: {
 
     neutralOil: {
       id: "neutralOil",
+      productCode: "neutralOil",
       name: "Neutral Oil",
       category: ProductCategory.RAW_MATERIAL.id,
       unit: ProductUnit.L.id,

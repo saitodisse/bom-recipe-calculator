@@ -9,6 +9,7 @@ import { ProductCategoryId } from "../interfaces/ProductCategory.ts";
  */
 export class Product implements IProduct {
   private _id: string;
+  private _productCode: string | null;
   private _name: string;
   private _category: ProductCategoryId;
   private _unit: ProductUnitId;
@@ -60,6 +61,7 @@ export class Product implements IProduct {
 
     // Initialize properties
     this._id = data.id;
+    this._productCode = data.productCode || data.id;
     this._name = data.name ?? data.id;
     this._category = data.category;
     this._unit = data.unit;
@@ -81,6 +83,15 @@ export class Product implements IProduct {
    */
   public get id(): string {
     return this._id;
+  }
+
+  /**
+   * Gets the product code.
+   *
+   * @returns The product code
+   */
+  public get productCode(): string {
+    return this._productCode ?? this._id;
   }
 
   /**
@@ -181,6 +192,7 @@ export class Product implements IProduct {
   public toJSON(): IProduct {
     return {
       id: this._id,
+      productCode: this._productCode,
       name: this._name,
       category: this._category,
       unit: this._unit,
