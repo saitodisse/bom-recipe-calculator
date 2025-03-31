@@ -229,7 +229,7 @@ export class TreeNode implements ITreeNode {
   /**
    * Sets the node's calculated quantity.
    * Updates the calculated quantity while maintaining other properties.
-   * 
+   *
    * @param quantity The new calculated quantity
    */
   public setCalculatedQuantity(quantity: number): void {
@@ -300,6 +300,34 @@ export class TreeNode implements ITreeNode {
     };
 
     return result;
+  }
+
+  public toStringJson(): string {
+    const result: Record<string, unknown> = {
+      id: this._id,
+      name: this._name,
+      category: this._category,
+      unit: this._unit,
+      level: this._level,
+      motherFactor: this._motherFactor,
+      quantity: this._quantity,
+      originalQuantity: this._originalQuantity,
+      calculatedQuantity: this._calculatedQuantity,
+      weight: this._weight,
+      childrenWeight: this._childrenWeight,
+      originalCost: this._originalCost,
+      calculatedCost: this._calculatedCost,
+      children: this._children
+        ? Object.fromEntries(
+          Object.entries(this._children).map((
+            [key, value],
+          ) => [key, value.toJSON()]),
+        )
+        : null,
+      ...this._extraProperties,
+    };
+
+    return JSON.stringify(result, null, 2);
   }
 
   /**
