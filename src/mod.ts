@@ -33,11 +33,13 @@ export type {
   IProductionPlanEntry,
 } from "./interfaces/IProductionPlan.ts";
 
-// Export constants
+// Export "enums like"
 export { ProductCategory } from "./interfaces/ProductCategory.ts";
 export type { ProductCategoryId } from "./interfaces/ProductCategory.ts";
+export type { ProductCategoryEntry } from "./interfaces/ProductCategory.ts";
 export { ProductUnit } from "./interfaces/ProductUnit.ts";
 export type { ProductUnitId } from "./interfaces/ProductUnit.ts";
+export type { ProductUnitEntry } from "./interfaces/ProductUnit.ts";
 
 // Export types
 export type { ProductTreeMap } from "./types/ProductTreeMap.ts";
