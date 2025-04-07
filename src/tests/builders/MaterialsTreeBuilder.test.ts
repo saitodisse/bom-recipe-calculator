@@ -325,6 +325,6 @@ Deno.test(
 
     assertNotEquals(tree.toHumanReadable(), undefined);
     assertNotEquals(tree.toTable(), undefined);
-    assertNotEquals(tree.toJSON(), undefined);
+    assertNotEquals(tree.toObject(), undefined);
   },
 );

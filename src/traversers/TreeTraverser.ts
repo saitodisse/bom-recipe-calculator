@@ -101,7 +101,7 @@ export class TreeTraverser {
       if (mappedNode instanceof TreeNode && mappedChildren) {
         // Create a new node with the same data, but with the mapped children
         const newNode = new TreeNode({
-          ...mappedNode.toJSON(),
+          ...mappedNode.toObject(),
           children: mappedChildren as Record<string, any>,
         });
         result[id] = newNode as unknown as T;
@@ -145,7 +145,7 @@ export class TreeTraverser {
 
         // Clone the node with filtered children
         const clonedNode = new TreeNode({
-          ...node.toJSON(),
+          ...node.toObject(),
           children: filteredChildren,
         });
 

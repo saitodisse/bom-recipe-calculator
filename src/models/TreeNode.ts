@@ -274,7 +274,7 @@ export class TreeNode implements ITreeNode {
    *
    * @returns A plain object representation of the node
    */
-  public toJSON(): Record<string, unknown> {
+  public toObject(): Record<string, unknown> {
     const result: Record<string, unknown> = {
       id: this._id,
       name: this._name,
@@ -293,7 +293,7 @@ export class TreeNode implements ITreeNode {
         ? Object.fromEntries(
           Object.entries(this._children).map((
             [key, value],
-          ) => [key, value.toJSON()]),
+          ) => [key, value.toObject()]),
         )
         : null,
       ...this._extraProperties,
@@ -321,7 +321,7 @@ export class TreeNode implements ITreeNode {
         ? Object.fromEntries(
           Object.entries(this._children).map((
             [key, value],
-          ) => [key, value.toJSON()]),
+          ) => [key, value.toObject()]),
         )
         : null,
       ...this._extraProperties,

@@ -57,7 +57,7 @@ Deno.test("TreeTraverser.mapNodes - should map all nodes in the tree", () => {
     tree,
     (node: TreeNode) => {
       const newNode = new TreeNode({
-        ...node.toJSON(),
+        ...node.toObject(),
         name: (node.name as string).toUpperCase(),
       });
       return newNode;

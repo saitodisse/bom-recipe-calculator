@@ -146,7 +146,7 @@ Deno.test("TreeNode.toJSON - should convert node to plain object", () => {
     calculatedCost: 5,
   });
 
-  const json = node.toJSON();
+  const json = node.toObject();
 
   assertEquals(json.id, "flour_parent");
   assertEquals(json.name, "Wheat Flour");
@@ -181,7 +181,7 @@ Deno.test("TreeNode.toStringJson - should convert node to JSON string", () => {
 
   const json = node.toStringJson();
 
-  assertEquals(json, JSON.stringify(node.toJSON(), null, 2));
+  assertEquals(json, JSON.stringify(node.toObject(), null, 2));
 });
 
 Deno.test("TreeNode.setChildrenWeight - should set children weight", () => {
