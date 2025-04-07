@@ -274,8 +274,8 @@ export class TreeNode implements ITreeNode {
    *
    * @returns A plain object representation of the node
    */
-  public toObject(): Record<string, unknown> {
-    const result: Record<string, unknown> = {
+  public toObject(): ITreeNode {
+    const result: ITreeNode = {
       id: this._id,
       name: this._name,
       category: this._category,
