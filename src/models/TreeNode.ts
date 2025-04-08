@@ -24,11 +24,6 @@ export class TreeNode implements ITreeNode {
   private _extraProperties: Record<string, unknown>;
 
   /**
-   * Index signature to satisfy ITreeNode interface
-   */
-  [key: string]: unknown;
-
-  /**
    * Creates a new TreeNode instance.
    *
    * @param data Node data to initialize with
@@ -54,32 +49,6 @@ export class TreeNode implements ITreeNode {
       ? this._convertChildren(data.children)
       : null;
     this._extraProperties = {};
-
-    // Add any extra properties
-    for (const key in data) {
-      if (
-        ![
-          "id",
-          "name",
-          "category",
-          "unit",
-          "level",
-          "path",
-          "motherFactor",
-          "quantity",
-          "originalQuantity",
-          "calculatedQuantity",
-          "weight",
-          "childrenWeight",
-          "originalCost",
-          "calculatedCost",
-          "children",
-        ].includes(key)
-      ) {
-        this._extraProperties[key] = data[key];
-        this[key] = data[key]; // Add to index signature
-      }
-    }
 
     // Validate required properties
     this._validateRequiredProperties();
@@ -608,51 +577,6 @@ export class TreeNode implements ITreeNode {
     }
 
     return result;
-  }
-
-  /**
-   * Gets a property value by key.
-   * This method is used to satisfy the index signature requirement of ITreeNode.
-   *
-   * @param key The property key
-   * @returns The property value
-   */
-  public get(key: string): unknown {
-    // Handle standard properties
-    switch (key) {
-      case "id":
-        return this._id;
-      case "name":
-        return this._name;
-      case "category":
-        return this._category;
-      case "unit":
-        return this._unit;
-      case "level":
-        return this._level;
-      case "path":
-        return this._path;
-      case "motherFactor":
-        return this._motherFactor;
-      case "quantity":
-        return this._quantity;
-      case "originalQuantity":
-        return this._originalQuantity;
-      case "calculatedQuantity":
-        return this._calculatedQuantity;
-      case "weight":
-        return this._weight;
-      case "childrenWeight":
-        return this._childrenWeight;
-      case "originalCost":
-        return this._originalCost;
-      case "calculatedCost":
-        return this._calculatedCost;
-      case "children":
-        return this._children;
-      default:
-        return this._extraProperties[key];
-    }
   }
 
   public getNodeByPath(path: string): ITreeNode | null {

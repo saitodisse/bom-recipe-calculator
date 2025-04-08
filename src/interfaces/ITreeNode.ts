@@ -46,8 +46,5 @@ export interface ITreeNode {
   calculatedCost: number | null;
 
   /** Child nodes in the recipe tree */
-  children: Record<string, any> | null;
-
-  /** Additional properties that can be added to the node */
-  [key: string]: unknown;
+  children: Record<string, ITreeNode> | null;
 }
