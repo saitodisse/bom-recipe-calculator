@@ -98,7 +98,9 @@ export class NodeProcessor {
       level: 0,
       motherFactor: 1,
       quantity: null,
-      originalQuantity: initialQuantity,
+
+      originalQuantity: 1, // root product always has 1 for quantity
+
       calculatedQuantity: Number(initialQuantity),
       weight,
       childrenWeight: childrenWeight,

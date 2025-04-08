@@ -142,7 +142,7 @@ Deno.test("MaterialsTreeBuilder - should handle quantity multiplication", () => 
   // Verify the tree structure
   const tree = treeMap["dough"];
   assertEquals(tree.id, "dough");
-  assertEquals(tree.originalQuantity, 2);
+  assertEquals(tree.originalQuantity, 1); // root product always has 1 for quantity
   assertEquals(tree.calculatedQuantity, 2);
 
   // Verify children quantities are multiplied

@@ -3,17 +3,17 @@ import { assertEquals } from "jsr:@std/assert";
 import { TreeNode } from "../../models/TreeNode.ts";
 import { Product } from "../../models/Product.ts";
 import { testData } from "../testData.ts";
+import { ProductUnit } from "../../mod.ts";
 
 /**
  * Tests for the TreeNode class.
  */
 
 Deno.test("TreeNode.constructor - should create a tree node with valid data", () => {
-  const product = new Product(testData.products.flour);
   const node = new TreeNode({
-    id: "flour_parent",
-    name: product.name,
-    unit: product.unit,
+    id: "flour_id",
+    name: "Flour",
+    unit: ProductUnit.KG.id,
     level: 1,
     motherFactor: 2,
     quantity: 0.5,
@@ -26,9 +26,9 @@ Deno.test("TreeNode.constructor - should create a tree node with valid data", ()
     children: null,
   });
 
-  assertEquals(node.id, "flour_parent");
-  assertEquals(node.name, product.name);
-  assertEquals(node.unit, product.unit);
+  assertEquals(node.id, "flour_id");
+  assertEquals(node.name, "Flour");
+  assertEquals(node.unit, ProductUnit.KG.id);
   assertEquals(node.level, 1);
   assertEquals(node.motherFactor, 2);
   assertEquals(node.quantity, 0.5);
