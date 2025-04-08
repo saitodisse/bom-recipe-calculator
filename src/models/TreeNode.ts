@@ -11,6 +11,7 @@ export class TreeNode implements ITreeNode {
   private _category: string;
   private _unit: string;
   private _level: number;
+  private _path: string;
   private _motherFactor: number;
   private _quantity: number | null;
   private _originalQuantity: number;
@@ -40,6 +41,7 @@ export class TreeNode implements ITreeNode {
     this._category = data.category || "";
     this._unit = data.unit || "";
     this._level = data.level ?? 0;
+    this._path = data.path ?? "";
     this._motherFactor = data.motherFactor ?? 1;
     this._quantity = data.quantity ?? null;
     this._originalQuantity = data.originalQuantity ?? 1;
@@ -62,6 +64,7 @@ export class TreeNode implements ITreeNode {
           "category",
           "unit",
           "level",
+          "path",
           "motherFactor",
           "quantity",
           "originalQuantity",
@@ -128,8 +131,17 @@ export class TreeNode implements ITreeNode {
   }
 
   /**
-   * Gets the node mother factor.
+   * Gets the node path.
    *
+   * @returns The node path
+   */
+  public get path(): string {
+    return this._path;
+  }
+
+  /**
+   * Gets the node mother factor.
+
    * @returns The node mother factor
    */
   public get motherFactor(): number {
@@ -281,6 +293,7 @@ export class TreeNode implements ITreeNode {
       category: this._category,
       unit: this._unit,
       level: this._level,
+      path: this._path,
       motherFactor: this._motherFactor,
       quantity: this._quantity,
       originalQuantity: this._originalQuantity,
@@ -309,6 +322,7 @@ export class TreeNode implements ITreeNode {
       category: this._category,
       unit: this._unit,
       level: this._level,
+      path: this._path,
       motherFactor: this._motherFactor,
       quantity: this._quantity,
       originalQuantity: this._originalQuantity,
@@ -489,7 +503,7 @@ export class TreeNode implements ITreeNode {
     // Header only included if includeHeader is true
     if (includeHeader) {
       result.push(
-        `"código do produto"\t"produto"\t"nível"\t"categoria"\t"unidade"\t"quantidade"\t"peso"\t"peso dos filhos"\t"custo total"`,
+        `"código do produto"\t"produto"\t"nível"\t"categoria"\t"unidade"\t"quantidade"\t"peso"\t"peso dos filhos"\t"custo total"\t"path"`,
       );
     }
 
@@ -520,7 +534,7 @@ export class TreeNode implements ITreeNode {
     result.push(
       `"${this._id}"\t"${this._name}"\t"${this._level}"\t"${
         this.getCategoryPtBr(this._category as ProductCategoryId)
-      }"\t"${this._unit}"\t"${_calculatedQuantity}"\t"${_weight}"\t"${_childrenWeight}"\t"${_calculatedCost}"`,
+      }"\t"${this._unit}"\t"${_calculatedQuantity}"\t"${_weight}"\t"${_childrenWeight}"\t"${_calculatedCost}"\t"${this._path}"`,
     );
 
     if (this._children) {
@@ -616,6 +630,8 @@ export class TreeNode implements ITreeNode {
         return this._unit;
       case "level":
         return this._level;
+      case "path":
+        return this._path;
       case "motherFactor":
         return this._motherFactor;
       case "quantity":
@@ -637,5 +653,22 @@ export class TreeNode implements ITreeNode {
       default:
         return this._extraProperties[key];
     }
+  }
+
+  public getNodeByPath(path: string): ITreeNode | null {
+    if (this._path === path) {
+      return this.toObject();
+    }
+
+    if (this._children) {
+      for (const child of Object.values(this._children)) {
+        const result = child.getNodeByPath(path);
+        if (result) {
+          return result;
+        }
+      }
+    }
+
+    return null;
   }
 }

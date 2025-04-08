@@ -18,6 +18,9 @@ export interface ITreeNode {
   /** Depth level in the recipe tree (0 for root) */
   level: number;
 
+  /** Path to the node in the tree */
+  path: string;
+
   /** Multiplication factor from parent recipe */
   motherFactor: number;
 

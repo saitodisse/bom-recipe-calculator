@@ -221,3 +221,52 @@ Deno.test("TreeNode.setCalculatedCost - should set calculated cost", () => {
   node.setCalculatedCost(15.7568);
   assertEquals(node.calculatedCost, 15.7568);
 });
+
+Deno.test("TreeNode.getNodeByPath - should find node by path", () => {
+  const node = new TreeNode({
+    id: "flour_parent",
+    path: "flour_parent",
+    name: "Wheat Flour",
+    unit: "KG",
+    level: 1,
+    motherFactor: 1,
+  });
+
+  assertEquals(node.getNodeByPath("flour_parent"), node.toObject());
+  assertEquals(node.getNodeByPath("nonexistent_path"), null);
+});
+
+Deno.test(
+  "TreeNode.getNodeByPath - should find node by path in nested tree",
+  () => {
+    const node = new TreeNode({
+      id: "dough_parent",
+      path: "dough_parent",
+      name: "Basic Dough",
+      unit: "KG",
+      level: 1,
+      motherFactor: 1,
+    });
+
+    node.addChild(
+      new TreeNode({
+        id: "flour_dough",
+        path: "dough_parent.flour_dough",
+        name: "Wheat Flour",
+        unit: "KG",
+        level: 2,
+        motherFactor: 0.5,
+      }),
+    );
+
+    assertEquals(
+      node.getNodeByPath("dough_parent"),
+      node.toObject(),
+    );
+    assertEquals(
+      node.getNodeByPath("dough_parent.flour_dough"),
+      node.children?.["flour_dough"].toObject(),
+    );
+    assertEquals(node.getNodeByPath("nonexistent_path"), null);
+  },
+);

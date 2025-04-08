@@ -1,5 +1,5 @@
 /// <reference lib="deno.ns" />
-import { assertEquals } from "jsr:@std/assert";
+import { assertEquals, assertThrows } from "jsr:@std/assert";
 import { Utils } from "../../services/Utils.ts";
 
 /**
@@ -34,14 +34,15 @@ Deno.test("Utils.generateNodeId - should combine id and motherId with underscore
 Deno.test("Utils.generateNodePath - should generate a path with children segment", () => {
   assertEquals(
     Utils.generateNodePath("parent", "child"),
-    "parent.children.child",
+    "parent.child",
   );
   assertEquals(
     Utils.generateNodePath("root", "level1"),
-    "root.children.level1",
+    "root.level1",
   );
-  assertEquals(Utils.generateNodePath("", "child"), ".children.child");
-  assertEquals(Utils.generateNodePath("parent", ""), "parent.children.");
+
+  assertThrows(() => Utils.generateNodePath("", "child"));
+  assertThrows(() => Utils.generateNodePath("parent", ""));
 });
 
 Deno.test("Utils.toNumber - should convert valid values to numbers", () => {

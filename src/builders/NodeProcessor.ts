@@ -47,7 +47,6 @@ export class NodeProcessor {
       product,
       motherFactor,
       productCode,
-      productCode,
       1,
     );
 
@@ -96,6 +95,7 @@ export class NodeProcessor {
       category: product.category,
       unit: product.unit,
       level: 0,
+      path: productCode,
       motherFactor: 1,
       quantity: null,
 
@@ -121,17 +121,17 @@ export class NodeProcessor {
    *
    * @param item The recipe item to process
    * @param motherFactor Multiplication factor from parent recipe
-   * @param motherId ID of the parent node
    * @param motherPath Path to the parent node
    * @param level Current depth level
    * @returns The processed child node
    */
   public processChildNode(
-    item: RecipeItem,
-    motherFactor: number,
-    motherId: string,
-    motherPath: string,
-    level: number,
+    { item, motherFactor, motherPath, level }: {
+      item: RecipeItem;
+      motherFactor: number;
+      motherPath: string;
+      level: number;
+    },
   ): TreeNode | null {
     // Get product from list
     const product = this._productsList[item.id];
@@ -168,7 +168,6 @@ export class NodeProcessor {
       ? this.processChildren(
         product,
         calculatedFactor,
-        productId,
         path,
         level + 1,
       )
@@ -185,6 +184,7 @@ export class NodeProcessor {
       category: product.category,
       unit: product.unit,
       level,
+      path,
       motherFactor,
       quantity: item.quantity,
       originalQuantity: item.quantity,
@@ -199,10 +199,8 @@ export class NodeProcessor {
 
   /**
    * Processes all children of a product.
-   *
    * @param product The product to process children for
    * @param motherFactor Multiplication factor from parent recipe
-   * @param motherId ID of the parent node
    * @param motherPath Path to the parent node
    * @param level Current depth level
    * @returns Map of processed child nodes
@@ -210,7 +208,6 @@ export class NodeProcessor {
   private processChildren(
     product: Product,
     motherFactor: number,
-    motherId: string,
     motherPath: string,
     level: number,
   ): Record<string, TreeNode> | null {
@@ -230,11 +227,7 @@ export class NodeProcessor {
 
     for (const item of composition) {
       const node = this.processChildNode(
-        item,
-        motherFactor,
-        motherId,
-        motherPath,
-        level,
+        { item, motherFactor, motherPath, level },
       );
 
       if (node) {

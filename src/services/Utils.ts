@@ -39,7 +39,18 @@ export class Utils {
    * @returns The full path to the current node
    */
   public static generateNodePath(motherPath: string, id: string): string {
-    return `${motherPath}.children.${id}`;
+    if (!motherPath || motherPath.length === 0) {
+      throw new Error(
+        `motherPath is empty or undefined: ${motherPath}; id: ${id}`,
+      );
+    }
+    if (!id || id.length === 0) {
+      throw new Error(
+        `Id is empty or undefined: ${id}; motherPath: ${motherPath}`,
+      );
+    }
+
+    return `${motherPath}.${id}`;
   }
 
   /**

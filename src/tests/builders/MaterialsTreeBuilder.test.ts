@@ -148,10 +148,12 @@ Deno.test("MaterialsTreeBuilder - should handle quantity multiplication", () => 
   // Verify children quantities are multiplied
   const flourChild = tree.children?.["flour"];
   assertEquals(flourChild?.quantity, 0.5);
+  assertEquals(flourChild?.originalQuantity, 0.5);
   assertEquals(flourChild?.calculatedQuantity, 1);
 
   const waterChild = tree.children?.["water"];
   assertEquals(waterChild?.quantity, 0.7);
+  assertEquals(waterChild?.originalQuantity, 0.7);
   assertEquals(waterChild?.calculatedQuantity, 1.4);
 });
 
@@ -242,7 +244,7 @@ Deno.test(
     const builder = new MaterialsTreeBuilder({
       productsList: testData.productLists.allProductsAndReceipes,
       productCode: "bread4pack",
-      initialQuantity: 1,
+      initialQuantity: 2,
     });
 
     const treeMap = builder.build();
@@ -253,35 +255,43 @@ Deno.test(
     // console.log(tree.toHumanReadable({
     //   showCost: true,
     // })); // debug
-    // console.log(tree.toTable()); // debug
+    // console.log(tree.toObject()); // debug
     // console.log(JSON.stringify(tree.toJSON(), null, 2)); // debug
 
-    assertEquals(tree.calculatedQuantity, 1);
-    assertEquals(tree.calculatedCost, 1.323232);
+    assertEquals(tree.originalQuantity, 1);
+    assertEquals(tree.calculatedQuantity, 2);
+    assertEquals(tree.calculatedCost, 2.646464);
     assertEquals(tree.weight, 0); // do not have self weight
     // 4 unitary breads (0.8kg)
     // + 1 packaged bread (0.1kg)
-    assertEquals(tree.childrenWeight, 0.9);
+    assertEquals(tree.childrenWeight, 1.8);
 
-    assertEquals(tree.children?.["breadUnitary"]?.calculatedQuantity, 4);
+    assertEquals(tree.children?.["breadUnitary"]?.originalQuantity, 4);
+    assertEquals(tree.children?.["breadUnitary"]?.calculatedQuantity, 8);
     // real weight is a little bit heavier
-    assertEquals(tree.children?.["breadUnitary"]?.childrenWeight, 0.88);
+    assertEquals(tree.children?.["breadUnitary"]?.childrenWeight, 1.76);
     // unitary bread weight
-    assertEquals(tree.children?.["breadUnitary"]?.weight, 0.8);
+    assertEquals(tree.children?.["breadUnitary"]?.weight, 1.6);
+
+    // FIXME: remove all originalQuantity
+    // assertEquals(
+    //   tree.children?.["breadUnitary"]?.children?.["dough"]?.originalQuantity,
+    //   0.88,
+    // );
 
     // check dough quantity
     assertEquals(
       tree.children?.["breadUnitary"]?.children?.["dough"]?.calculatedQuantity,
-      0.88,
+      1.76,
     );
     // looses weight
     assertEquals(
       tree.children?.["breadUnitary"]?.children?.["dough"]?.childrenWeight,
-      1.0604,
+      2.1208,
     );
     assertEquals(
       tree.children?.["breadUnitary"]?.children?.["dough"]?.weight,
-      0.88,
+      1.76,
     );
   },
 );
