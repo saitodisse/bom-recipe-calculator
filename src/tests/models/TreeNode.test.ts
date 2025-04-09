@@ -17,11 +17,9 @@ Deno.test("TreeNode.constructor - should create a tree node with valid data", ()
     level: 1,
     motherFactor: 2,
     quantity: 0.5,
-    originalQuantity: 0.5,
     calculatedQuantity: 1,
     weight: 1,
     childrenWeight: 0,
-    originalCost: 2.5,
     calculatedCost: 5,
     children: null,
   });
@@ -32,11 +30,9 @@ Deno.test("TreeNode.constructor - should create a tree node with valid data", ()
   assertEquals(node.level, 1);
   assertEquals(node.motherFactor, 2);
   assertEquals(node.quantity, 0.5);
-  assertEquals(node.originalQuantity, 0.5);
   assertEquals(node.calculatedQuantity, 1);
   assertEquals(node.weight, 1);
   assertEquals(node.childrenWeight, 0);
-  assertEquals(node.originalCost, 2.5);
   assertEquals(node.calculatedCost, 5);
   assertEquals(node.children, null);
 });
@@ -57,11 +53,9 @@ Deno.test("TreeNode.constructor - should handle optional properties", () => {
   assertEquals(node.level, 1);
   assertEquals(node.motherFactor, 2);
   assertEquals(node.quantity, null);
-  assertEquals(node.originalQuantity, 1);
   assertEquals(node.calculatedQuantity, 0);
   assertEquals(node.weight, 0);
   assertEquals(node.childrenWeight, 0);
-  assertEquals(node.originalCost, null);
   assertEquals(node.calculatedCost, null);
   assertEquals(node.children, null);
 });
@@ -138,11 +132,9 @@ Deno.test("TreeNode.toJSON - should convert node to plain object", () => {
     level: 1,
     motherFactor: 2,
     quantity: 0.5,
-    originalQuantity: 0.5,
     calculatedQuantity: 1,
     weight: 1,
     childrenWeight: 0,
-    originalCost: 2.5,
     calculatedCost: 5,
   });
 
@@ -154,11 +146,9 @@ Deno.test("TreeNode.toJSON - should convert node to plain object", () => {
   assertEquals(json.level, 1);
   assertEquals(json.motherFactor, 2);
   assertEquals(json.quantity, 0.5);
-  assertEquals(json.originalQuantity, 0.5);
   assertEquals(json.calculatedQuantity, 1);
   assertEquals(json.weight, 1);
   assertEquals(json.childrenWeight, 0);
-  assertEquals(json.originalCost, 2.5);
   assertEquals(json.calculatedCost, 5);
   assertEquals(json.children, null);
 });
@@ -171,11 +161,9 @@ Deno.test("TreeNode.toStringJson - should convert node to JSON string", () => {
     level: 1,
     motherFactor: 2,
     quantity: 0.5,
-    originalQuantity: 0.5,
     calculatedQuantity: 1,
     weight: 1,
     childrenWeight: 0,
-    originalCost: 2.5,
     calculatedCost: 5,
   });
 

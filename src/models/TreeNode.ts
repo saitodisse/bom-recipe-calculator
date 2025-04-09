@@ -14,11 +14,9 @@ export class TreeNode implements ITreeNode {
   private _path: string;
   private _motherFactor: number;
   private _quantity: number | null;
-  private _originalQuantity: number;
   private _calculatedQuantity: number;
   private _weight: number;
   private _childrenWeight: number;
-  private _originalCost: number | null;
   private _calculatedCost: number | null;
   private _children: Record<string, TreeNode> | null;
   private _extraProperties: Record<string, unknown>;
@@ -39,11 +37,9 @@ export class TreeNode implements ITreeNode {
     this._path = data.path ?? "";
     this._motherFactor = data.motherFactor ?? 1;
     this._quantity = data.quantity ?? null;
-    this._originalQuantity = data.originalQuantity ?? 1;
     this._calculatedQuantity = data.calculatedQuantity ?? 0;
     this._weight = data.weight ?? 0;
     this._childrenWeight = data.childrenWeight ?? 0;
-    this._originalCost = data.originalCost ?? null;
     this._calculatedCost = data.calculatedCost ?? null;
     this._children = data.children
       ? this._convertChildren(data.children)
@@ -127,15 +123,6 @@ export class TreeNode implements ITreeNode {
   }
 
   /**
-   * Gets the node original quantity.
-   *
-   * @returns The node original quantity
-   */
-  public get originalQuantity(): number {
-    return this._originalQuantity;
-  }
-
-  /**
    * Gets the node calculated quantity.
    *
    * @returns The node calculated quantity
@@ -160,15 +147,6 @@ export class TreeNode implements ITreeNode {
    */
   public get childrenWeight(): number {
     return this._childrenWeight;
-  }
-
-  /**
-   * Gets the node original cost.
-   *
-   * @returns The node original cost
-   */
-  public get originalCost(): number | null {
-    return this._originalCost;
   }
 
   /**
@@ -265,11 +243,9 @@ export class TreeNode implements ITreeNode {
       path: this._path,
       motherFactor: this._motherFactor,
       quantity: this._quantity,
-      originalQuantity: this._originalQuantity,
       calculatedQuantity: this._calculatedQuantity,
       weight: this._weight,
       childrenWeight: this._childrenWeight,
-      originalCost: this._originalCost,
       calculatedCost: this._calculatedCost,
       children: this._children
         ? Object.fromEntries(
@@ -294,11 +270,9 @@ export class TreeNode implements ITreeNode {
       path: this._path,
       motherFactor: this._motherFactor,
       quantity: this._quantity,
-      originalQuantity: this._originalQuantity,
       calculatedQuantity: this._calculatedQuantity,
       weight: this._weight,
       childrenWeight: this._childrenWeight,
-      originalCost: this._originalCost,
       calculatedCost: this._calculatedCost,
       children: this._children
         ? Object.fromEntries(

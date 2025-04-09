@@ -27,9 +27,6 @@ export interface ITreeNode {
   /** Current quantity (null for root node) */
   quantity: number | null;
 
-  /** Original quantity from recipe */
-  originalQuantity: number;
-
   /** Quantity after applying all multiplication factors */
   calculatedQuantity: number;
 
@@ -38,9 +35,6 @@ export interface ITreeNode {
 
   /** Total weight including all children */
   childrenWeight: number;
-
-  /** Original cost per unit */
-  originalCost: number | null;
 
   /** Total calculated cost including children */
   calculatedCost: number | null;

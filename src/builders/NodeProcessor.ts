@@ -98,13 +98,9 @@ export class NodeProcessor {
       path: productCode,
       motherFactor: 1,
       quantity: null,
-
-      originalQuantity: 1, // root product always has 1 for quantity
-
       calculatedQuantity: Number(initialQuantity),
       weight,
       childrenWeight: childrenWeight,
-      originalCost: product.purchaseQuoteValue,
       calculatedCost: product.purchaseQuoteValue !== null
         ? product.purchaseQuoteValue * initialQuantity
         : calculatedCost,
@@ -187,11 +183,9 @@ export class NodeProcessor {
       path,
       motherFactor,
       quantity: item.quantity,
-      originalQuantity: item.quantity,
       calculatedQuantity: calculatedFactor,
       weight: itemWeight,
       childrenWeight: childrenWeight,
-      originalCost,
       calculatedCost: originalCost !== null ? itemCost : childrenCost,
       children,
     });
