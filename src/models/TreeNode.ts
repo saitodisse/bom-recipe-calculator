@@ -233,7 +233,9 @@ export class TreeNode implements ITreeNode {
    *
    * @returns A plain object representation of the node
    */
-  public toObject(): ITreeNode {
+  public toObject(
+    { expandOnlyToLevel = 0 }: { expandOnlyToLevel?: number } = {},
+  ): ITreeNode {
     const result: ITreeNode = {
       id: this._id,
       name: this._name,
@@ -251,7 +253,15 @@ export class TreeNode implements ITreeNode {
         ? Object.fromEntries(
           Object.entries(this._children).map((
             [key, value],
-          ) => [key, value.toObject()]),
+          ) => {
+            if (
+              expandOnlyToLevel === 0 ||
+              (expandOnlyToLevel !== 0 && this._level <= expandOnlyToLevel)
+            ) {
+              return [key, value.toObject({ expandOnlyToLevel })];
+            }
+            return undefined;
+          }).filter((value) => value !== undefined),
         )
         : null,
       ...this._extraProperties,
@@ -299,10 +309,12 @@ export class TreeNode implements ITreeNode {
     showCost = false,
     showWeight = false,
     showQuantity = true,
+    expandOnlyToLevel = 0,
   }: {
     showCost?: boolean;
     showWeight?: boolean;
     showQuantity?: boolean;
+    expandOnlyToLevel?: number;
   } = {}): string {
     // First pass: calculate maxLength
     const maxLength = this.calculateMaxLength();
@@ -312,6 +324,7 @@ export class TreeNode implements ITreeNode {
       showCost,
       showWeight,
       showQuantity,
+      expandOnlyToLevel,
     });
   }
 
@@ -334,10 +347,16 @@ export class TreeNode implements ITreeNode {
 
   private generateFormattedOutput(
     maxLength: number,
-    { showCost, showWeight, showQuantity }: {
+    {
+      showCost,
+      showWeight,
+      showQuantity,
+      expandOnlyToLevel,
+    }: {
       showCost: boolean;
       showWeight: boolean;
       showQuantity: boolean;
+      expandOnlyToLevel: number;
     },
   ): string {
     let result = this.formatLine(maxLength, {
@@ -347,12 +366,18 @@ export class TreeNode implements ITreeNode {
     });
 
     if (this._children) {
-      for (const child of Object.values(this._children)) {
-        result += child.generateFormattedOutput(maxLength, {
-          showCost,
-          showWeight,
-          showQuantity,
-        });
+      if (
+        expandOnlyToLevel === 0 ||
+        (expandOnlyToLevel !== 0 && this._level <= expandOnlyToLevel)
+      ) {
+        for (const child of Object.values(this._children)) {
+          result += child.generateFormattedOutput(maxLength, {
+            showCost,
+            showWeight,
+            showQuantity,
+            expandOnlyToLevel,
+          });
+        }
       }
     }
 
@@ -440,7 +465,10 @@ export class TreeNode implements ITreeNode {
    *
    * @returns A table string representation of the node
    */
-  public toTable(includeHeader: boolean = true): string {
+  public toTable({ includeHeader = true, expandOnlyToLevel = 0 }: {
+    includeHeader?: boolean;
+    expandOnlyToLevel?: number;
+  } = {}): string {
     const result = [];
 
     // Header only included if includeHeader is true
@@ -481,8 +509,15 @@ export class TreeNode implements ITreeNode {
     );
 
     if (this._children) {
-      for (const child of Object.values(this._children)) {
-        result.push(child.toTable(false)); // Pass false to prevent header repetition
+      if (
+        expandOnlyToLevel === 0 ||
+        (expandOnlyToLevel !== 0 && this._level <= expandOnlyToLevel)
+      ) {
+        for (const child of Object.values(this._children)) {
+          result.push(
+            child.toTable({ includeHeader: false, expandOnlyToLevel }),
+          ); // Pass false to prevent header repetition
+        }
       }
     }
 

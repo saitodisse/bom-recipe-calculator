@@ -305,7 +305,7 @@ Deno.test(
 );
 
 Deno.test(
-  "MaterialsTreeBuilder - should output in different formats",
+  "MaterialsTreeBuilder - should output in different formats - all levels",
   () => {
     // Build a tree for bread packaged (has recipe)
     const builder = new MaterialsTreeBuilder({
@@ -319,8 +319,49 @@ Deno.test(
     // Verify the tree structure
     const tree = treeMap["bread4pack"];
 
-    assertNotEquals(tree.toHumanReadable(), undefined);
-    assertNotEquals(tree.toTable(), undefined);
-    assertNotEquals(tree.toObject(), undefined);
+    const toHumanReadableResult = tree.toHumanReadable({
+      expandOnlyToLevel: 0,
+    });
+    // console.log(toHumanReadableResult);
+    assertNotEquals(toHumanReadableResult, undefined);
+
+    const toTableResult = tree.toTable({ expandOnlyToLevel: 0 });
+    // console.log(toTableResult);
+    assertNotEquals(toTableResult, undefined);
+
+    const toObjectResult = tree.toObject({ expandOnlyToLevel: 0 });
+    // console.log(JSON.stringify(toObjectResult, null, 2));
+    assertNotEquals(toObjectResult, undefined);
+  },
+);
+
+Deno.test(
+  "MaterialsTreeBuilder - should output in different formats - level 2",
+  () => {
+    // Build a tree for bread packaged (has recipe)
+    const builder = new MaterialsTreeBuilder({
+      productsList: testData.productLists.allProductsAndReceipes,
+      productCode: "bread4pack",
+      initialQuantity: 1,
+    });
+
+    const treeMap = builder.build();
+
+    // Verify the tree structure
+    const tree = treeMap["bread4pack"];
+
+    const toHumanReadableResult = tree.toHumanReadable({
+      expandOnlyToLevel: 1,
+    });
+    // console.log(toHumanReadableResult);
+    assertNotEquals(toHumanReadableResult, undefined);
+
+    const toTableResult = tree.toTable({ expandOnlyToLevel: 1 });
+    // console.log(toTableResult);
+    assertNotEquals(toTableResult, undefined);
+
+    const toObjectResult = tree.toObject({ expandOnlyToLevel: 1 });
+    // console.log(JSON.stringify(toObjectResult, null, 2));
+    assertNotEquals(toObjectResult, undefined);
   },
 );
