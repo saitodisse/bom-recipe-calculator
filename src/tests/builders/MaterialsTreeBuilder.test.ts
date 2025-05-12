@@ -329,7 +329,7 @@ Deno.test(
     // console.log(toTableResult);
     assertNotEquals(toTableResult, undefined);
 
-    const toObjectResult = tree.toObject({ expandOnlyToLevel: 0 });
+    const toObjectResult = tree.toStringJson({ expandOnlyToLevel: 0 });
     // console.log(JSON.stringify(toObjectResult, null, 2));
     assertNotEquals(toObjectResult, undefined);
   },
@@ -360,7 +360,7 @@ Deno.test(
     // console.log(toTableResult);
     assertNotEquals(toTableResult, undefined);
 
-    const toObjectResult = tree.toObject({ expandOnlyToLevel: 1 });
+    const toObjectResult = tree.toStringJson({ expandOnlyToLevel: 1 });
     // console.log(JSON.stringify(toObjectResult, null, 2));
     assertNotEquals(toObjectResult, undefined);
   },

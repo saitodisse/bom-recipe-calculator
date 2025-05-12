@@ -270,7 +270,9 @@ export class TreeNode implements ITreeNode {
     return result;
   }
 
-  public toStringJson(): string {
+  public toStringJson(
+    { expandOnlyToLevel = 0 }: { expandOnlyToLevel?: number } = {},
+  ): string {
     const result: Record<string, unknown> = {
       id: this._id,
       name: this._name,
@@ -288,7 +290,7 @@ export class TreeNode implements ITreeNode {
         ? Object.fromEntries(
           Object.entries(this._children).map((
             [key, value],
-          ) => [key, value.toObject()]),
+          ) => [key, value.toObject({ expandOnlyToLevel })]),
         )
         : null,
       ...this._extraProperties,
