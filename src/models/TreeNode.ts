@@ -234,7 +234,7 @@ export class TreeNode implements ITreeNode {
    * @returns A plain object representation of the node
    */
   public toObject(
-    { expandOnlyToLevel = 0 }: { expandOnlyToLevel?: number } = {},
+    { expandOnlyToLevel = null }: { expandOnlyToLevel?: number | null } = {},
   ): ITreeNode {
     const result: ITreeNode = {
       id: this._id,
@@ -249,21 +249,25 @@ export class TreeNode implements ITreeNode {
       weight: this._weight,
       childrenWeight: this._childrenWeight,
       calculatedCost: this._calculatedCost,
-      children: this._children
-        ? Object.fromEntries(
+      children: this._children &&
+        (expandOnlyToLevel === null ||
+          expandOnlyToLevel === undefined ||
+          expandOnlyToLevel >= 0) &&
+        Object.fromEntries(
           Object.entries(this._children).map((
             [key, value],
           ) => {
             if (
-              expandOnlyToLevel === 0 ||
-              (expandOnlyToLevel !== 0 && this._level <= expandOnlyToLevel)
+              // check if is null or undefined
+              (expandOnlyToLevel === null ||
+                expandOnlyToLevel === undefined ||
+                this._level < expandOnlyToLevel)
             ) {
               return [key, value.toObject({ expandOnlyToLevel })];
             }
             return undefined;
           }).filter((value) => value !== undefined),
-        )
-        : null,
+        ),
       ...this._extraProperties,
     };
 
@@ -271,29 +275,32 @@ export class TreeNode implements ITreeNode {
   }
 
   public toStringJson(
-    { expandOnlyToLevel = 0 }: { expandOnlyToLevel?: number } = {},
+    { expandOnlyToLevel = null }: { expandOnlyToLevel?: number | null } = {},
   ): string {
+    // first get toObject with expandOnlyToLevel
+    const toObjectResult = this.toObject({ expandOnlyToLevel });
+
     const result: Record<string, unknown> = {
-      id: this._id,
-      name: this._name,
-      category: this._category,
-      unit: this._unit,
-      level: this._level,
-      path: this._path,
-      motherFactor: this._motherFactor,
-      quantity: this._quantity,
-      calculatedQuantity: this._calculatedQuantity,
-      weight: this._weight,
-      childrenWeight: this._childrenWeight,
-      calculatedCost: this._calculatedCost,
-      children: this._children
+      ...toObjectResult,
+      id: toObjectResult.id,
+      name: toObjectResult.name,
+      category: toObjectResult.category,
+      unit: toObjectResult.unit,
+      level: toObjectResult.level,
+      path: toObjectResult.path,
+      motherFactor: toObjectResult.motherFactor,
+      quantity: toObjectResult.quantity,
+      calculatedQuantity: toObjectResult.calculatedQuantity,
+      weight: toObjectResult.weight,
+      childrenWeight: toObjectResult.childrenWeight,
+      calculatedCost: toObjectResult.calculatedCost,
+      children: toObjectResult.children
         ? Object.fromEntries(
-          Object.entries(this._children).map((
+          Object.entries(toObjectResult.children).map((
             [key, value],
-          ) => [key, value.toObject({ expandOnlyToLevel })]),
+          ) => [key, value]),
         )
         : null,
-      ...this._extraProperties,
     };
 
     return JSON.stringify(result, null, 2);
@@ -311,12 +318,12 @@ export class TreeNode implements ITreeNode {
     showCost = false,
     showWeight = false,
     showQuantity = true,
-    expandOnlyToLevel = 0,
+    expandOnlyToLevel = null,
   }: {
     showCost?: boolean;
     showWeight?: boolean;
     showQuantity?: boolean;
-    expandOnlyToLevel?: number;
+    expandOnlyToLevel?: number | null;
   } = {}): string {
     // First pass: calculate maxLength
     const maxLength = this.calculateMaxLength();
@@ -358,7 +365,7 @@ export class TreeNode implements ITreeNode {
       showCost: boolean;
       showWeight: boolean;
       showQuantity: boolean;
-      expandOnlyToLevel: number;
+      expandOnlyToLevel?: number | null;
     },
   ): string {
     let result = this.formatLine(maxLength, {
@@ -369,8 +376,9 @@ export class TreeNode implements ITreeNode {
 
     if (this._children) {
       if (
-        expandOnlyToLevel === 0 ||
-        (expandOnlyToLevel !== 0 && this._level <= expandOnlyToLevel)
+        (expandOnlyToLevel === null ||
+          typeof expandOnlyToLevel === "undefined") &&
+        expandOnlyToLevel && this._level <= expandOnlyToLevel
       ) {
         for (const child of Object.values(this._children)) {
           result += child.generateFormattedOutput(maxLength, {
@@ -467,9 +475,9 @@ export class TreeNode implements ITreeNode {
    *
    * @returns A table string representation of the node
    */
-  public toTable({ includeHeader = true, expandOnlyToLevel = 0 }: {
+  public toTable({ includeHeader = true, expandOnlyToLevel = null }: {
     includeHeader?: boolean;
-    expandOnlyToLevel?: number;
+    expandOnlyToLevel?: number | null;
   } = {}): string {
     const result = [];
 
@@ -512,8 +520,9 @@ export class TreeNode implements ITreeNode {
 
     if (this._children) {
       if (
-        expandOnlyToLevel === 0 ||
-        (expandOnlyToLevel !== 0 && this._level <= expandOnlyToLevel)
+        (expandOnlyToLevel === null ||
+          typeof expandOnlyToLevel === "undefined") &&
+        expandOnlyToLevel && this._level <= expandOnlyToLevel
       ) {
         for (const child of Object.values(this._children)) {
           result.push(
