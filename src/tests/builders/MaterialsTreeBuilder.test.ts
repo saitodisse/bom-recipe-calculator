@@ -52,8 +52,6 @@ Deno.test(
     // Verify the tree structure
     const tree = treeMap["dough"];
 
-    // console.log(tree.toHumanReadable()); // debug
-
     assertEquals(tree.id, "dough");
     assertEquals(tree.name, "Basic Dough");
     assertEquals(tree.unit, "KG");
@@ -248,9 +246,6 @@ Deno.test(
 
     // console.log(tree.toHumanReadable({
     //   showCost: true,
-    // })); // debug
-    // console.log(tree.toObject()); // debug
-    // console.log(JSON.stringify(tree.toJSON(), null, 2)); // debug
 
     assertEquals(tree.calculatedQuantity, 2);
     assertEquals(tree.calculatedCost, 2.646464);
@@ -455,12 +450,35 @@ Deno.test(
     const tree = treeMap["bread4pack"];
 
     const stringResult = tree.toHumanReadable({ expandOnlyToLevel: 0 });
-    console.log(stringResult); // debug
     assertEquals(stringResult.includes("bread4pack"), true);
     assertEquals(stringResult.includes("breadUnitary"), false);
 
     const stringResult2 = tree.toHumanReadable({ expandOnlyToLevel: 1 });
-    console.log(stringResult2); // debug
+    assertEquals(stringResult2.includes("bread4pack"), true);
+    assertEquals(stringResult2.includes("breadUnitary"), true);
+  },
+);
+
+Deno.test(
+  "TreeNode.toTable({ expandOnlyToLevel: x })",
+  () => {
+    // Build a tree for bread packaged (has recipe)
+    const builder = new MaterialsTreeBuilder({
+      productsList: testData.productLists.allProductsAndReceipes,
+      productCode: "bread4pack",
+      initialQuantity: 1,
+    });
+
+    const treeMap = builder.build();
+
+    // Verify the tree structure
+    const tree = treeMap["bread4pack"];
+
+    const stringResult = tree.toTable({ expandOnlyToLevel: 0 });
+    assertEquals(stringResult.includes("bread4pack"), true);
+    assertEquals(stringResult.includes("breadUnitary"), false);
+
+    const stringResult2 = tree.toTable({ expandOnlyToLevel: 1 });
     assertEquals(stringResult2.includes("bread4pack"), true);
     assertEquals(stringResult2.includes("breadUnitary"), true);
   },

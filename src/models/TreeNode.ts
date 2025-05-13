@@ -325,15 +325,19 @@ export class TreeNode implements ITreeNode {
     showQuantity?: boolean;
     expandOnlyToLevel?: number | null;
   } = {}): string {
-    // First pass: calculate maxLength
-    const maxLength = this.calculateMaxLength();
+    // First call toObject to apply expandOnlyToLevel
+    const processedTree = new TreeNode(this.toObject({ expandOnlyToLevel }));
+    
+    // Calculate maxLength for the processed tree
+    const maxLength = processedTree.calculateMaxLength();
 
-    // Second pass: generate formatted output
-    return this.generateFormattedOutput(maxLength, {
+    // Generate formatted output with the processed tree
+    // No need to pass expandOnlyToLevel again as it's already applied
+    return processedTree.generateFormattedOutput(maxLength, {
       showCost,
       showWeight,
       showQuantity,
-      expandOnlyToLevel,
+      expandOnlyToLevel: null, // Already applied in toObject
     });
   }
 
@@ -375,19 +379,13 @@ export class TreeNode implements ITreeNode {
     });
 
     if (this._children) {
-      if (
-        (expandOnlyToLevel === null ||
-          typeof expandOnlyToLevel === "undefined") &&
-        expandOnlyToLevel && this._level <= expandOnlyToLevel
-      ) {
-        for (const child of Object.values(this._children)) {
-          result += child.generateFormattedOutput(maxLength, {
-            showCost,
-            showWeight,
-            showQuantity,
-            expandOnlyToLevel,
-          });
-        }
+      for (const child of Object.values(this._children)) {
+        result += child.generateFormattedOutput(maxLength, {
+          showCost,
+          showWeight,
+          showQuantity,
+          expandOnlyToLevel,
+        });
       }
     }
 
@@ -479,6 +477,19 @@ export class TreeNode implements ITreeNode {
     includeHeader?: boolean;
     expandOnlyToLevel?: number | null;
   } = {}): string {
+    // First call toObject to apply expandOnlyToLevel
+    const processedTree = new TreeNode(this.toObject({ expandOnlyToLevel }));
+    
+    return processedTree._generateTableOutput({ includeHeader });
+  }
+  
+  /**
+   * Internal method to generate table output after expandOnlyToLevel has been applied
+   * 
+   * @param includeHeader Whether to include the header row
+   * @returns A table string representation of the node
+   */
+  private _generateTableOutput({ includeHeader = true }: { includeHeader?: boolean } = {}): string {
     const result = [];
 
     // Header only included if includeHeader is true
@@ -519,16 +530,10 @@ export class TreeNode implements ITreeNode {
     );
 
     if (this._children) {
-      if (
-        (expandOnlyToLevel === null ||
-          typeof expandOnlyToLevel === "undefined") &&
-        expandOnlyToLevel && this._level <= expandOnlyToLevel
-      ) {
-        for (const child of Object.values(this._children)) {
-          result.push(
-            child.toTable({ includeHeader: false, expandOnlyToLevel }),
-          ); // Pass false to prevent header repetition
-        }
+      for (const child of Object.values(this._children)) {
+        result.push(
+          child._generateTableOutput({ includeHeader: false }),
+        ); // Pass false to prevent header repetition
       }
     }
 
