@@ -126,6 +126,9 @@ export class ProductionPlan implements IProductionPlan {
           materialTrees[id].setCalculatedQuantity(
             materialTrees[id].calculatedQuantity + node.calculatedQuantity,
           );
+          materialTrees[id].setCalculatedCost(
+            materialTrees[id].calculatedCost! + node.calculatedCost!,
+          );
         }
 
         // Recursively process children

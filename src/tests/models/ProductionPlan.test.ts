@@ -102,9 +102,80 @@ Deno.test("ProductionPlan - should calculate materials needed", async () => {
   assertEquals(materialTrees["salt"].calculatedQuantity, 0.0176);
   assertAlmostEquals(materialTrees["yeast"].calculatedQuantity, 0.0264, 0.0001);
 
+  // Check cost
+  assertEquals(materialTrees["flour"].unitCost, 2.5);
+  assertEquals(materialTrees["flour"].calculatedCost, 4.4 * 2.5);
+  assertEquals(materialTrees["water"].unitCost, 0);
+  assertEquals(materialTrees["water"].calculatedCost, 6.16 * 0);
+  assertEquals(materialTrees["salt"].unitCost, 1.2);
+  assertEquals(materialTrees["salt"].calculatedCost, 0.0176 * 1.2);
+  assertEquals(materialTrees["yeast"].unitCost, 8);
+  assertAlmostEquals(
+    materialTrees["yeast"].calculatedCost!,
+    0.0264 * 8,
+    0.0001,
+  );
+
   // And 10 boxes for packaging
   assertEquals(materialTrees["box"].calculatedQuantity, 10);
 });
+
+Deno.test(
+  "ProductionPlan - should calculate materials needed with more entries",
+  async () => {
+    const plan = new ProductionPlan({
+      name: "Test Plan",
+    });
+
+    // Add 10 units of 4-pack bread
+    plan.addEntry(testData.products.bread4pack, 5, new Date());
+    plan.addEntry(testData.products.bread4pack, 5, new Date());
+
+    // Calculate materials needed
+    const materialTrees = await plan.calculateMaterialsNeeded(
+      testData.productLists.allProductsAndReceipes,
+    );
+
+    // Check some expected quantities
+    // 10 units of bread4pack = 40 unitary breads
+    assertEquals(materialTrees["breadUnitary"].calculatedQuantity, 40);
+
+    // Each unitary bread needs 0.220kg of dough
+    // So 40 unitary breads need 8.8kg of dough
+    assertEquals(materialTrees["dough"].calculatedQuantity, 8.8);
+
+    // For 8.8kg of dough we need:
+    // - 4.4kg flour (0.5 * 8.8)
+    // - 6.16L water (0.7 * 8.8)
+    // - 0.0176kg salt (0.002 * 8.8)
+    // - 0.0264kg yeast (0.003 * 8.8)
+    assertEquals(materialTrees["flour"].calculatedQuantity, 4.4);
+    assertEquals(materialTrees["water"].calculatedQuantity, 6.16);
+    assertEquals(materialTrees["salt"].calculatedQuantity, 0.0176);
+    assertAlmostEquals(
+      materialTrees["yeast"].calculatedQuantity,
+      0.0264,
+      0.0001,
+    );
+
+    // Check cost
+    assertEquals(materialTrees["flour"].unitCost, 2.5);
+    assertEquals(materialTrees["flour"].calculatedCost, 4.4 * 2.5);
+    assertEquals(materialTrees["water"].unitCost, 0);
+    assertEquals(materialTrees["water"].calculatedCost, 6.16 * 0);
+    assertEquals(materialTrees["salt"].unitCost, 1.2);
+    assertEquals(materialTrees["salt"].calculatedCost, 0.0176 * 1.2);
+    assertEquals(materialTrees["yeast"].unitCost, 8);
+    assertAlmostEquals(
+      materialTrees["yeast"].calculatedCost!,
+      0.0264 * 8,
+      0.0001,
+    );
+
+    // And 10 boxes for packaging
+    assertEquals(materialTrees["box"].calculatedQuantity, 10);
+  },
+);
 
 Deno.test("ProductionPlan - should handle entry id and name correctly", () => {
   const plan = new ProductionPlan({
