@@ -187,6 +187,7 @@ export class NodeProcessor {
       calculatedQuantity: calculatedFactor,
       weight: itemWeight,
       childrenWeight: childrenWeight,
+      unitCost: originalCost,
       calculatedCost: originalCost !== null ? itemCost : childrenCost,
       children,
     });
