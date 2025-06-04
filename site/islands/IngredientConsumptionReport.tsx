@@ -19,6 +19,7 @@ interface IngredientConsumption {
   productName: string;
   category: string;
   totalQuantity: number;
+  totalCost: number;
   unit: string;
   usedInProducts: string[];
   level: number;
@@ -26,6 +27,7 @@ interface IngredientConsumption {
 
 export default function IngredientConsumptionReport() {
   const [loading, setLoading] = useState<boolean>(true);
+  const [language, setLanguage] = useState("");
   const [plans, setPlans] = useState<ProductionPlan[]>([]);
   const [products, setProducts] = useState<IProduct[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
@@ -47,6 +49,9 @@ export default function IngredientConsumptionReport() {
     // Only run in browser environment
     if (typeof window !== "undefined") {
       loadData();
+
+      const lang = getStorageItem("language", "");
+      setLanguage(lang);
     }
   }, []);
 
@@ -133,6 +138,7 @@ export default function IngredientConsumptionReport() {
         productName: string;
         category: string;
         totalQuantity: number;
+        totalCost: number;
         unit: string;
         usedInProducts: Set<string>;
         level: number;
@@ -170,8 +176,7 @@ export default function IngredientConsumptionReport() {
           // Log the error for display
           setErrors((prev) => [
             ...prev,
-            `Plan ${plan.name}: Missing products: ${
-              missingProducts.join(", ")
+            `Plan ${plan.name}: Missing products: ${missingProducts.join(", ")
             }`,
           ]);
         }
@@ -211,6 +216,7 @@ export default function IngredientConsumptionReport() {
               productName: product.name,
               category: product.category || "Uncategorized",
               totalQuantity: node.calculatedQuantity,
+              totalCost: node.calculatedCost || 0,
               unit: product.unit || "",
               usedInProducts: new Set([parentProductName]),
               level: node.level || 0,
@@ -221,8 +227,7 @@ export default function IngredientConsumptionReport() {
         console.error("Error calculating materials for plan:", plan.id, error);
         setErrors((prev) => [
           ...prev,
-          `Error in plan ${plan.name || plan.id}: ${
-            error instanceof Error ? error.message : String(error)
+          `Error in plan ${plan.name || plan.id}: ${error instanceof Error ? error.message : String(error)
           }`,
         ]);
       }
@@ -404,6 +409,12 @@ export default function IngredientConsumptionReport() {
                         pt="Unidade"
                       />
                     </th>
+                    <th className="p-2 text-right border-b border-border">
+                      <Lng
+                        en="Total Cost"
+                        pt="Custo Total"
+                      />
+                    </th>
                     <th className="p-2 text-left border-b border-border">
                       <Lng
                         en="Used In Products"
@@ -426,6 +437,12 @@ export default function IngredientConsumptionReport() {
                       </td>
                       <td className="p-2 border-b border-border">
                         {item.unit}
+                      </td>
+                      <td className="p-2 text-right border-b border-border">
+                        {Intl.NumberFormat(language === "pt" ? "pt-BR" : "en-US", {
+                          style: "currency",
+                          currency: language === "pt" ? "BRL" : "USD",
+                        }).format(item.totalCost)}
                       </td>
                       <td className="p-2 border-b border-border">
                         {item.usedInProducts.join(", ")}
