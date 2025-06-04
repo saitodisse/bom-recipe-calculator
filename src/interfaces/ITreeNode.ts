@@ -27,6 +27,9 @@ export interface ITreeNode {
   /** Current quantity (null for root node) */
   quantity: number | null;
 
+  /** Unit cost of the product */
+  unitCost: number | null;
+
   /** Quantity after applying all multiplication factors */
   calculatedQuantity: number;
 

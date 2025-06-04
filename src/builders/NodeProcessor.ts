@@ -101,6 +101,7 @@ export class NodeProcessor {
       calculatedQuantity: Number(initialQuantity),
       weight,
       childrenWeight: childrenWeight,
+      unitCost: product.purchaseQuoteValue,
       calculatedCost: product.purchaseQuoteValue !== null
         ? product.purchaseQuoteValue * initialQuantity
         : calculatedCost,

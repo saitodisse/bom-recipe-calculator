@@ -17,6 +17,7 @@ export class TreeNode implements ITreeNode {
   private _calculatedQuantity: number;
   private _weight: number;
   private _childrenWeight: number;
+  private _unitCost: number | null;
   private _calculatedCost: number | null;
   private _children: Record<string, TreeNode> | null;
   private _extraProperties: Record<string, unknown>;
@@ -40,6 +41,7 @@ export class TreeNode implements ITreeNode {
     this._calculatedQuantity = data.calculatedQuantity ?? 0;
     this._weight = data.weight ?? 0;
     this._childrenWeight = data.childrenWeight ?? 0;
+    this._unitCost = data.unitCost ?? null;
     this._calculatedCost = data.calculatedCost ?? null;
     this._children = data.children
       ? this._convertChildren(data.children)
@@ -150,6 +152,15 @@ export class TreeNode implements ITreeNode {
   }
 
   /**
+   * Gets the node unit cost.
+   *
+   * @returns The node unit cost
+   */
+  public get unitCost(): number | null {
+    return this._unitCost;
+  }
+
+  /**
    * Gets the node calculated cost.
    *
    * @returns The node calculated cost
@@ -174,6 +185,15 @@ export class TreeNode implements ITreeNode {
    */
   public setChildrenWeight(weight: number): void {
     this._childrenWeight = weight;
+  }
+
+  /**
+   * Sets the node unit cost.
+   *
+   * @param cost The cost to set
+   */
+  public setUnitCost(cost: number): void {
+    this._unitCost = cost;
   }
 
   /**
@@ -248,6 +268,7 @@ export class TreeNode implements ITreeNode {
       calculatedQuantity: this._calculatedQuantity,
       weight: this._weight,
       childrenWeight: this._childrenWeight,
+      unitCost: this._unitCost,
       calculatedCost: this._calculatedCost,
       children: this._children &&
         (expandOnlyToLevel === null ||
@@ -293,6 +314,7 @@ export class TreeNode implements ITreeNode {
       calculatedQuantity: toObjectResult.calculatedQuantity,
       weight: toObjectResult.weight,
       childrenWeight: toObjectResult.childrenWeight,
+      unitCost: toObjectResult.unitCost,
       calculatedCost: toObjectResult.calculatedCost,
       children: toObjectResult.children
         ? Object.fromEntries(
@@ -327,7 +349,7 @@ export class TreeNode implements ITreeNode {
   } = {}): string {
     // First call toObject to apply expandOnlyToLevel
     const processedTree = new TreeNode(this.toObject({ expandOnlyToLevel }));
-    
+
     // Calculate maxLength for the processed tree
     const maxLength = processedTree.calculateMaxLength();
 
@@ -479,23 +501,25 @@ export class TreeNode implements ITreeNode {
   } = {}): string {
     // First call toObject to apply expandOnlyToLevel
     const processedTree = new TreeNode(this.toObject({ expandOnlyToLevel }));
-    
+
     return processedTree._generateTableOutput({ includeHeader });
   }
-  
+
   /**
    * Internal method to generate table output after expandOnlyToLevel has been applied
-   * 
+   *
    * @param includeHeader Whether to include the header row
    * @returns A table string representation of the node
    */
-  private _generateTableOutput({ includeHeader = true }: { includeHeader?: boolean } = {}): string {
+  private _generateTableOutput(
+    { includeHeader = true }: { includeHeader?: boolean } = {},
+  ): string {
     const result = [];
 
     // Header only included if includeHeader is true
     if (includeHeader) {
       result.push(
-        `"código do produto"\t"produto"\t"nível"\t"categoria"\t"unidade"\t"quantidade"\t"peso"\t"peso dos filhos"\t"custo total"\t"path"`,
+        `"código do produto"\t"produto"\t"nível"\t"categoria"\t"unidade"\t"quantidade"\t"peso"\t"peso dos filhos"\t"custo unitário"\t"custo total"\t"path"`,
       );
     }
 
@@ -517,6 +541,12 @@ export class TreeNode implements ITreeNode {
       maximumFractionDigits: 3,
     }).format(this.childrenWeight);
 
+    const _unitCost = Intl.NumberFormat("pt-BR", {
+      style: "decimal",
+      minimumFractionDigits: 3,
+      maximumFractionDigits: 3,
+    }).format(this.unitCost ?? 0);
+
     const _calculatedCost = Intl.NumberFormat("pt-BR", {
       style: "decimal",
       minimumFractionDigits: 3,
@@ -526,7 +556,7 @@ export class TreeNode implements ITreeNode {
     result.push(
       `"${this._id}"\t"${this._name}"\t"${this._level}"\t"${
         this.getCategoryPtBr(this._category as ProductCategoryId)
-      }"\t"${this._unit}"\t"${_calculatedQuantity}"\t"${_weight}"\t"${_childrenWeight}"\t"${_calculatedCost}"\t"${this._path}"`,
+      }"\t"${this._unit}"\t"${_calculatedQuantity}"\t"${_weight}"\t"${_childrenWeight}"\t"${_unitCost}"\t"${_calculatedCost}"\t"${this._path}"`,
     );
 
     if (this._children) {

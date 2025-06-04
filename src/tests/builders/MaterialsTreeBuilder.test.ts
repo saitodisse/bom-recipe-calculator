@@ -75,6 +75,7 @@ Deno.test(
     assertEquals(flourChild?.motherFactor, 1);
     assertEquals(flourChild?.quantity, 0.5);
     assertEquals(flourChild?.calculatedQuantity, 0.5);
+    assertEquals(flourChild?.calculatedCost, 1.25);
     assertEquals(flourChild?.weight, 0.5);
     assertEquals(flourChild?.childrenWeight, 0);
 
@@ -85,6 +86,7 @@ Deno.test(
     assertEquals(waterChild?.level, 1);
     assertEquals(waterChild?.quantity, 0.7);
     assertEquals(waterChild?.calculatedQuantity, 0.7);
+    assertEquals(waterChild?.calculatedCost, 0);
     assertEquals(waterChild?.weight, 0.7);
     assertEquals(waterChild?.childrenWeight, 0);
   },
@@ -121,6 +123,15 @@ Deno.test(
     assertEquals(doughChild?.calculatedQuantity, 0.22);
     assertEquals(doughChild?.weight, 0.22);
     assertEquals(doughChild?.childrenWeight, 0.2651);
+    assertEquals(doughChild?.calculatedCost, 0.280808);
+
+    // Verify flour child
+    const flourChild = doughChild?.children?.["flour"];
+    assertEquals(flourChild !== undefined, true);
+    assertEquals(flourChild?.id, "flour");
+    assertEquals(flourChild?.name, "Wheat Flour");
+    assertEquals(flourChild?.calculatedQuantity, 0.11);
+    assertEquals(flourChild?.calculatedCost, 0.275);
   },
 );
 
