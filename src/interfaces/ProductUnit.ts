@@ -130,10 +130,16 @@ export const ProductUnit = {
     description: "Unit",
     descriptionPtBr: "Unidade",
   },
+  M: {
+    id: "M",
+    description: "Meter",
+    descriptionPtBr: "Metro",
+  },
 } as const;
 
 // Extract the unit ID type from the ProductUnit object
-export type ProductUnitId = typeof ProductUnit[keyof typeof ProductUnit]["id"];
+export type ProductUnitId =
+  (typeof ProductUnit)[keyof typeof ProductUnit]["id"];
 
 // Type for a single unit entry
 export type ProductUnitEntry = {
