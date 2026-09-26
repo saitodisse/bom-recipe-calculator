@@ -5,19 +5,28 @@ interface CodeBlockProps {
   language: string;
 }
 
+type HighlightGlobal = typeof globalThis & {
+  hljs?: { highlightAll: () => void };
+};
+
 export default function CodeHighlighted({
   code,
   language,
 }: CodeBlockProps) {
   useEffect(() => {
-    if (typeof window !== "undefined" && (window as any).hljs) {
-      (window as any).hljs.highlightAll();
-    }
+    const browser = globalThis as HighlightGlobal;
+    browser.hljs?.highlightAll();
   }, []);
 
   return (
-    <pre>
-      <code class={`language-${language} rounded my-3`}>{code}</code>
-    </pre>
+    <div class="code-shell">
+      <div class="code-toolbar">
+        <span>{language}</span>
+        <span>copy into your project</span>
+      </div>
+      <pre>
+        <code class={`language-${language}`}>{code}</code>
+      </pre>
+    </div>
   );
 }

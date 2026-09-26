@@ -51,18 +51,19 @@ export default function FlyoutMenu({ path }: FlyoutMenuProps) {
 
   return (
     <div
-      className="relative"
+      className="menu-wrap"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <button
+        type="button"
         ref={buttonRef}
-        className="text-foreground hover:text-foreground grow pl-4 flex items-center"
+        className="nav-menu-button"
         onClick={toggleMenu}
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
-        <span className="underline mr-1 text-sm">
+        <span>
           <Lng
             en="Menu"
             pt="Menu"
@@ -89,12 +90,12 @@ export default function FlyoutMenu({ path }: FlyoutMenuProps) {
       {isOpen && (
         <div
           ref={menuRef}
-          className="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-background border border-border z-10"
+          className="menu-popover"
         >
-          <div className="rounded-md ring-1 ring-black ring-opacity-5 py-1">
+          <div className="menu-popover-inner">
             <a
               href="/products/list-products"
-              className="block px-4 py-2 text-sm text-foreground hover:bg-foreground/5"
+              className="menu-item"
             >
               <Lng
                 en="Products"
@@ -103,7 +104,7 @@ export default function FlyoutMenu({ path }: FlyoutMenuProps) {
             </a>
             <a
               href="/production-plans/list-plans"
-              className="block px-4 py-2 text-sm text-foreground hover:bg-foreground/5"
+              className="menu-item"
             >
               <Lng
                 en="Production Plans"
@@ -114,8 +115,8 @@ export default function FlyoutMenu({ path }: FlyoutMenuProps) {
               href="/production-reports"
               className={`block px-4 py-2 text-sm ${
                 path.startsWith("/production-reports")
-                  ? "bg-primary text-primary-foreground"
-                  : "text-foreground hover:bg-foreground/5"
+                  ? "menu-item menu-item-active"
+                  : "menu-item"
               }`}
             >
               <Lng
@@ -127,8 +128,8 @@ export default function FlyoutMenu({ path }: FlyoutMenuProps) {
               href="/ingredient-consumption"
               className={`block px-4 py-2 text-sm ${
                 path.startsWith("/ingredient-consumption")
-                  ? "bg-primary text-primary-foreground"
-                  : "text-foreground hover:bg-foreground/5"
+                  ? "menu-item menu-item-active"
+                  : "menu-item"
               }`}
             >
               <Lng

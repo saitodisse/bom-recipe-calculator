@@ -29,7 +29,7 @@ export default function RecipeSelect() {
     setRecipeSelected(value);
 
     if (value) {
-      window.location.href = `/products/load-example/${value}`;
+      globalThis.location.href = `/products/load-example/${value}`;
     }
   };
 
@@ -62,8 +62,8 @@ export default function RecipeSelect() {
   }, [language]);
 
   return (
-    <div class="flex items-baseline">
-      <div class="flex items-center mx-2 text-sm text-foreground/70">
+    <div class="recipe-picker">
+      <div class="recipe-picker-label">
         <Lng
           en="Select an example:"
           pt="Selecione um exemplo:"
@@ -71,7 +71,8 @@ export default function RecipeSelect() {
       </div>
       <select
         id="recipe-select"
-        class="border border-border rounded py-1 px-2 text-sm bg-background text-foreground w-36"
+        aria-label="Select an example recipe"
+        class="nav-select recipe-select"
         onChange={handleChange}
         value={recipeSelected}
       >

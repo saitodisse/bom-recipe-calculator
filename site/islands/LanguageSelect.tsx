@@ -1,7 +1,6 @@
 import { JSX } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import { getStorageItem, setStorageItem } from "../utils/storage.ts";
-import Lng from "./Lng.tsx";
 
 export default function LanguageSelect() {
   const [language, setLanguage] = useState("");
@@ -22,15 +21,16 @@ export default function LanguageSelect() {
     if (value) {
       // save value on localStorage
       setStorageItem("language", value);
-      window.location.reload();
+      globalThis.location.reload();
     }
   };
 
   return (
-    <div class="flex items-center">
+    <div class="language-picker">
       <select
         id="language-select"
-        class="border border-border rounded py-1 px-2 text-sm bg-background text-foreground w-16"
+        aria-label="Language"
+        class="nav-select language-select"
         onChange={handleChange}
         value={language}
       >

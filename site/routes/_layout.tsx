@@ -1,16 +1,15 @@
 import LanguageSelect from "../islands/LanguageSelect.tsx";
 import RecipeSelect from "../islands/RecipeSelect.tsx";
-import Lng from "../islands/Lng.tsx";
 import ToggleLightDark from "../islands/ToggleLightDark.tsx";
 import PageTransitionLoader from "../islands/PageTransitionLoader.tsx";
 import FlyoutMenu from "../islands/FlyoutMenu.tsx";
-import { getCookies } from "jsr:@std/http/cookie";
+import { getCookies } from "jsr:@std/http@1.1.3/cookie";
 import { defineLayout } from "$fresh/server.ts";
 
-export default defineLayout(async (req, ctx) => {
+export default defineLayout((req, ctx) => {
   // get cookie
   const cookies = getCookies(req.headers);
-  let modeFromCookie = cookies["mode"] || "light";
+  const modeFromCookie = cookies["mode"] || "light";
   let modeFromQuery = null;
 
   // check for mode query param
@@ -23,40 +22,40 @@ export default defineLayout(async (req, ctx) => {
   const path = url.pathname;
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="site-shell min-h-screen bg-background text-foreground">
       <PageTransitionLoader />
-      <nav className="shadow-md w-full">
-        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center space-x-4 space-between w-full">
-            <div className="flex items-center space-x-4 w-full">
-              <a href="/" className="text-xl font-medium text-foreground">
-                bom-recipe-calculator
-              </a>
+      <nav className="site-nav" aria-label="Primary navigation">
+        <div className="nav-inner">
+          <a href="/" className="brand" aria-label="BOM Recipe Calculator home">
+            <span className="brand-mark" aria-hidden="true">B</span>
+            <span className="brand-name">
+              bom<span className="brand-divider">/</span>recipe
+            </span>
+          </a>
 
-              {/* Interactive Flyout Menu */}
-              <FlyoutMenu path={path} />
+          <div className="nav-main">
+            <FlyoutMenu path={path} />
+            <RecipeSelect />
+          </div>
 
-              <RecipeSelect />
-            </div>
+          <div className="nav-tools">
             <LanguageSelect />
-
             <ToggleLightDark
               modeFromQuery={modeFromQuery}
               modeFromCookie={modeFromCookie}
             />
-
-            <div className="flex items-center space-x-4">
-              <a
-                href="https://github.com/saitodisse/bom-recipe-calculator"
-                className="text-foreground hover:text-foreground"
-              >
-                Github
-              </a>
-            </div>
+            <a
+              href="https://github.com/saitodisse/bom-recipe-calculator"
+              className="nav-github"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub <span aria-hidden="true">↗</span>
+            </a>
           </div>
         </div>
       </nav>
-      <main className="container mx-auto max-w-5xl px-4 pt-4">
+      <main className="page-main">
         <ctx.Component />
       </main>
     </div>

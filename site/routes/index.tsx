@@ -1,10 +1,10 @@
 import { Handlers } from "$fresh/server.ts";
-import { setCookie } from "jsr:@std/http/cookie";
+import { setCookie } from "jsr:@std/http@1.1.3/cookie";
 import CodeHighlighted from "../islands/CodeHighlighted.tsx";
 import Lng from "../islands/Lng.tsx";
 
 export const handler: Handlers = {
-  async GET(req, _ctx) {
+  GET(req, _ctx) {
     // check querystring for mode
     const url = new URL(req.url);
     const mode = url.searchParams.get("mode");
@@ -28,59 +28,166 @@ export const handler: Handlers = {
 
 export default function Home() {
   return (
-    <div class="max-w-screen-md m-auto p-4 text-foreground bg-background">
-      <h1 className="text-4xl font-bold">bom-recipe-calculator</h1>
+    <div class="home-page">
+      <section class="home-hero" aria-labelledby="home-title">
+        <div class="hero-copy">
+          <div class="eyebrow">
+            <span class="eyebrow-dot" aria-hidden="true" />
+            <Lng
+              en="Recipe logic, made visible"
+              pt="Lógica de receita, visível"
+            />
+          </div>
+          <h1 id="home-title">
+            <Lng
+              en="Turn recipes into a clear bill of materials."
+              pt="Transforme receitas em uma ficha clara de materiais."
+            />
+          </h1>
+          <p class="hero-lede">
+            <Lng
+              en="Trace every ingredient, sub-recipe and cost across as many levels as your product needs."
+              pt="Rastreie cada ingrediente, sub-receita e custo em quantos níveis o seu produto precisar."
+            />
+          </p>
+          <div class="hero-actions">
+            <a class="button-primary" href="/products/list-products">
+              <Lng en="Explore examples" pt="Explorar exemplos" />
+              <span aria-hidden="true">&nbsp;↗</span>
+            </a>
+            <a
+              class="button-secondary"
+              href="https://jsr.io/@saitodisse/bom-recipe-calculator"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Lng en="Read the library" pt="Ler a biblioteca" />
+            </a>
+          </div>
+          <div class="hero-meta" aria-label="Library features">
+            <span>
+              <Lng en="Deno + JSR" pt="Deno + JSR" />
+            </span>
+            <span>
+              <Lng en="Nested recipes" pt="Receitas aninhadas" />
+            </span>
+            <span>
+              <Lng en="Pure TypeScript" pt="TypeScript puro" />
+            </span>
+          </div>
+        </div>
 
-      <p className="my-4">
-        <Lng
-          en="A Bill of Materials (BOM) recipe calculator for nested product recipes. Calculate costs and weights for complex product recipes with multiple levels of ingredients."
-          pt="A Estrutura de produto (BOM) para cálculo de custos e pesos para receitas complexas com múltiplos níveis de ingredientes."
-        />
-      </p>
+        <div class="hero-visual" aria-label="Example bill of materials preview">
+          <div class="recipe-card">
+            <div class="card-topline">
+              <span class="card-kicker">
+                <span class="status-dot" aria-hidden="true" />
+                <Lng en="Live recipe map" pt="Mapa de receita" />
+              </span>
+              <span class="card-badge">1 batch</span>
+            </div>
+            <div class="recipe-title">
+              <div>
+                <h2>White bread pack</h2>
+                <p>
+                  <Lng
+                    en="4 units · finished product"
+                    pt="4 unidades · produto final"
+                  />
+                </p>
+              </div>
+              <div class="recipe-total">
+                <strong>03</strong>
+                <Lng en="levels deep" pt="níveis" />
+              </div>
+            </div>
+            <div class="tree-map">
+              <div class="tree-row root">
+                <span>bread4pack</span>
+                <span>1 UN</span>
+              </div>
+              <div class="tree-row nested">
+                <span>breadUnitary</span>
+                <span>4 UN</span>
+              </div>
+              <div class="tree-row nested">
+                <span>dough</span>
+                <span>0.88 KG</span>
+              </div>
+              <div class="tree-row nested">
+                <span>flour + water</span>
+                <span>0.44 KG</span>
+              </div>
+            </div>
+            <div class="card-foot">
+              <span class="legend-chip">
+                <Lng en="cost + weight" pt="custo + peso" />
+              </span>
+              <span>↳ MaterialsTreeBuilder</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <p className="my-4 text-lg font-bold">
-        <Lng
-          en="Installation"
-          pt="Instalação"
-        />
-      </p>
-      <CodeHighlighted
-        code={`# deno
+      <section class="home-section" aria-labelledby="install-title">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker">
+              <Lng en="Start with the package" pt="Comece pelo pacote" />
+            </span>
+            <h2 id="install-title">
+              <Lng
+                en="One small import. A full recipe tree."
+                pt="Um pequeno import. Uma árvore completa."
+              />
+            </h2>
+          </div>
+          <p>
+            <Lng
+              en="Install the calculator where your Deno or npm project already lives, then keep the product catalog as the source of truth."
+              pt="Instale o calculador onde seu projeto Deno ou npm já vive e mantenha o catálogo de produtos como fonte da verdade."
+            />
+          </p>
+        </div>
+        <CodeHighlighted
+          code={`# deno
 deno add jsr:@saitodisse/bom-recipe-calculator
 
 # npm
 npx jsr add @saitodisse/bom-recipe-calculator
 `}
-        language="shell"
-      />
-
-      <p>
-        <Lng
-          en="see "
-          pt="veja "
+          language="shell"
         />
         <a
+          class="section-link"
           href="https://jsr.io/@saitodisse/bom-recipe-calculator"
-          className="underline"
           target="_blank"
           rel="noopener noreferrer"
         >
-          bom-recipe-calculator
-        </a>{" "}
-        <Lng
-          en="on jsr"
-          pt="no jsr"
-        />
-      </p>
+          <Lng en="See the package on JSR" pt="Ver o pacote no JSR" />
+          <span aria-hidden="true">↗</span>
+        </a>
+      </section>
 
-      <p className="my-4 text-lg font-bold">
-        <Lng
-          en="Usage"
-          pt="Uso"
-        />
-      </p>
-      <CodeHighlighted
-        code={`import {
+      <section class="home-section usage-section" aria-labelledby="usage-title">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker">
+              <Lng en="Build the calculation" pt="Monte o cálculo" />
+            </span>
+            <h2 id="usage-title">
+              <Lng en="Keep nesting honest." pt="Mantenha os níveis claros." />
+            </h2>
+          </div>
+          <p>
+            <Lng
+              en="Products point to their ingredients. The builder walks the graph and returns a readable, cost-aware result."
+              pt="Produtos apontam para seus ingredientes. O builder percorre o grafo e devolve um resultado legível com custos."
+            />
+          </p>
+        </div>
+        <CodeHighlighted
+          code={`import {
   IProduct,
   MaterialsTreeBuilder,
   ProductCategory,
@@ -216,22 +323,16 @@ bread4pack [p] 1 UN ( 0 kg, 0.9 kg )
     box [e] 1 UN ( 0.1 kg, 0 kg )
 */
 `}
-        language="typescript"
-      />
-
-      <p className="my-4 text-lg font-bold">
-        <Lng
-          en="Check examples"
-          pt="Ver exemplos"
+          language="typescript"
         />
-      </p>
-
-      <a className="underline" href="/products/list-products">
-        <Lng
-          en="List products"
-          pt="Listar produtos"
-        />
-      </a>
+        <a class="section-link" href="/products/list-products">
+          <Lng
+            en="Open the example catalog"
+            pt="Abrir o catálogo de exemplos"
+          />
+          <span aria-hidden="true">↗</span>
+        </a>
+      </section>
     </div>
   );
 }

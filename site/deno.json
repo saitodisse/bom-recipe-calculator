@@ -9,6 +9,9 @@
     "preview": "deno run -A main.ts",
     "update": "deno run -A -r https://fresh.deno.dev/update ."
   },
+  "deploy": {
+    "framework": "fresh"
+  },
   "lint": {
     "rules": {
       "tags": [

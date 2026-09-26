@@ -20,7 +20,7 @@ export default function PageTransitionLoader() {
       clearTimeout(loadingTimer);
       loadingTimer = setTimeout(() => {
         setIsLoading(false);
-      }, LOADING_TIMEOUT);
+      }, LOADING_TIMEOUT) as unknown as number;
     };
 
     const handleNavigationEnd = () => {
@@ -36,11 +36,11 @@ export default function PageTransitionLoader() {
       handleNavigationStart();
     };
 
-    window.addEventListener("popstate", handlePopState);
+    globalThis.addEventListener("popstate", handlePopState);
 
     return () => {
       clearTimeout(loadingTimer);
-      window.removeEventListener("popstate", handlePopState);
+      globalThis.removeEventListener("popstate", handlePopState);
       observer?.disconnect();
     };
   }, []);

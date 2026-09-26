@@ -11,24 +11,23 @@ export default function ToggleLightDark(
   { modeFromQuery, modeFromCookie }: ToggleLightDarkProps,
 ) {
   const handleModeChange = (newMode: string) => {
-    if (!window) return;
-    window.location.href = `/?mode=${newMode}`;
+    globalThis.location.href = `/?mode=${newMode}`;
   };
 
   useEffect(() => {
-    if (!window) return;
     // if modeFromQuery redirect to root without querystrings
     if (modeFromQuery) {
-      window.location.href = `/`;
+      globalThis.location.href = `/`;
     }
   }, []);
 
   return (
-    <div>
+    <div className="theme-toggle">
       {(modeFromQuery || modeFromCookie) === "light"
         ? (
           <button
-            className="text-foreground hover:text-foreground/80"
+            type="button"
+            className="theme-toggle-button"
             onClick={() => handleModeChange("dark")}
           >
             <Lng en="light" pt="claro" />
@@ -36,7 +35,8 @@ export default function ToggleLightDark(
         )
         : (
           <button
-            className="text-foreground hover:text-foreground/80"
+            type="button"
+            className="theme-toggle-button"
             onClick={() => handleModeChange("light")}
           >
             <Lng en="dark" pt="escuro" />
